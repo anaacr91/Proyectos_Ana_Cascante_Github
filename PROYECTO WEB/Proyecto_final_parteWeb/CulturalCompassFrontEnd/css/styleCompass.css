@@ -1,0 +1,32 @@
+nav {
+    background-color: #94c9ff;
+    color: aqua;
+    text-align: center;
+    padding: 10px 0;
+}
+nav ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+nav ul li {
+    display: inline;
+    margin-right: 20px;
+}
+nav ul li a {
+    color: #fff;
+    text-decoration: none;
+}
+nav ul li a:hover {
+    text-decoration: underline;
+}
+
+nav h2 a
+{color: #c6f740;
+}
+
+.navbar {
+
+    background-color: rgba(46, 217, 255, 0.25);
+    
+  } 
