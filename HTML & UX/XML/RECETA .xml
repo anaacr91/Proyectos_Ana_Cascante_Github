@@ -1,0 +1,55 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<recetas xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="file:/C:/Users/Usuario/Documents/ANA/m4/p2/recetas.xsd">
+<receta>
+<nombre>Tortilla Patatas</nombre>
+<país>españa</país>
+<tipoComida>Comida</tipoComida>
+<ingredientes>
+<ingrediente cantidad="6">Huevos</ingrediente>
+<ingrediente cantidad="700g">Patata</ingrediente>
+<ingrediente cantidad="300g">ceba</ingrediente>
+<ingrediente cantidad="1">sal</ingrediente>
+<ingrediente cantidad="1">aceite</ingrediente>
+</ingredientes>
+</receta>
+<receta>
+<nombre>Macarrones</nombre>
+<país>Italia</país>
+<tipoComida>Cena</tipoComida>
+<ingredientes>
+<ingrediente cantidad="1">aceite</ingrediente>
+<ingrediente cantidad="1">boloñesa</ingrediente>
+<ingrediente cantidad="1">queso</ingrediente>
+<ingrediente cantidad="400g">Macarrones</ingrediente>
+</ingredientes>
+</receta>
+<receta>
+<nombre>Helado con ratafia</nombre>
+<país>españa</país>
+<tipoComida>postre</tipoComida>
+<ingredientes>
+<ingrediente cantidad="1">helado</ingrediente>
+<ingrediente cantidad="1">licor</ingrediente>
+</ingredientes>
+</receta>
+<receta>
+<nombre>Macedonia</nombre>
+<país>francia</país>
+<tipoComida>postre</tipoComida>
+<ingredientes>
+<ingrediente cantidad="3">manzanas</ingrediente>
+<ingrediente cantidad="1">racimo uva</ingrediente>
+<ingrediente cantidad="3">melocotones</ingrediente>
+<ingrediente cantidad="3">fresas</ingrediente>
+<ingrediente cantidad="1">zumo naranja</ingrediente>
+</ingredientes>
+</receta>
+<receta>
+<nombre>Manzana al horno</nombre>
+<país>francia</país>
+<tipoComida>postre</tipoComida>
+<ingredientes>
+<ingrediente cantidad="1">manzana</ingrediente>
+</ingredientes>
+</receta>
+</recetas>

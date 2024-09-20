@@ -1,0 +1,262 @@
+
+
+body { 
+	font: 75% georgia, sans-serif;
+	line-height: 1.88889;
+	background-color: #F7FFFF;
+	color: black;	
+	background-image: url("../imagenes/Netflix.jpg"); 
+	margin: 0; 
+	padding: 0;
+	}
+	
+p { 
+	margin-top: 0; 
+	text-align: justify;
+	color: #FFE251;
+	font-size: 15px;
+	}
+	
+h3 { 
+	font: italic normal 1.4em georgia, sans-serif;
+	letter-spacing: 1px; 
+	margin-bottom: 0; 
+	color: #7D775C;
+	background-image: linear-gradient(transparent, white);
+	color: black;
+	font-size: 30px;
+	}
+	
+a:link { 
+	font-weight: bold; 
+	text-decoration: none; 
+	color: #B7A5DF;
+	}
+	
+a:visited { 
+	font-weight: bold; 
+	text-decoration: none; 
+	color: #D4CDDC;
+	}
+	
+a:hover, a:focus, a:active { text-decoration: underline; color: #9685BA;}
+
+
+	
+footer a:link, footer a:visited { margin-right: 20px; color: white;}
+
+li {
+	float: left;
+	text-align: left;
+	padding: 2px;
+	margin-right: 12%;	
+}
+
+ul{list-style:none; }
+
+a {color: black; }
+
+h1{
+	font: italic normal 1.7em georgia, sans-serif;
+	letter-spacing: 1px; 
+	margin-bottom: 0; 
+	color: #7D775C;
+	margin-left:20px;
+	background-image: linear-gradient(#CFFFF4, #DCF6F0);
+	text-align: center;
+}
+
+h2{
+	font: italic normal 2.5em georgia, sans-serif;
+	letter-spacing: 1px; 
+	margin-bottom: 0; 
+	color: #7D775C;
+	margin-left:20px;
+	background-image: linear-gradient(#CFFFF4, #DCF6F0, white);
+	text-align: center;
+}
+
+h4{
+	font: italic normal 1.5em georgia, sans-serif;
+	letter-spacing: 1px; 
+	margin-bottom: 10px; 
+	color: #7D775C;
+	background-color: #F7FFFF;
+}
+
+form {
+	border-style: solid;
+	padding-top: 15px;
+	padding-bottom: 25px;
+	padding-left: 25px;
+	padding-right: 25px;
+	background-color: transparent;
+	background-image: linear-gradient(lightgrey, transparent 95%, white);
+	font: georgia, sans-serif;
+}
+
+
+footer{
+	background-color: black;
+	height: 70px;
+	color: white;
+	text-align: center;
+	margin-bottom: 0px;
+	bottom: 0;
+	width: 100%;
+	float: left;
+}
+
+li .cerrar{float: right;}
+
+.content{float:left; width: 70%; }
+
+.sidebar {
+	background-color: #FFF7D2;
+	margin-right: 0%;
+	float: right;
+	width: 15%;
+	}
+	
+.sidebar .wrapper { 
+	font: 10px georgia, sans-serif; 
+	background: #FFF7D2; 
+	padding: 10px; 
+	margin-top: 20px; 	 
+	}
+	
+.sidebar h3.selection { 
+	background: #FFF7D2; 
+	margin: 10px 0 5px 0; 
+	width: 67px; 
+	height: 16px; 
+	text-indent: 100%;
+	white-space: nowrap;
+	overflow: hidden;
+	}
+
+
+.sidebar ul {margin: 0; padding: 0; }
+
+.sidebar li {
+	line-height: 1.3em; 
+	background: #F7FFFF; 
+	display: block; 
+	padding-top: 5px; 
+	margin-bottom: 5px;
+	list-style-type: none;
+	}
+	
+.sidebar li a:link {
+	color: black;
+	background: #F7FFFF; 
+	margin-bottom: 10px;
+	}
+	
+.sidebar li a:visited {color: #B3AE94; }
+
+	.barra {
+	width: 100%;
+	float: left;
+    text-align: left;
+	padding: 2px;
+	margin: 5px;
+	background: #3E5765;
+	}
+	
+	.nav {
+    display: block;
+    text-align: left;
+	float: left;
+	}
+
+
+
+.boton {
+	text-align:right;
+	float: right;
+	margin-right: 5px;
+}
+
+.menu{
+	width: 100%;
+	height: content;
+	background-color: black;
+	color: white;
+	float: none;
+	text-align: left;
+	font-size: 15px;
+	display: block;
+	margin-top: 0 px;	
+}
+
+.menu li{float: none; }
+
+.setIdioma a{color: black; background-color:lightgrey; }
+
+.barra a {
+	background-color: none;
+	margin-bottom: 5%;
+	font: georgia, sans-serif;
+}
+
+.article {
+	border-style: solid;
+	margin-top: 25px;
+	margin-left: 10%;
+	margin-right: 10%;
+	padding-top: 15px;
+	padding-bottom: 25px;
+	padding-left: 25px;
+	padding-right: 25px;
+	background-color: transparent;
+	background-image: linear-gradient(lightgrey, transparent 95%, white);
+}
+
+.article img, iframe {float: left; margin-right: 5px; }
+
+.selection p{background-color: #F7FFFF; }
+
+.contacto {
+	position: fixed;
+	text-align: center;
+	float: left;
+}
+
+.oculto {display:none; transform: translateX(1000px); }
+
+.en {display: none; }
+
+.summary {
+	clear: both; 
+	margin: 20px 20px 100% 10px; 
+	width: 10%; 
+	padding-right: 25px;
+	float: left;
+	}
+.summary p {
+	font: italic 1.5vw georgia, sans-serif;
+	text-align: center;
+	background-color: #F7FFFF;
+	color: black;
+	}
+
+@media only screen and (max-width:768px){
+	.device {display:none; }
+	
+	form {margin-left: 5%; }
+	
+	.content{width:95%; }
+	
+	.barra a {font-size: 15px; }
+	
+	.abrir{display: block; }
+}
+
+	@media only screen and (min-width:768px){
+	.abrir{display: none; }
+	
+	.menu{display: none; }
+}
+
+

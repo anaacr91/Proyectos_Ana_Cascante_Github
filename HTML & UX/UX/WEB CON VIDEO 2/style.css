@@ -1,0 +1,381 @@
+/*	GENERAL
+*/
+html {
+	font-size: 62.5%;/* 1rem = 16px /  1.6rem*62.5=100% -> 16px */
+}
+
+body {
+	font-family: 'Open Sans', sans-serif;
+	font-size: 1.5rem;
+	font-weight: 300;
+	color: #484848;
+	background-color: #f8f8f8;di
+}
+
+/*	LINK
+*/
+a {
+	color: #00329f;
+	transition: all .3s;
+}
+a:focus, a:hover {
+	color: #00329f;
+}
+
+/* ADDRESS
+*/
+address {
+	min-height:100px;
+}
+
+/* TEXT
+*/
+h1{
+	font-weight: 700;
+	font-size: 3.6rem;
+    letter-spacing: 8px;
+	text-transform: uppercase;
+}
+h2{
+	font-weight: 300;
+	font-size: 2.4rem;
+  letter-spacing: 1.25px;
+	text-transform: none;
+}
+h3{
+	font-weight: 700;
+	font-size: 2.0rem;
+  letter-spacing: 1px;
+	text-transform: uppercase;
+}
+h4{
+	font-weight: 600;
+	font-size: 1.8rem;
+  letter-spacing: 0.5px;
+	text-transform: uppercase;
+}
+.subtitle{
+	font-weight: 400;
+	font-size: 1.8rem;
+  letter-spacing: 0.5px;
+}
+
+/* TEXT SECTION & MARGIN
+*/
+h1.section-h2 {
+	display: inline-block;
+	padding-top: 200px;
+	padding-bottom: 200px;
+	padding: 30px 60px;
+}
+h2.section-h2 {
+	display: inline-block;
+	padding-top: 100px;
+	padding-bottom: 100px;
+	padding: 10px 150px;
+}
+.subtitle-margin{
+	margin-bottom:60px;
+}
+
+/*	TEXT COLORS
+*/
+.color-light {
+	color: #484848;
+}
+.color-dark {
+	color: #212121;
+}
+
+/*	BACKGROUNDS
+*/
+.background-light {
+	background-color: #f8f8f8;
+}
+.background-dark{
+	background-color: #212121;
+}
+.background-blue {
+	background-color: #00329f;
+}
+.background-yellow {
+	background-color: #fed03d;
+}
+.dark-bg, .dark-bg a, .dark-bg a:hover {
+	color: #FFF;
+}
+
+
+/*	LOGO
+*/
+.logo{
+	display: block;
+	max-width: 100%;
+	width:160px;
+	margin: 10px;
+}
+
+/*	BUTTONS
+*/
+.btn {
+	border-radius: 0;
+	text-transform: uppercase;
+	font-weight: bold;
+	border: none;
+	padding: 0 30px;
+	line-height: 50px;
+}
+
+.btn-primary {
+	background-color: #00329f;
+	padding: 0 30px;
+	line-height: 50px;
+	font-size: 1.4rem;
+}
+.btn-primary:active {
+	color: white;
+	background-color: #032176;
+	box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);/*	offset x  offset y  Radio blur  Radio Spread  Color sombra con transparencia */
+}
+.btn-primary:hover {
+	background-color:rgba(000, 050, 159, .8);
+}
+.btn-primary:focus {
+	color: white;
+	background-color: #032176;
+}
+.btn-primary-disabled {
+	color: white;
+	background-color: #bebebe;
+}
+.btn-primary-disabled:hover {
+	color: white;
+	background-color:rgba(030, 030, 030, .2);
+}
+
+.btn-primary-custom{
+	border:2px solid #00329f;
+	color: #00329f;
+}
+.btn-primary-custom:active {
+	color: #fff;
+	border:2px solid #032176;
+	background-color: #032176;
+	box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);/*	offset x  offset y  Radio blur  Radio Spread  Color sombra con transparencia */
+}
+.btn-primary-custom:hover {
+	border:2px solid #00329f;
+	background-color: #00329f;
+}
+.btn-primary-custom:focus {
+	border:2px solid #032176;
+	background-color: #032176;
+	color: white;
+	border-color: #032176;
+}
+
+.btn-secondary {
+	color: #1e1e1e;
+	background-color: #fed03d;
+	padding: 0 25px;
+	line-height: 40px;
+	font-size: 1.2rem;
+}
+.btn-secondary:active {
+	color: #1e1e1e;
+	background-color:rgba(254, 208,061, .8);
+	box-shadow:0 8px 16px 0 rgba(0,0,0,0.2);
+}
+.btn-secondary:hover {
+	color: #1e1e1e;
+	background-color:rgba(254, 208,061, .8);
+}
+.btn-secondary:focus{
+	color: #1e1e1e;
+	background-color: #f9b108;
+}
+
+/*	NAVBAR
+*/
+.navbar-default {
+	background-color: #00329F;
+	border: none;
+	margin-bottom: 0;
+  border-radius: 0;
+}
+.navbar-default .navbar-nav >li>a {
+	color: #fff;
+	text-transform: none;
+}
+.navbar-default .navbar-nav > li > a:hover, .navbar-default .navbar-nav > li > a:focus {
+  color: #fff;
+}
+.navbar-toggle {
+	border-radius: 0;
+	margin-top: 22px;
+	transition: all .3s;
+}
+.navbar-default .navbar-toggle {
+	border-color: #fff;
+}
+.navbar-default .navbar-toggle .icon-bar {
+	background-color: #fff;
+}
+.navbar-default .navbar-toggle:focus, .navbar-default .navbar-toggle:hover {
+	background-color: #fed03d;
+}
+.top-navigation-bar{
+	margin-top:15px;
+}
+
+/* SECTION
+*/
+.section {
+	padding-top: 40px;
+	padding-bottom: 40px;
+	position: relative;
+	overflow: hidden;
+}
+.section .background-image {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	top: 0;
+	left: 0;
+	z-index: 0;
+	opacity: .4;
+}
+
+/*	MARGIN
+*/
+.margin-zero {
+	margin: 0;
+}
+.margin-top-md {
+	margin-top: 30px;
+}
+.margin-bottom-md {
+	margin-top: 30px;
+}
+
+/* MAIN
+*/
+.main {
+	padding-top: 200px;
+	padding-bottom: 200px;
+}
+.main p.lead {
+	margin: 30px 0;
+	margin-bottom: 40px;
+	max-width: 70%;
+}
+.main.text-center p.lead {
+	margin-left: auto;
+	margin-right: auto;
+	font-size: 24px;
+}
+.main.text-right p.lead {
+	margin-right: 0;
+	margin-left: auto;
+}
+
+/*	SERVICE
+*/
+.service-block {
+	display: block;
+	margin-bottom: 30px;
+}
+.service-block i {
+	width: 80px;
+  height: 80px;
+  display: inline-block;
+  line-height: 80px;
+  text-align: center;
+  border-radius: 40px;
+  font-size: 25px;
+  background: #FFF;
+  box-shadow: 0 10px 20px rgba(0,0,0,.05);
+}
+.service-block h4 {
+  margin: 30px 0;
+  line-height: 1;
+}
+.service-block.text-center p {
+	width: 80%;
+	margin-left: 10%;
+	margin-right: 10%;
+}
+.service-block.text-center p + a.btn {
+	margin-top: 10px;
+}
+
+/*	FORM
+*/
+.form-control {
+	border: 2px solid #cbd0d3;
+	border-radius: 0;
+	padding: 0 25px;
+	line-height: 45px;
+	height: 45px;
+}
+
+/*	ENTRY
+*/
+.entry {
+	margin-bottom: 30px;
+}
+.entry-media {
+	position: relative;
+	margin-bottom: 30px;
+	overflow: hidden;
+	height: 150px;
+}
+.entry-media a {
+	display: block;
+}
+.entry-media .absolute-wrapper {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	top: 0;
+	left: 0;
+	visibility: hidden;
+	display: none;
+	opacity: 0;
+	transition: all .5s;
+	background-color: rgba(000, 050, 159, .8);
+	z-index: 1;
+}
+.entry:hover .absolute-wrapper {
+	visibility: visible;
+	display: block;
+	opacity: 1;
+	background-color: rgba(000, 050, 159, .4);
+}
+.entry-title {
+	margin: 0;
+	margin-bottom: 20px;
+	line-height: 1;
+}
+.entry-title a {
+	color: #212121;;
+}
+.entry-title a:hover {
+	text-decoration: none;
+}
+.entry p {
+	margin-bottom: 20px;
+	font-size: 13px;
+	line-height: 1.8;
+}
+.entry.mdc-card{
+	padding:16px;
+}
+
+#videoFullScreen{
+	position: fixed;
+	right: 0;
+	bottom: 0;
+	min-width: 100%;
+	min-height: 100%;
+}

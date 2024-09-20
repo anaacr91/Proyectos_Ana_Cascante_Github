@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+  <xs:element name="recetas">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="receta" maxOccurs="unbounded"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="receta">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="nombre" type="xs:string"/>
+        <xs:element name="país" type="xs:string"/>
+        <xs:element name="tipoComida" type="xs:string"/>        
+        <xs:element ref="ingredientes"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ingredientes">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="ingrediente" maxOccurs="10"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ingrediente">
+    <xs:complexType mixed="true">
+      <xs:attribute name="cantidad" type="xs:string" use="required"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="tipoComida">
+  <xs:simpleType>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="comida"/>
+      <xs:enumeration value="merienda"/>
+      <xs:enumeration value="cena"/>
+      <xs:enumeration value="bebida"/>
+      <xs:enumeration value="postre"/>
+    </xs:restriction>
+  </xs:simpleType>
+  </xs:element>
+</xs:schema>

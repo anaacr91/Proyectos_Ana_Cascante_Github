@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+	
+	<link rel="stylesheet" media="screen" href="css/reset.css" type="text/css"/>
+	<link rel="stylesheet" media="screen" href="css/style.css" type="text/css"/>
+	<script src="js/myscript.js"></script>
+	<title>Cultura y Series</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	
+</head>
+<body onload="setLenguaje(actualLanguaje)">
+	<div class="setIdioma">
+		<a onclick="setLenguaje('es')">Español</a>
+		<img src="imagenes/banderaes.png" alt="es" width="25" height="25">
+		<a onclick="setLenguaje('en')">Ingles</a>
+		<img src="imagenes/banderain.png" alt="in" width="25" height="25">
+	</div>
+	<main class="es">
+<header>
+	<section>
+			<h1>Locos por las series</h1>
+			<h2>Actualidad, Reviews y más</h2>						
+	</section></header>
+	<nav>
+		<div class="barra">
+			<ul>
+				<li><a class="barra" href="index.html">HOME: Estrenos</a></li>
+				<li class="device"><a class="barra" href="cine.html">Reviews de cine</a></li>
+				<li class="device"><a class="barra" href="series.html">Reviews de series</a></li>
+				<li class="device"><a class="barra" href="contacto.html">Contacto</a></li>				
+				<li class="boton abrir"><img width="48" height="48" onclick="openMenu()"  src="imagenes/s.jpg" alt="menu"></li>
+			</ul></div></nav>
+			
+		<div class="menu oculto">
+			<ul>
+			<li class="boton cerrar"><img width="48" height="48" onclick="closeMenu()" src="imagenes/s.jpg" alt="menu"></li>
+				<li><a href="index.html">HOME: Estrenos</a></li>
+				<li><a href="cine.html">Reviews de cine</a></li>
+				<li><a href="series.html">Reviews de series</a></li>
+				<li><a href="contacto.html">Contacto</a></li>			
+				<li><hr></li>
+				<li>Contactanos por Redes Sociales</li>
+				<li>No te pierdas nuestras novedades</li>			
+				<li><a href="www.facebook.com/culturayseries" class="design-name">Nuestro Facebook</a></li>	
+				<li><a href="www.instagram.com/culturayseries" class="design-name">Nuestro Instagram</a></li>		
+				<li><a href="culturayseries@gmail.com" class="design-name">Nuestro E-mail</a></li></ul>
+			</div>
+			
+		<div class="summary device" >
+			<p>Contacta con nosotros</p>
+			
+		<svg width="150" height="125" xmlns="http://www.w3.org/2000/svg">
+	 <g >
+	  <title>Layer 1</title>
+	  <ellipse transform="rotate(-54.6271 77.037 59.376)" fill="#E6C36A" cx="77.03685" cy="59.37593"  rx="29.33391" ry="10.35673" stroke="#000"/>
+	  <ellipse transform="rotate(76.9812 65.473 60.911)" fill="#E6C36A" cx="65.47256" cy="60.91122"  rx="28.44303" ry="11.50718" stroke="#000"/>
+	  <ellipse fill="#529D94" stroke="#000" cx="45.5" cy="89"  rx="28.5" ry="4"/>
+	  <ellipse transform="rotate(88.599 74.672 62.892)" fill="#FFAFCC" cx="74.67193" cy="62.89185"  rx="20.42638" ry="13.29771" stroke="#000"/>
+	  <ellipse fill="#529D94" stroke="#000" cx="100.5" cy="89"  rx="28.5" ry="4"/>
+	  <ellipse transform="rotate(122.961 94.378 62.787)" fill="#FFF093" cx="94.37844" cy="62.78674"  rx="27.16223" ry="11.45666" stroke="#000"/>
+	  <ellipse fill="#529D94" cx="74" cy="96.5"  rx="21" ry="7.5" stroke="#000"/>
+	  <ellipse transform="rotate(60.4262 57.64 64.854)" fill="#FFFF91" cx="57.63994" cy="64.85386"  rx="26.45532" ry="11.71075" stroke="#000"/>
+	  <ellipse transform="rotate(89.9959 75.378 61.787)" fill="#FFF093" cx="75.37844" cy="61.78674"  rx="27.16223" ry="11.45666" stroke="#000"/>
+	  <text fill="#ffffff" stroke="#000" x="10" y="30"  stroke-width="0" font-size="24" font-family="Noto Sans JP" text-anchor="start" xml:space="preserve">Series Temple</text>
+	 </g>
+
+	</svg>
+		</div>		
+		
+		<div class="content">
+			<form>
+		<label >Nombre:</label><br>
+		<input type="text"  name="fname" value="nombre" required><br><br>
+		
+		<label >Apellido:</label><br>
+		<input type="text"  name="lname" value="apellido" required><br><br>
+		
+		<label >E-mail:</label><br>
+		<input type="email"  name="email" value="email" required><br><br>
+		
+		<label >Subscribirse:</label><br>
+		<input type="checkbox"  name="subscripciones" value="subscripciones"><br><br>
+		
+		<label >Interesado en:</label>
+	  <select  name="area" size="1">
+		<option value="series">series</option>
+		<option value="cinema">cine</option>
+		<option value="news">noticias</option>
+
+	  </select><br><br>
+
+		
+		<label >Comentarios:</label><br>
+		<textarea name="comentarios" rows="10" cols="25" required>Introduzca aquí su comentario...</textarea><br><br>
+		
+		<input type="submit" value="Enviar"><br><br>
+		</form>
+		</div>
+		
+		<aside class="sidebar device" >
+		<div class="wrapper">
+
+			<div class="selection" >
+			<nav >
+				<h4>Contactanos por Redes Sociales</h4>
+				<h4>No te pierdas nuestras novedades</h4>
+					<ul>
+					<li><a href="www.facebook.com/culturayseries" class="design-name">Nuestro Facebook</a></li>	
+					<li><a href="www.instagram.com/culturayseries" class="design-name">Nuestro Instagram</a></li>		
+					<li><a href="culturayseries@gmail.com" class="design-name">Nuestro E-mail</a></li></ul>
+				</nav>
+			</div>
+
+		</div>
+	</aside>
+		
+		<footer class="contacto">
+		<a onclick="aviso()" href=" ">Aviso legal</a>
+        <a href="index.html">Home</a>
+        <a href="contacto.html">Subscripciones</a>
+		</footer>
+	
+	
+
+</main>
+
+<main class="en">
+<header>
+	<section>
+			<h1>Series Madness</h1>
+			<h2>News, reviews and more</h2>
+	</section></header>
+	<nav>
+		<div class="barra">
+			<ul>
+				<li><a class="barra" href="index.html">HOME: New reccomendations</a></li>
+				<li class="device"><a class="barra" href="cine.html">Cinema Reviews</a></li>
+				<li class="device"><a class="barra" href="series.html">Series reviews</a></li>
+				<li class="device"><a class="barra" href="contacto.html">Contact</a></li>				
+				<li class="boton abrir"><img width="48" height="48" onclick="openMenu()"  src="imagenes/s.jpg" alt="menu"></li>
+			</ul></div></nav>
+		<div class="menu oculto">
+			<ul>
+			<li class="boton cerrar"><img width="48" height="48" onclick="closeMenu()"  src="imagenes/s.jpg" alt="menu"></li>
+				<li><a href="index.html">HOME: New reccomendations</a></li>
+				<li><a href="cine.html">Cinema Reviews</a></li>
+				<li><a href="series.html">Series reviews</a></li>
+				<li><a href="contacto.html">Contact</a></li>			
+			<li><hr></li>
+				<li>Contact us in social media</li>
+				<li>Don't lost our track</li>			
+				<li><a href="www.facebook.com/culturayseries" class="design-name">Our Facebook</a></li>	
+				<li><a href="www.instagram.com/culturayseries" class="design-name">Our Instagram</a></li>		
+				<li><a href="culturayseries@gmail.com" class="design-name">Our E-mail</a></li></ul>
+			</div>
+		<div class="summary device" >
+			<p>Contact us</p>
+		<svg width="150" height="125" xmlns="http://www.w3.org/2000/svg">
+	 <g>
+	  <title>Layer 1</title>
+	  <ellipse transform="rotate(-54.6271 77.037 59.376)" fill="#E6C36A" cx="77.03685" cy="59.37593"  rx="29.33391" ry="10.35673" stroke="#000"/>
+	  <ellipse transform="rotate(76.9812 65.473 60.911)" fill="#E6C36A" cx="65.47256" cy="60.91122"  rx="28.44303" ry="11.50718" stroke="#000"/>
+	  <ellipse fill="#529D94" stroke="#000" cx="45.5" cy="89"  rx="28.5" ry="4"/>
+	  <ellipse transform="rotate(88.599 74.672 62.892)" fill="#FFAFCC" cx="74.67193" cy="62.89185"  rx="20.42638" ry="13.29771" stroke="#000"/>
+	  <ellipse fill="#529D94" stroke="#000" cx="100.5" cy="89"  rx="28.5" ry="4"/>
+	  <ellipse transform="rotate(122.961 94.378 62.787)" fill="#FFF093" cx="94.37844" cy="62.78674"  rx="27.16223" ry="11.45666" stroke="#000"/>
+	  <ellipse fill="#529D94" cx="74" cy="96.5"  rx="21" ry="7.5" stroke="#000"/>
+	  <ellipse transform="rotate(60.4262 57.64 64.854)" fill="#FFFF91" cx="57.63994" cy="64.85386"  rx="26.45532" ry="11.71075" stroke="#000"/>
+	  <ellipse transform="rotate(89.9959 75.378 61.787)" fill="#FFF093" cx="75.37844" cy="61.78674"  rx="27.16223" ry="11.45666" stroke="#000"/>
+	  <text fill="#ffffff" stroke="#000" x="10" y="30"  stroke-width="0" font-size="24" font-family="Noto Sans JP" text-anchor="start" xml:space="preserve">Series Temple</text>
+	 </g>
+
+	</svg>
+		</div>
+		
+		<div class="content">
+		<form>
+		<label>First Name:</label><br>
+		<input type="text"  name="fname" value="name" required><br><br>
+		
+		<label>Last Name:</label><br>
+		<input type="text"  name="lname" value="last name" required><br><br>
+		<label>E-mail:</label><br>
+		<input type="email"  name="email" value="email" required><br><br>
+		<div>
+		<label>Subscription:</label><br>
+		<input type="checkbox"  name="subscripciones" value="subscripciones"><br><br>
+		</div>
+		
+		<label>Interested in:</label>
+	  <select  name="area" size="1" >
+		<option value="series">series</option>
+		<option value="cinema">cinema</option>
+		<option value="news">news</option>
+
+	  </select><br><br>
+		
+		<label >Comments:</label><br>
+		<textarea name="comentarios" rows="10" cols="25">Observations...</textarea><br><br>
+
+		<input type="submit" value="Enviar"  ><br><br>
+		</form></div>
+		
+		<aside class="sidebar device" >
+		<div class="wrapper">
+			<div class="selection" >
+			<nav >
+				<h4>Contact us in social media</h4>
+				<h4>Don't lose our track</h4>
+					<ul>
+					<li><a href="www.facebook.com/culturayseries" class="design-name">Our Facebook</a></li>	
+					<li><a href="www.instagram.com/culturayseries" class="design-name">Our Instagram</a></li>		
+					<li><a href="culturayseries@gmail.com" class="design-name">Our E-mail</a></li></ul>
+				</nav>
+			</div>
+
+		</div>
+	</aside>
+
+		<footer class="contacto">
+		<a onclick="avisoen()" href=" ">Legal Notice</a>
+        <a href="index.html">Home</a>
+        <a href="contacto.html">Subscriptions</a>
+		</footer>
+	
+	
+
+</main>
+
+
+</body>
+</html>

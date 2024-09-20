@@ -1,0 +1,27 @@
+#caja{
+    width: 200px;
+    height: 200px;
+    background-color: #3498db ;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background-color 0.7s ease;
+}
+#caja:hover{
+    animation: cambiacolor 2s infinite;
+     background-color: aqua;
+}
+@keyframes cambiacolor {
+    0% {
+        background-color: aqua;
+    }
+    50%{
+        background-color: rebeccapurple;
+
+    }
+    100%{
+        background-color: aliceblue;
+    }
+}
