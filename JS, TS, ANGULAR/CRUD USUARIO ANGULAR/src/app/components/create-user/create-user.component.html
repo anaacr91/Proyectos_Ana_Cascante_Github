@@ -1,0 +1,14 @@
+<h1>Crear usuario</h1>
+<form (ngSubmit)="enviarFormulario($event)" >
+    <input type="text" placeholder="Name" id="nombre" [formControl]="name"><br>
+    <input type="text" placeholder="Lastname" id="apellido" [formControl]="lastname"><br>
+    <input type="text" placeholder="mail" id="email" [formControl]="mail"><br>
+    <input type="date" placeholder="birthday" id="cumpleaños" [formControl]="birthday"><br>
+    <div class="select-container">
+    <select id="admin" [formControl]="admin" ><br>
+        <option value="true">Si</option><br>
+        <option value="false">No</option><br>
+    </select></div>
+    <button type="submit">Enviar</button>
+</form>
+<p *ngIf="hasErrors">El formulario es incorrecto</p>

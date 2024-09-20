@@ -1,0 +1,7 @@
+<form (ngSubmit)="onsubmit($event)" id="formulario">
+    <input type="text" id="nombreCompleto" [formControl]="nombreCompleto">nombreCompleto
+    <input type="text" id="username" [formControl]="username">username
+    <input type="text" id="mail" [formControl]="mail">mail
+    <button type="submit">Registrar</button>
+</form>
+<div style="color: red; text-align: center;" *ngIf="verificarFormularioCorrecto()==false && primerintento">Tu formulario tiene errores </div>

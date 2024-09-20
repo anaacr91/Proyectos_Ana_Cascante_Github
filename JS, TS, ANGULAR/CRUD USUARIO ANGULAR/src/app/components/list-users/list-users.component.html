@@ -1,0 +1,40 @@
+<h1>List Users</h1>
+<table>
+    <Thead>
+        <tr>
+            <th>
+                Name
+            </th>
+            <th>
+                LastName
+            </th>
+            <th>
+                Email
+            </th>
+            <th>
+                Birthday
+            </th>
+            <th>
+                Admin
+            </th>
+        </tr>
+    </Thead>
+    <tbody>
+        <tr *ngFor="let user of usuariosGuardados">
+            <td>{{user.name}}</td>
+            <td>{{user.lastname}}</td>
+            <td>{{user.mail}}</td>
+            <td>{{user.birthday}}</td>
+            <td>
+                {{obtenerAdmin(user.admin)}}
+                <button *ngIf="user.admin">Check</button>
+            </td>
+            <td>
+                <button (click)="eliminarUsuario(user)">Eliminar usuario</button>
+            </td>
+            <td>
+                <button (click)="cambiarRolUsuario(user)">Cambiar rol usuario</button>
+            </td>
+        </tr>
+    </tbody>
+</table>

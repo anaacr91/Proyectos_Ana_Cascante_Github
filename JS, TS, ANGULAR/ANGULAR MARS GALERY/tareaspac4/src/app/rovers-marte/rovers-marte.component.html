@@ -1,0 +1,39 @@
+<div>
+    <h1>Rovers</h1>
+    <div *ngFor="let rover of roversObtenidos" (click)="mostrarElemento(rover)">
+        <p>Id: {{rover.id}}</p>
+        
+        <p>Nombre: {{rover.name}} </p>
+
+        
+        <div *ngIf="rover.id==this.idamostrar">
+
+            <p>Despegue: {{rover.launch_date}}</p>
+
+            <p>Aterrizaje: {{rover.landing_date}}</p>
+    
+            <p>Status: {{rover.status}}</p>
+    
+            <p>Dias Marcianos: {{rover.max_sol}}</p>
+
+            <p>Camaras:</p>
+
+            <div *ngFor="let camera of rover.cameras">
+                <p (click)="mostrarImagen(camera.name)">
+                  {{camera.full_name}}  
+                </p>
+                <div *ngIf="camera.name==nombreCamMostrar" >
+                
+                    <div *ngFor="let imagen of imagenes">
+                    <img src="{{imagen.img_src}}" width="300px">
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <br><hr>
+        
+
+    </div>
+</div>
