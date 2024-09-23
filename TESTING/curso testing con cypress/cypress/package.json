@@ -1,0 +1,27 @@
+{
+  "name": "cypress",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "node_modules\\.bin\\cypress run",
+    "headTest": "npm run test -- --headed",
+    "chromeTest": "npm run test -- --browser chrome --parallel",
+    "firefoxTest": "npm run test -- --browser firefox",
+    "edgeTest": "npm run test -- --browser edge",
+    "electronTest": "npm run test -- --browser electron"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "cypress": "^13.7.2",
+    "cypress-iframe": "^1.0.1",
+    "cypress-sql-server": "^1.0.0",
+    "mocha": "10.4.0",
+    "neat-csv": "5.1.0"
+  },
+  "dependencies": {
+    "@badeball/cypress-cucumber-preprocessor": "latest",
+    "@cypress/browserify-preprocessor": "latest"
+  }
+}
