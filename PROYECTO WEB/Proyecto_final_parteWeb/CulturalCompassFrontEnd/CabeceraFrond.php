@@ -19,7 +19,7 @@ $db = new DB();
 
     <script src="https://cdn.rawgit.com/googlemaps/v3-utility-library/master/markerwithlabel/src/markerwithlabel.js"></script>
 
-  <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCvPUzlTWH-_xKiYcI7NW3R6U71Uhx94Wc&libraries=places,geometry&callback=initMap"></script>
+  <script async defer src="https://maps.googleapis.com/maps/api/js?key=...&libraries=places,geometry&callback=initMap"></script>
 
   <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
     
