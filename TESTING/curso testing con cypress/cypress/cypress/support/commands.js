@@ -22,7 +22,7 @@ Cypress.Commands.add('selectProduct',(productName)=>{
 
 Cypress.Commands.add('LoginAPI',()=>{ //This is a custom command to login to the API and get the token
     cy.request('POST', 'https://rahulshettyacademy.com/api/ecom/auth/login',
-    {"userEmail":"bernesimobosch@gmail.com","userPassword":"Bernat33"}).
+    {"userEmail":"anacascanterodriguez@gmail.com","userPassword":"Ana2022"}).
     then(function(response){
         expect(response.status).to.eq(200)
         Cypress.env('token',response.body.token) //This is how we store the token in the environment variable
