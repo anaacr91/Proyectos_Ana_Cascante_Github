@@ -9,7 +9,7 @@ async function setupNodeEvents(on, config) {
   config.db= {
     userName: 'postgres',
     password: 'GtHty6K3hoROMqzpi7UrRbGh9B',
-    server: 'Digimevo_local',
+    server: 'RahulShettyAcademy_TestServer',
     options:{
       database: 'testCypress',
       encrypt: true,
