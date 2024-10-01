@@ -5,8 +5,8 @@ describe('Trying to download subtitles from Kaltura', function(){
         cy. visit('https://kmc.kaltura.com/index.php/kmcng/login')
 
         //introduce credentials
-        cy.get(':nth-child(3) > .p-inputtext').type('content@digimevo.com')
-        cy.get(':nth-child(5) > .p-inputtext').type('Digi@2020')
+        cy.get(':nth-child(3) > .p-inputtext').type('anacascanterodriguez@gmail.com')
+        cy.get(':nth-child(5) > .p-inputtext').type('ana@2024')
         cy.get('.kButtonDefault').click()
         
        
