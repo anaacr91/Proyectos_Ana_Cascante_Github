@@ -27,7 +27,7 @@ describe('JWT Session Test', ()=>{
             cy.contains('CSV').click() //This is how we click on the CSV button using the text of the button
 
             //We want to read snd process the data of the file
-            cy.readFile(Cypress.config("fileServerFolder")+"/cypress/downloads/order-invoice_bernesimobosch.csv").then(async function(text){ //This is how we read the CSV file using the readFile command
+            cy.readFile(Cypress.config("fileServerFolder")+"/cypress/downloads/order-invoice_anacascante.csv").then(async function(text){ //This is how we read the CSV file using the readFile command
                 const csv= await neatCSV(text) //This is how we read the CSV file using the neatCSV library
                 console.log(csv)
                 const actualProductCSV= csv[0]['Product Name']
