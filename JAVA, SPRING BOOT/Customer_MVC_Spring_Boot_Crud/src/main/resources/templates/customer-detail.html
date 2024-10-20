@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Detalle de Cliente</title>
+</head>
+<body>
+<h1>Detalle del Cliente</h1>
+<p>ID: <span th:text="${customer.id}"></span></p>
+<p>Nombre: <span th:text="${customer.nombre}"></span></p>
+<p>Apellido: <span th:text="${customer.apellido}"></span></p>
+<p>Email: <span th:text="${customer.email}"></span></p>
+<p>Edad: <span th:text="${customer.edad}"></span></p>
+<a href="/customers">Volver a la lista</a>
+</body>
+</html>
