@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Detalle de manufacturer</title>
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/webjars/font-awesome/css/all.min.css}">
+</head>
+<body>
+
+<div th:replace="~{navbar :: nav1}"></div>
+
+<div class="container mt-4">
+    <h1>Detalle manufacturer</h1>
+
+    <div th:if="${manufacturer}">
+        <div class="card mb-3">
+            <div class="row g-0">
+                <div class="col-md-4">
+                    <img th:src="${manufacturer.imageUrl}" class="img-fluid rounded-start" alt="Logo">
+                </div>
+                <div class="col-md-4 mt-3">
+                    <h5 class="card-title" th:text="${manufacturer.name}"></h5>
+                    <p class="card-text" th:text="${manufacturer.description}"></p>
+                    <p class="card-text"><small class="text-muted">Año de fundación: <span th:text="${manufacturer.year}"></span></small></p>
+                    <div>
+                        <a th:href="@{/manufacturers/update/{id}(id=${manufacturer.id})}" class="btn btn-primary">
+                            <i class="fas fa-edit"></i>
+                            Editar</a>
+                        <a th:href="@{/manufacturers/delete/{id}(id=${manufacturer.id})}" class="btn btn-danger">
+                            <i class="fas fa-trash"></i>
+                            Borrar</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div th:unless="${manufacturer}">
+        <p>No existe el fabricante</p>
+    </div>
+
+    <div class="mt-3">
+        <a th:href="@{/manufacturers}" class="btn btn-secondary">
+            <i class="fas fa-arrow-left"></i>
+            Volver al listado</a>
+    </div>
+
+</div>
+
+<div th:replace="~{footer :: footer1}"></div>
+
+<script th:src="@{/webjars/bootstrap/js/bootstrap.bundle.min.js}"></script>
+<script th:src="@{/webjars/font-awesome/js/all.min.js}"></script>
+</body>
+</html>

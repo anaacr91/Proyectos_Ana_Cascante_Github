@@ -1,0 +1,23 @@
+spring.data.jdbc.dialect=mysql -> se supone que lo detecta automáticamente,
+por si pide dialecto: otra version anterior
+
+cuando usamos maven se crea un output automatico, y no hace falta la carpeta out
+reload: recargar proyecto
+El "Reload from Disk" en IntelliJ IDEA es una funcionalidad que permite recargar un archivo desde el disco,
+descartando cualquier cambio que hayas hecho en el archivo dentro del IDE pero que no hayas guardado.
+En otras palabras, restaura el archivo en la vista del editor de IntelliJ al estado en que está en
+el sistema de archivos, sobrescribiendo los cambios no guardados en el IDE.
+
+Esto arranca en el puerto 8080 de tomcat, si da fallo cambiar el puerto
+con server.port= 8081
+O buscar que app hay en marcha y cambiarla
+para que no se pisen los puertos
+EN JAVA SPRING DATOS PRIMARIOS EN MAYUSCULAS
+
+JPA buddy- crea repositorio, simplifica trabajar bbdd
+
+#spring.java.jdbc.dialect=mysql //cuando no le detecte directamente
+#server.port=8081
+#solo poner update cuando no modificas las columnas existentes, y solo vayas añadiendo + columnas
+#create borra y vuelve a generar todas las tablas de nuevo
+#cuando reiniciamos , todos los cambios de mysql se ven en la consola
