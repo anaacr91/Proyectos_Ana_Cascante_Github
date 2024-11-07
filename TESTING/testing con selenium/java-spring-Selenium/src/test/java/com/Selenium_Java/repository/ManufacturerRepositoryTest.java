@@ -18,7 +18,6 @@ class ManufacturerRepositoryTest {
     private ManufacturerRepository manufacturerRepository;
 
     @Test
-    @DisplayName("Test Find By Year")
     void findByYear() {
         Manufacturer manufacturer1 = Manufacturer.builder().name("Fabricante A").year(2020)
                 .build();
@@ -53,9 +52,47 @@ class ManufacturerRepositoryTest {
 
         //metodo a testear
         List <Manufacturer> manufacturer = manufacturerRepository.findByNameIgnoreCase("fabricante a");
-        //verificar resultado
+        //verificar resultado; comparar el repositorio con la BBDD
+        assertEquals(2, manufacturer.size(), "nº repeticiones nombre: fabricante a");
         assertNotNull(manufacturer);
-        assertEquals(2, manufacturer.size(), "tenemos 2 con el fabricante a");
+        assertTrue(manufacturer.contains(manufacturer1));
+        assertTrue(manufacturer.contains(manufacturer3));
         assertEquals(manufacturer1, manufacturer.get(0));
+    }
+
+    @Test
+    void existsByName() {
+        Manufacturer manufacturer1 = Manufacturer.builder().name("Existente").year(2020)
+                .build();
+
+        manufacturerRepository.save(manufacturer1);
+        //guardar Fabricantes en bbdd->mock repositorio
+
+        //metodo a testear
+        boolean exists = manufacturerRepository.existsByName("Existente");
+        //verificar resultado; comparar datos repositorio con bdd
+        assertTrue(exists, "Existente esta en la bbdd");
+
+        assertFalse(manufacturerRepository.existsByName("No existe"), "No existe en la bbdd");
+    }
+
+    @Test
+    @DisplayName("Prueba de la consulta findByName con @Query")
+    void findByName() {
+        Manufacturer manufacturer1 = Manufacturer.builder().name("Fabricante A").year(2020)
+                .build();
+        Manufacturer manufacturer2 = Manufacturer.builder().name("Fabricante B").year(2021)
+                .build();
+        Manufacturer manufacturer3 = Manufacturer.builder().name("Fabricante A").year(2020)
+                .build();
+
+        manufacturerRepository.saveAll(List.of(manufacturer1, manufacturer2, manufacturer3));
+        //guardar Fabricantes en bbdd->mock repositorio
+
+        //metodo del repositorio a testear
+        List<Manufacturer> manufacturers = manufacturerRepository.findByName("Fabricante A");
+        //verificar resultado; comparar datos repositorio con bdd
+        assertEquals(2, manufacturers.size(), "nº repeticiones nombre: 'fabricante A' ");
+        assertNotNull(manufacturers);
     }
 }
