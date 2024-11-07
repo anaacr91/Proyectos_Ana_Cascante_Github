@@ -9,9 +9,9 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.Selenium_Java</groupId>
-	<artifactId>spring-java-Selenium</artifactId>
+	<artifactId>java-spring-Selenium</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>spring-java-Selenium</name>
+	<name>java-spring-Selenium</name>
 	<description>Selenium project for Spring Boot</description>
 	<url/>
 	<licenses>
