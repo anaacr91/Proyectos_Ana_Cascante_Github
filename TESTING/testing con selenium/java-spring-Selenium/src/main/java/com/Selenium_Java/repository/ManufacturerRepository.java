@@ -1,5 +1,6 @@
 package com.Selenium_Java.repository;
 
+import com.Selenium_Java.dto.ManufacturerWithProductDataDTO;
 import com.Selenium_Java.model.Manufacturer;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -23,8 +24,14 @@ public interface ManufacturerRepository extends JpaRepository<Manufacturer, Long
     @Query("select m from Manufacturer m where m.name = :name")//JPQL consulta en lugar de sql nativo
     List<Manufacturer> findByName(String name);
 
-
-
+    @Query("SELECT new com.Selenium_Java.dto.ManufacturerWithProductDataDTO" +
+            "(m.id, m.name, " +
+            "COUNT (p), " +
+            "SUM (p.price))" +
+            " FROM Manufacturer m " +
+            "LEFT JOIN Product p ON m.id = p.manufacturer.id " +//de dos tablas, quedate con la 1ª-> manufacturer
+            "GROUP BY m.id, m.name")
+    List<ManufacturerWithProductDataDTO> findAllWithCalculatedProductsStats();
 
 }
 

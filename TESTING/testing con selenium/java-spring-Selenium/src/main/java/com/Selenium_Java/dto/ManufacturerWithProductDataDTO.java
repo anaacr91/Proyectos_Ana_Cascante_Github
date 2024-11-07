@@ -1,4 +1,9 @@
 package com.Selenium_Java.dto;
 
-public class ManufacturerWithProductDataDTO {
+public record ManufacturerWithProductDataDTO(
+        Long manufacturerId,
+        String manufacturerName,
+        Long productsCount,
+        Double productsSumTotalPrice
+) {
 }

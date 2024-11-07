@@ -31,7 +31,7 @@ public class Product {
     // asociacion: un manufacturer tiene muchos productos
     //muchos objetos de la clase proucto pueden estar asociados a 1 objeto de la clase manufacturer
     @ManyToOne
-    @JoinColumn(name = "manufacturer_id")
+    @JoinColumn(name = "manufacturer.id")
     private Manufacturer manufacturer;
 
 }
