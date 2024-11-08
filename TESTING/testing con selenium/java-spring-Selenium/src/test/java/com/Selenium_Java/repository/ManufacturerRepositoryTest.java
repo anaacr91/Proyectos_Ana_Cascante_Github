@@ -1,5 +1,6 @@
 package com.Selenium_Java.repository;
 import com.Selenium_Java.Main;
+import com.Selenium_Java.model.Address;
 import com.Selenium_Java.model.Manufacturer;
 import com.Selenium_Java.model.Product;
 import com.Selenium_Java.dto.ManufacturerWithProductDataDTO;
@@ -119,9 +120,9 @@ class ManufacturerRepositoryTest {
         Product product1 = Product.builder().name("Producto 1").price(50.0)
                 .quantity(10).active(true).manufacturer(manufacturer1).build();
         Product product2 = Product.builder().name("Producto 2").price(75.0)
-                .quantity(5).active(true).manufacturer(manufacturer2).build();
+                .quantity(5).active(true).manufacturer(manufacturer1).build();
         Product product3 = Product.builder().name("Producto 3").price(25.0)
-                .quantity(6).active(true).manufacturer(manufacturer3).build();
+                .quantity(6).active(true).manufacturer(manufacturer1).build();
         productRepository.saveAll(List.of(product1, product2, product3));
         //metodo del repositorio a testear
         List<ManufacturerWithProductDataDTO> manufacturersDTO =
@@ -130,9 +131,65 @@ class ManufacturerRepositoryTest {
         assertEquals(3, manufacturersDTO.size(), "nº de fabricantes");
         assertNotNull(manufacturersDTO);
         // Obtener el primer elemento de la lista
-        ManufacturerWithProductDataDTO dto = manufacturersDTO.get(0);
+        ManufacturerWithProductDataDTO dto = manufacturersDTO.get(0);//obtiene manufacturer1
         // Verificar que el ID del fabricante coincide con el esperado
         assertEquals(manufacturer1.getId(), dto.manufacturerId(),
                 "El ID del fabricante debería coincidir con el ID creado");
+        assertEquals(manufacturer1.getName(), dto.manufacturerName(),
+                "El nombre del fabricante debería coincidir con el nombre creado");
+        assertEquals(3,dto.productsCount(), "El nº de productos debería ser 3");//cuenta sus productos
+        assertEquals(150.0,dto.productsSumTotalPrice(), "La suma total de los productos debería ser 150.0");
+    }
+    @Test
+    @DisplayName("test metodo findByAddress_Id")
+    void findByAddress_Id() {
+        Address address = Address.builder().street("corsega").city("barcelona")
+                .zipCode("08037").build();
+        Manufacturer manufacturer = Manufacturer.builder().name("Bodegas").address(address)
+                .build();
+        //preparar datos de prueba: Address y Manufacturer Asociados
+        address.setManufacturer(manufacturer);
+        //asociar address con manufacturer(relacion bidireccional)
+        manufacturerRepository.save(manufacturer);
+        //guarda manufacturer y cascadeara (guardara tambien) la adress
+        //guardar Fabricantes en bbdd->mock repositorio
+
+        //metodo del repositorio a testear
+        Manufacturer foundManufacturer = manufacturerRepository.findByAddress_Id(address.getId());
+        //verificar resultado; comparar datos repositorio con bdd
+        assertNotNull(foundManufacturer, "El fabricante debería existir");
+        assertEquals(manufacturer.getId(), foundManufacturer.getId(), "El ID del fabricante debería coincidir");
+        assertEquals(address.getId(), foundManufacturer.getAddress().getId(), "El ID de la dirección debería coincidir");
+    }
+
+    @Test
+    @DisplayName("test metodo countByAddress_ZipCode")
+    void countByAddress_ZipCode() {
+        Address address1 = Address.builder().zipCode("28012").state("Madrid").street("Gran Via").city("Madrid").build();
+        Address address2 = Address.builder().zipCode("28012").state("Madrid").street("Puerta del Sol").city("Madrid").build();
+        Address address3 = Address.builder().zipCode("08037").state("Barcelona").street("Carrer de la Diputació").city("Barcelona").build();
+
+        Manufacturer manufacturer1 = Manufacturer.builder().name("Bodegas").address(address1)
+                .build();
+        Manufacturer manufacturer2 = Manufacturer.builder().name("Libros").address(address2)
+                .build();
+        Manufacturer manufacturer3 = Manufacturer.builder().name("Peliculas").address(address3)
+                .build();
+        //asociar address con manufacturer(relacion bidireccional)
+        address1.setManufacturer(manufacturer1);
+        address2.setManufacturer(manufacturer2);
+        address3.setManufacturer(manufacturer3);
+
+        //guardar manufacturers//->mock repositorio
+        manufacturerRepository.saveAll(List.of(manufacturer1, manufacturer2, manufacturer3));
+
+        //ejecutar metodo del repositorio a testear y guardar en una variable para la verificacion de despues
+        long countZipCode28012 = manufacturerRepository.countByAddress_ZipCode("28012");
+        long countZipCode08037 = manufacturerRepository.countByAddress_ZipCode("08037");
+
+        //verificar resultado
+        assertEquals(2, countZipCode28012, "El nº de fabricantes con zipCode 28012 debería ser 2");
+        assertEquals(1, countZipCode08037, "El nº de fabricantes con zipCode 08037 debería ser 1");
+
     }
 }

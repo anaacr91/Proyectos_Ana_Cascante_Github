@@ -33,5 +33,12 @@ public interface ManufacturerRepository extends JpaRepository<Manufacturer, Long
             "GROUP BY m.id, m.name")
     List<ManufacturerWithProductDataDTO> findAllWithCalculatedProductsStats();
 
+    Manufacturer findByAddress_Id(Long id);
+
+@Query("Select count(m) from Manufacturer m where m.address.zipCode = :zipCode")
+//?1-> siguiente parametro de entrada
+    long countByAddress_ZipCode(String zipCode);
+
+
 }
 

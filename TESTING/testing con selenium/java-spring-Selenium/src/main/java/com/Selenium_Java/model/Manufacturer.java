@@ -20,4 +20,8 @@ public class Manufacturer {
     @Column(name = "manufacturer_year")//para que h2 no fallen los test
     private Integer year;
 
+    @OneToOne(cascade =CascadeType.ALL)//operaciones crud-> si borro/modifico un fabricante, borro/modifico la direccion
+    @JoinColumn(name = "address_id")//FK, name= nombre columna en comunica con la otra tabla
+    private Address address;
+
 }
