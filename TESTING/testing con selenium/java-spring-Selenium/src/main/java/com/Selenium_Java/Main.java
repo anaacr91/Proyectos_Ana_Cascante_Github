@@ -1,7 +1,9 @@
 package com.Selenium_Java;
 
+import com.Selenium_Java.model.Address;
 import com.Selenium_Java.model.Manufacturer;
 import com.Selenium_Java.model.Product;
+import com.Selenium_Java.repository.AddressRepository;
 import com.Selenium_Java.repository.ManufacturerRepository;
 import com.Selenium_Java.repository.ProductRepository;
 import org.springframework.boot.SpringApplication;
@@ -46,15 +48,21 @@ public class Main {
 
 // main-> opcional: insertar datos demo: para que la bbdd no este vacia
 		var manufacturerRepo = context.getBean(ManufacturerRepository.class);
-		if (manufacturerRepo.count() > 0) return;
-		// insertar fabricantes
-		// Crear objetos Manufacturer en base de datos
+		//repo address->
+		var addressRepo = context.getBean(AddressRepository.class);
+		//se está solicitando al contenedor de Spring que devuelva el bean que corresponde a la clase AddressRepository.
+
+		if (manufacturerRepo.count() == 0);//si es nulo
+		//insertar direccione-> Crear objetos Address en base de datos
+		var address1 = Address.builder().street("Calle Alfonso").city("Zaragoza").state("Aragon").zipCode("5003").build();
+		var address2 = Address.builder().street("Calle Córdoba").city("Jaen").state("Andalucia").zipCode("23007").build();
+		// insertar fabricantes-> Crear objetos Manufacturer en base de datos
 		var manufacturer1 = Manufacturer.builder().name("Adidas").description("description A").year(2024)
 				.imageUrl("https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/Adidas_2022_logo.svg/1920px-Adidas_2022_logo.svg.png")
-				.build();
+				.address(address1).build();
 		var manufacturer2 = Manufacturer.builder().name("CertiDevs").description("description A").year(2024)
 				.imageUrl("https://app.certidevs.com/content/images/CertiDevs-logo.svg")
-				.build();
+				.address(address2).build();
 		manufacturerRepo.saveAll(List.of(manufacturer1, manufacturer2));
 
 		manufacturerRepo.saveAll(List.of

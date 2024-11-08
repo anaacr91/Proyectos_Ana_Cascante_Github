@@ -15,7 +15,7 @@ import java.util.UUID;
 @AllArgsConstructor//Constructor con todos los atributos
 
 public class Address {
-    //private Sting UUID id;
+    //private Sting UUID id;//->Usado en produccion
     @Id//PK de la entidad
     @GeneratedValue(strategy = GenerationType.IDENTITY)//autoincremental id automático
     private Long id;

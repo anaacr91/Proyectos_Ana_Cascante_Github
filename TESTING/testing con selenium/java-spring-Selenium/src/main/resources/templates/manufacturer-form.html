@@ -27,17 +27,35 @@
             <input type="text" id="name" th:field="*{name}" class="form-control" required/>
         </div>
         <div class="mb-3">
-            <label for="description" class="form-label">Description</label>
+            <label for="description" class="form-label">Descripción</label>
             <textarea id="description" rows="5" cols="50" th:field="*{description}" class="form-control"></textarea>
         </div>
         <div class="mb-3">
-            <label for="imageUrl" class="form-label">Url Imagen</label>
+            <label for="imageUrl" class="form-label">Url de la Imagen</label>
             <input type="text" id="imageUrl" th:field="*{imageUrl}" class="form-control"/>
         </div>
         <!-- TODO <input type="file" > -->
         <div class="mb-3">
             <label for="year" class="form-label">Año fundación</label>
             <input type="number" id="year" th:field="*{year}" class="form-control"/>
+        </div>
+        <!--campos direccion-->
+        <h3>Dirección</h3>
+        <div class="mb-3">
+            <label for="street" class="form-label">Calle</label>
+            <input type="text" id="street" th:field="*{address.street}" class="form-control"/>
+        </div>
+        <div class="mb-3">
+            <label for="city" class="form-label">Ciudad</label>
+            <input type="text" id="city" th:field="*{address.city}" class="form-control"/>
+        </div>
+        <div class="mb-3">
+            <label for="state" class="form-label">Provincia</label>
+            <input type="text" id="state" th:field="*{address.state}" class="form-control"/>
+        </div>
+        <div class="mb-3">
+            <label for="zip" class="form-label">Código Postal</label>
+            <input type="text" id="zip" th:field="*{address.zip}" class="form-control"/>
         </div>
 
         <button type="submit" th:if="${manufacturer.id}" class="btn btn-primary">

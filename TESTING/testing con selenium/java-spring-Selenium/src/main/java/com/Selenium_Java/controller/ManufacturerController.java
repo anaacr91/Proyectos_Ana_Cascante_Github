@@ -1,6 +1,8 @@
 package com.Selenium_Java.controller;
 
+import com.Selenium_Java.model.Address;
 import com.Selenium_Java.model.Manufacturer;
+import com.Selenium_Java.repository.AddressRepository;
 import com.Selenium_Java.repository.ManufacturerRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.BeanUtils;
@@ -16,6 +18,7 @@ public class ManufacturerController {
 
     // Objeto inicializado e inyectado por Spring
     private ManufacturerRepository manufacturerRepo;
+    private final AddressRepository addressRepository;
 
 
     // findAll
@@ -36,7 +39,9 @@ public class ManufacturerController {
     // getFormCreation //create in form
     @GetMapping("manufacturers/new")
     public String getFormToCreate(Model model) {
-        model.addAttribute("manufacturer", new Manufacturer());
+        Manufacturer manufacturer = new Manufacturer();//cambiamos metodo para añadir la asociacion
+        manufacturer.setAddress(new Address());//inicializa nueva direccion para l fabricante
+       model.addAttribute("manufacturer", manufacturer);
         return "manufacturer-form";
     }
 
@@ -45,28 +50,42 @@ public class ManufacturerController {
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public String getFormToUpdate(Model model, @PathVariable Long id) {
         manufacturerRepo.findById(id)
-                .ifPresentOrElse(manufacturer -> model.addAttribute("manufacturer", manufacturer),
-        //si existe el manufacturer, cargarlo en el modelo update
-                        () -> {
-                            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "not found");
-                        });
-        //si no existe el manufacturer, lanzar excepcion 404
+                .ifPresentOrElse(manufacturer-> {//si fabricante existe
+                    if (manufacturer.getAddress() == null) {//si la direccion es nula
+                        manufacturer.setAddress(new Address());//inicializa 1 nueva direccion
+                    }
+                    model.addAttribute("manufacturer", manufacturer);//añadir el modelo a la vista
+                },
+                () -> {//si el fabricante no se encuentra
+                throw new ResponseStatusException(HttpStatus.NOT_FOUND, "not found");//lanza error 404
+                });
         return "manufacturer-form";
     }
 
     // save
     @PostMapping("manufacturers")
-    public String save(@ModelAttribute Manufacturer manufacturer) {
+    public String save(@ModelAttribute Manufacturer manufacturer) {//parametro manufacturer->formulario P.Entrada
 
         // crear
-        if (manufacturer.getId() == null) {
-            manufacturerRepo.save(manufacturer);
+        if (manufacturer.getId() == null) {//verifica que id_manufacturer sea nulo
+            manufacturerRepo.save(manufacturer);//guarda manufacturer bdd
         }
         // editar
-        manufacturerRepo.findById(manufacturer.getId()).ifPresent(manufacturerDB -> {
-            // manufacturerDB.setName(manufacturer.getName());
-            BeanUtils.copyProperties(manufacturer, manufacturerDB);
-            manufacturerRepo.save(manufacturerDB);
+        manufacturerRepo.findById(manufacturer.getId())//busca por id
+                .ifPresent(manufacturerDB -> {//si esta el fabricante en BD
+            BeanUtils.copyProperties(manufacturer, manufacturerDB, "id", "address");
+            //copia propiedades de manufacturer a manufacturerDB excepto id y address
+            // ->Porque actualizaremos la direccion asociada
+            if (manufacturer.getAddress() != null){//si en el formulario de manufacturer hay una direccion nueva
+                if (manufacturerDB.getAddress() == null){//si el fabricante de la BBDD no hay direccion
+                    manufacturerDB.setAddress(new Address());//le damos una nueva direccion al fabricante de la BBDD
+                }else{
+                    BeanUtils.copyProperties(manufacturer.getAddress(), manufacturerDB.getAddress(), "id");
+                    //copia propiedades de la direccion del formulario a la direccion del fabricante de la BBDD excepto id
+                }
+            }
+           // BeanUtils.copyProperties(manufacturer, manufacturerDB);//->guardado sin asociacion
+            manufacturerRepo.save(manufacturerDB);//guarda cambios del fabricante en BBDD
         });
 
 //ambas situaciones vuelves al listado
@@ -75,13 +94,22 @@ public class ManufacturerController {
 
 
     @PostMapping("manufacturers2")
-    public String saveAndGoDetail(@ModelAttribute Manufacturer manufacturer) {
-        if (manufacturer.getId() == null) { //crear nuevo, no hay id
-            manufacturerRepo.save(manufacturer);
-        } else { // editar la id del manufacturer
+    public String saveAndGoDetail(@ModelAttribute Manufacturer manufacturer) {//metodo recibe manufacturer del formulario
+        if (manufacturer.getId() == null) { //verifica si es nulo
+            manufacturerRepo.save(manufacturer);//guarda el manufacturer del form
+        } else { // si no es nulo, (editar manufacturer existente)
             manufacturerRepo.findById(manufacturer.getId()).ifPresent(manufacturerDB -> {
-                BeanUtils.copyProperties(manufacturer, manufacturerDB);
-                manufacturerRepo.save(manufacturerDB);
+                BeanUtils.copyProperties(manufacturer, manufacturerDB, "id", "address");
+                //copia del form a la bbdd excepto id, address
+                    if (manufacturer.getAddress() != null){//si en el formulario de manufacturer hay una direccion nueva
+                        if (manufacturerDB.getAddress() == null){//si el fabricante de la BBDD no hay direccion
+                            manufacturerDB.setAddress(new Address());//le damos una nueva direccion al fabricante de la BBDD
+                        }else {//si ya tiene una direccion
+                            BeanUtils.copyProperties(manufacturer.getAddress(), manufacturerDB.getAddress(), "id");
+                        }//copia propiedades de la direccion del formulario a la direccion del fabricante de la BBDD excepto id
+                        }
+               // BeanUtils.copyProperties(manufacturer, manufacturerDB);//guardado sin asociacion
+                manufacturerRepo.save(manufacturerDB);//guarda cambios del fabricante en BBDD
             });
         }
         return "redirect:/manufacturers/" + manufacturer.getId();
