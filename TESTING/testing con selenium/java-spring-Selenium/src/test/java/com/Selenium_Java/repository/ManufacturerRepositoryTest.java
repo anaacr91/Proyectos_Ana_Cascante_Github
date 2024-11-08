@@ -1,5 +1,6 @@
 package com.Selenium_Java.repository;
 import com.Selenium_Java.Main;
+import com.Selenium_Java.dto.ManufacturerWithAddressDTO;
 import com.Selenium_Java.model.Address;
 import com.Selenium_Java.model.Manufacturer;
 import com.Selenium_Java.model.Product;
@@ -191,5 +192,37 @@ class ManufacturerRepositoryTest {
         assertEquals(2, countZipCode28012, "El nº de fabricantes con zipCode 28012 debería ser 2");
         assertEquals(1, countZipCode08037, "El nº de fabricantes con zipCode 08037 debería ser 1");
 
+    }
+    @Test
+    @DisplayName("test metodo countByAddress_Street")
+    void findManufacturersInCityWithProductStats(){
+        Address address1 = Address.builder().street("Calle Alfonso").city("Zaragoza").state("Aragón").zipCode("50001").build();
+
+        Address address2 = Address.builder().street("Calle Amantes").city("Teruel").state("Aragón").zipCode("44001").build();
+
+        Manufacturer manufacturer1 = Manufacturer.builder().name("Muebles Zaragoza").address(address1).build();
+
+        Manufacturer manufacturer2 = Manufacturer.builder().name("Cerámica Teruel").address(address2).build();
+
+        manufacturerRepository.saveAll(List.of(manufacturer1, manufacturer2));
+
+        Product product1 = Product.builder().name("Mesa de comedor").price(150.0)
+                .quantity(10).active(true).manufacturer(manufacturer1).build();
+        Product product2 = Product.builder().name("Silla de madera").price(75.0)
+                .quantity(5).active(true).manufacturer(manufacturer1).build();
+        Product product3 = Product.builder().name("Jarrón de cerámica").price(60.0)
+                .quantity(6).active(true).manufacturer(manufacturer2).build();
+
+        //testear metodo-> realizar consulta
+        List<ManufacturerWithAddressDTO> resultZaragoza = manufacturerRepository.findManufacturerInCityWithProductStats("Zaragoza");
+        //verificar resultados que igualen; repo que iguale los datos de la bbdd
+        assertEquals(1,resultZaragoza.size(), "El nº de fabricantes en Zaragoza debería ser 1");
+        ManufacturerWithAddressDTO dtoZaragoza = resultZaragoza.get(0);
+        assertEquals( manufacturer1.getId(), dtoZaragoza.manufacturerId(), "Deberian coincidir los ids");
+        assertEquals("Zaragoza", dtoZaragoza.manufacturerName(), "Debería coincidir el nombre");
+        assertEquals("Zaragoza", dtoZaragoza.city(), "Debería coincidir la ciudad");
+        assertEquals("2L",  dtoZaragoza.productCount(), "La cuenta de productos debería ser 2");
+        //2L long
+        assertEquals(225.0, dtoZaragoza.totalProductPrice(), "El precio total de todos los productos debería ser 225.0");
     }
 }
