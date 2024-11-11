@@ -33,6 +33,8 @@ public class PurchaseService {
     }
     public List<Purchase> getPurchasesByEmail(String email) {//devuelve cosass filtradas por email
         return purchaseRepository.findByEmail(email); // Fetch purchases by email
+        //lo unico que intermedia con la BD es el repository; al repo solo le hacen preguntas que tienen que ver con la BD
+        //capa intermedia entre controlador y repo-> servicio avisa al repositorio-> servicio traduce al repositorio; lo que pide el controlador
     }
 
     @Transactional
@@ -69,5 +71,26 @@ public class PurchaseService {
         //devolver la compra
         return savedPurchaseBD;
     }
+    @Transactional //o todas las acciones/metodos o ninguna accion
+    public void cancelPurchase(Long purchaseId) {//solo tipo datos en parametros
+        //cancelar una compra se hace restaurando el stock del producto
+    Purchase purchase = purchaseRepository.findById(purchaseId)//encuentralo por id
+            .orElseThrow(() -> new IllegalArgumentException("Compra no encontrada."));
+    //si no hay id-> lanza 1 excepcion
+
+    //obtener producto asociado de la compra, a cancelar
+    Product product = purchase.getProduct();
+
+    //Restaurar el stock del producto-> sumar la cantidad de la compra al stock actual
+    product.setQuantity(product.getQuantity() + purchase.getQuantity());
+    productRepository.save(product);//guardar los cambios en el producto actual del stock/quantity
+
+    //cuando comprobamos producto que si que existe->eliminar la compra de la BDD
+    purchaseRepository.delete(purchase);
+    }
+    public List<Purchase> getPurchasesBetweenDates(LocalDateTime startDate, LocalDateTime endDate) {
+        return purchaseRepository.findByPurchaseDateBetween(startDate, endDate);
+    }
+
 
 }

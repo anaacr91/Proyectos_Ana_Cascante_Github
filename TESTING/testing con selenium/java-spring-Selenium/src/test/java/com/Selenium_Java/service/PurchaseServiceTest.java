@@ -218,7 +218,54 @@ class PurchaseServiceTest {
         }, "Se debería lanzar una excepción cuando el stock es insuficiente.");
 
         //verificar mensaje excepción
-        assertEquals("Stock insuficiente para el producto seleccionado.", exception.getMessage(), "El mensaje de la excepción debería ser 'Stock insuficiente para el producto seleccionado.'.");
+        assertEquals("Stock insuficiente para el producto seleccionado.", exception.getMessage(),
+                "El mensaje de la excepción debería ser 'Stock insuficiente para el producto seleccionado.'.");
         //verificar metodos find by id y save hayan sido llamados
+        verify(productRepository).findById(productId); // Verifica que findById ha sido llamado
+        //verificar que al no haber stock, los demás métodos no se llaman
+        verify(purchaseRepository, never()).save(any(Purchase.class)); // Verifica que save de compra no ha sido llamado
+        verify(productRepository, never()).save(any(Product.class)); // Verifica que save de producto no ha sido llamado
+    }
+
+    @Test
+    @DisplayName("Prueba del método cancelPurchase")
+    void testCancelPurchase() {
+        // Configurar el mock para devolver la compra cuando se busque por ID
+        //invocar metodo repositorio-> findById y devolver la compra
+        when(purchaseRepository.findById(1L)).thenReturn(Optional.of(purchase));
+
+        //ejecutar el metodo del servicio
+        //invocar metodo servicio-> cancelPurchase: parte central: test servicio-> testear metodo servicio
+        purchaseService.cancelPurchase(1L);
+
+        //verificar que el stock del producto se haya restaurado correctamente en la BD
+        assertEquals(22, product.getQuantity(), "El stock del producto debería ser 22. (20: beforeEach +2 (compra))");
+
+        // Verificar que la compra haya sido eliminada de la BD
+        verify(purchaseRepository).delete(purchase); // Verifica que delete ha sido llamado
+    }
+
+    @Test
+    @DisplayName("Prueba del método getPurchasesBetweenDates")
+    void testGetPurchasesBetweenDates() {
+        // Definir el rango de fechas para la prueba
+        LocalDateTime startDate = LocalDateTime.of(2024, 1, 1, 0, 0);
+        LocalDateTime endDate = LocalDateTime.of(2024, 12, 31, 23, 59);
+
+        // Configurar el mock para devolver la lista de compras dentro del rango de fechas
+        //invocar metodo repositorio-> findByPurchaseDateBetween y devolver la lista de compras
+        when(purchaseRepository.findByPurchaseDateBetween(startDate, endDate)).thenReturn(Arrays.asList(purchase));
+
+        //ejecutar el metodo del servicio
+        List<Purchase> result = purchaseService.getPurchasesBetweenDates(startDate, endDate);
+
+        //verificar el resultado
+        assertNotNull(result, "la lista no deberia ser nula");
+        assertEquals(1, result.size(), "Debería haber una compra en la lista.");
+        assertEquals(purchase, result.get(0), "La compra en la lista debería ser igual a la compra de prueba.");
+
+        // Verificar que el metodo findByPurchaseDateBetween haya sido llamado con las fechas correctas
+        //verificar que el metodo del repositorio haya sido invocado y que los datos coinciden con la BBDD
+        verify(purchaseRepository).findByPurchaseDateBetween(startDate, endDate);
     }
 }
