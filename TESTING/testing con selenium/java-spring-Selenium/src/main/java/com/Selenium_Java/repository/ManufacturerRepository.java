@@ -26,12 +26,12 @@ public interface ManufacturerRepository extends JpaRepository<Manufacturer, Long
     @Query("select m from Manufacturer m where m.name = :name")//JPQL consulta en lugar de sql nativo
     List<Manufacturer> findByName(String name);
 
-    @Query("SELECT new com.Selenium_Java.dto.ManufacturerWithProductDataDTO" +
-            "(m.id, m.name, " +
-            "COUNT (p), " +
-            "SUM (p.price))" +
-            " FROM Manufacturer m " +
-            "LEFT JOIN Product p ON m.id = p.manufacturer.id " +//de dos tablas, quedate con la 1ª-> manufacturer
+    @Query("SELECT new com.Selenium_Java.dto.ManufacturerWithProductDataDTO(" +
+            "m.id, m.name, " +
+            "COUNT(p), " +
+            "SUM(p.price)) " +
+            "FROM Manufacturer m " +
+            "LEFT JOIN Product p ON m.id = p.manufacturer.id " + // de dos tablas, quédate con la 1ª -> manufacturer
             "GROUP BY m.id, m.name")
     List<ManufacturerWithProductDataDTO> findAllWithCalculatedProductsStats();
 
@@ -42,14 +42,14 @@ public interface ManufacturerRepository extends JpaRepository<Manufacturer, Long
     long countByAddress_ZipCode(String zipCode);
 
 //query que crea una nueva instancia de ManufacturerWithAddressDTO
-@Query("SELECT new com.Selenium_Java.dto.ManufacturerWithAddressDTO" +//consulta desde 0, seleccionando DTO
-        "(m.id, m.name, a.city " +
-        "COUNT (p), " +
-        "SUM (p.price))" +
-        " FROM Manufacturer m " +
-        "JOIN m.address a" +//join con la tabla address->no se especifica al haber relacion bidireccional
+@Query("SELECT new com.Selenium_Java.dto.ManufacturerWithAddressDTO(" +//consulta desde 0, seleccionando DTO
+        "m.id, m.name, a.city, " +
+        "COUNT(p), " +
+        "SUM(p.price)) " +
+        "FROM Manufacturer m " +
+        "JOIN m.address a " +//join con la tabla address->no se especifica al haber relacion bidireccional
         "LEFT JOIN Product p ON m.id = p.manufacturer.id " +//join con la tabla product
-        "WHERE a.city = :city " +//condicion union de tablas
+        "WHERE a.city = :city "  +//condicion union de tablas
         "GROUP BY m.id, m.name, a.city")//agrupar por id, nombre y ciudad
 List<ManufacturerWithAddressDTO> findManufacturerInCityWithProductStats(@Param("city") String city);
 //metodo que ejecuta la consulta y devuelve una lista de objetos ManufacturerWithAddressDTO con ciudad y estadisticas de productos

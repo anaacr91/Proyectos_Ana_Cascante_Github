@@ -27,7 +27,7 @@ public class Address {
     //definir relacion inversa con Manufacturer, ya que Manufacturer es el owner de la relacion
     // y con cascade se cambia/borra en consecuencia
     @OneToOne(mappedBy = "address", cascade = CascadeType.ALL)
-    @ToStringExclude//excluir este campo del metodo toString, para evitar bucles,
+    @ToString.Exclude//excluir este campo del metodo toString, para evitar bucles,
     // al estar relacionado con Manufacturer
     private Manufacturer manufacturer;
 }
