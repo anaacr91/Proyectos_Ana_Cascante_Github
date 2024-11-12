@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="envios_eco_form_view" model="ir.ui.view">
+            <field name="name">Envíos Ecológicos - Rellene el formulario</field>
+            <field name="model">eco_delivery.envios_eco</field>
+            <field name="arch" type="xml">
+                <form string="Envios Ecologicos">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="pedido"></field>
+                                <field name="direccion_entrega"></field>
+                                <field name="fecha_solicitud"></field>
+                                <field name="tipo_transporte"></field>
+                            </group>
+                            <group>
+                                <field name="fecha_entrega_prevista"></field>
+                                <field name="estado"></field>
+                                <field name="fecha_entrega"></field>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="envios_eco_tree_view" model="ir.ui.view">
+            <field name="name">Envíos Ecológicos - Listado</field>
+            <field name="model">eco_delivery.envios_eco</field>
+            <field name="arch" type="xml">
+                <tree string="Envios Ecologicos">
+                    <field name="pedido"></field>
+                    <field name="direccion_entrega"></field>
+                    <field name="fecha_solicitud"></field>
+                    <field name="tipo_transporte"></field>
+                    <field name="fecha_entrega_prevista"></field>
+                    <field name="estado"></field>
+                    <field name="fecha_entrega"></field>
+                </tree>
+            </field>
+        </record>
+
+        <record id="envios_eco_action" model="ir.actions.act_window">
+            <field name="name">Envios Ecologicos</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">eco_delivery.envios_eco</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Crear Envio
+                </p>
+            </field>
+        </record>
+
+        <menuitem name="EcoDelivery" id="eco_delivery_menu"/>
+        <menuitem name="Envios Ecologicos" id="envios_eco_menu" parent="eco_delivery_menu" action="envios_eco_action"/>
+
+
+    </data>
+</odoo>

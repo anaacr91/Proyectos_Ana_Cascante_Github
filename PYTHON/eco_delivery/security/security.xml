@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+
+        <record id="consultor_envios" model="res.groups">
+            <field name="name">Consultor Envios</field>
+        </record>
+
+       <record id="gestor_envios" model="res.groups">
+            <field name="name">Gestor Envios</field>
+        </record>
+
+
+    </data>
+</odoo>

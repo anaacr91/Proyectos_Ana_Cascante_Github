@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="transporte_eco_form_view" model="ir.ui.view">
+            <field name="name">Transportes Ecológicos - Rellene el Formulario</field>
+            <field name="model">eco_delivery.transporte_eco</field>
+            <field name="arch" type="xml">
+                <form string="Transportes Ecologicos">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="transporte"></field>
+                                <field name="descripcion"></field>
+                                <field name="envios"></field>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="transporte_eco_tree_view" model="ir.ui.view">
+            <field name="name">Transportes Ecologicos - Listado</field>
+            <field name="model">eco_delivery.transporte_eco</field>
+            <field name="arch" type="xml">
+                <tree string="Transportes Ecologicos">
+                    <field name="descripcion"> </field>
+                    <field name="envios"> </field>
+                </tree>
+            </field>
+        </record>
+
+        <record id="transporte_eco_action" model="ir.actions.act_window">
+            <field name="name">Transportes ecologicos</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">eco_delivery.transporte_eco</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Crear Transporte
+                </p>
+            </field>
+        </record>
+
+
+        <menuitem name="EcoDelivery" id="eco_delivery_menu"/>
+        <menuitem name="Transportes Ecologicos" id="transporte_eco_menu" parent="eco_delivery_menu" action="transporte_eco_action"/>
+
+    </data>
+</odoo>

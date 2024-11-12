@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+consultor_e,Consultor Envios,model_eco_delivery_envios_eco,consultor_envios,1,0,0,0
+consultor_t,Consultor Transporte,model_eco_delivery_transporte_eco,consultor_envios,1,0,0,0
+gestor_e,Gestor Envios,model_eco_delivery_envios_eco,gestor_envios,1,1,1,1
+gestor_t,Gestor Transporte,model_eco_delivery_transporte_eco,gestor_envios,1,1,1,1
