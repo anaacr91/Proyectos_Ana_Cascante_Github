@@ -3,6 +3,8 @@ package com.Selenium_Java.controller;
 import com.Selenium_Java.model.Customer;
 import com.Selenium_Java.repository.CustomerRepository;
 import jakarta.transaction.Transactional;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -29,6 +31,11 @@ class CustomerControllerTest {
 
     @Autowired
     private ObjectMapper objectMapper;//convertir objetos a json
+
+    @BeforeEach
+    void setUp() {
+        customerRepository.deleteAll();
+    }
 
     @Test
     void findAll() throws Exception {//perform siempre lanza excepcion
@@ -171,8 +178,9 @@ class CustomerControllerTest {
         ).andExpect(status().isNoContent()); // Verificamos que el estado de la respuesta HTTP sea 204 No Content
     }
     @Test
+    @DisplayName("Buscar todos los clientes con salario incrementado en un 10%")
     void findAllWithSalaryModified() throws Exception {
-
+    customerRepository.deleteAll();
     // Crear y guardar clientes en la base de datos
         customerRepository.saveAll(List.of(
                 Customer.builder().id(1L).name("Customer 1").email("customer1@gmail.com").salary(1000d).build(),
@@ -184,7 +192,33 @@ class CustomerControllerTest {
                         "/customers-salary-modified")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
+                .andExpect(jsonPath("$[0].salary").isNotEmpty())
                 .andExpect(jsonPath("$[0].salary").value(1100d)) // primer cliente con salario incrementado un 10%
+                .andExpect(jsonPath("$[1].salary").isNotEmpty())
                 .andExpect(jsonPath("$[1].salary").value(2200d)); // segundo cliente con salario incrementado un 10%
+    }
+    @DisplayName("Buscar Clientes por filtro")
+    void findByFilter() throws Exception {
+        // Crear datos de prueba en la base de datos
+        customerRepository.saveAll(List.of(
+                Customer.builder().name("Customer 1").email("customer1@gmail.com").salary(1000d).build(),
+                Customer.builder().name("Customer 2").email("customer2@gmail.com").salary(2000d).build(),
+                Customer.builder().name("Customer 3").email("customer3@gmail.com").salary(3000d).build()
+        ));
+
+        // Definir el filtro de búsqueda en formato JSON
+        // Filtro de Clientes con salario de 2000
+        String filterJson = """
+    {
+        "salary": 2000.00
+    }
+    """;
+
+        mockMvc.perform(post("/customers/filter")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(filterJson))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$[0].name").value("Customer 2"))
+                .andExpect(jsonPath("$[0].salary").value(2000d));
     }
 }

@@ -3,6 +3,7 @@ package com.Selenium_Java.controller;
 import com.Selenium_Java.model.Customer;
 import com.Selenium_Java.repository.CustomerRepository;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Example;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -61,6 +62,12 @@ public class CustomerController {
     public ResponseEntity<List<Customer>> findAllWithSalaryModified() {
         var customers = customerRepository.findAll();
         customers.forEach(c -> c.setSalary(c.getSalary() * 1.10));
+
+        return ResponseEntity.ok(customers);
+    }
+    @PostMapping("customers/filter")
+    public ResponseEntity<List<Customer>> findByFilter(@RequestBody Customer customer) {
+        var customers = customerRepository.findAll(Example.of(customer));
 
         return ResponseEntity.ok(customers);
     }
