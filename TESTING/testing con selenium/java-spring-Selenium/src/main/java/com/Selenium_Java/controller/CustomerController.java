@@ -12,6 +12,11 @@ import java.util.List;
 
 @AllArgsConstructor
 @RestController
+//CONTROLADOR API REST: PERMITE QUE 2 APPS SE COMUNIQUEN entre si a traves de la web utilizando protocolo http
+//permite hacer peticiones http, solicitudes: GET, POST, PUT, DELETE , para obtener, enviar o modificar datos
+//estos datos se envían y reciben en un formato como JSON y XML
+//se usa @RestController en vez de @controller y se devuelve ->return ResponseEntity<> (respuestas/status http)
+// en vez de String en cada metodo
 public class CustomerController {
 
     private CustomerRepository customerRepository;
@@ -51,6 +56,14 @@ public class CustomerController {
     // Esta línea de código está escrita en el contexto de una operación de búsqueda y, si el recurso no existe,
     // devuelve una respuesta HTTP con el estado 404 Not Found.
     }
+    // Metodo que nos devuelve clientes con salario incrementado en un 10%
+    @GetMapping("customers-salary-modified") // localhost:8080/customers-salary-modified
+    public ResponseEntity<List<Customer>> findAllWithSalaryModified() {
+        var customers = customerRepository.findAll();
+        customers.forEach(c -> c.setSalary(c.getSalary() * 1.10));
+
+        return ResponseEntity.ok(customers);
+    }
     // Metodo POST
     // Metodo para crear nuevo cliente
     @PostMapping("customers")
@@ -60,6 +73,7 @@ public class CustomerController {
         customerRepository.save(customer); //si obtiene id->guardar customer
         return ResponseEntity.status(HttpStatus.CREATED).body(customer);
     // devuelve una respuesta HTTP con el estado 201 Created y el objeto customer en el cuerpo de la respuesta.
+    // customer se guardará en json y la api lo guarda en la base de datos
     }
     // Metodo PUT
     // Metodo para actualizar un cliente
@@ -72,6 +86,7 @@ public class CustomerController {
     // o no válida y no puede ser procesada por el servidor.
         }
     customerRepository.save(customer); // si obtine id->guardar customer
+    //la api nos envia un customer con json y lo guardamos en la base de datos
     return ResponseEntity.ok(customer);
     // devuelve una respuesta HTTP con el estado 200 OK y el objeto customer en el cuerpo de la respuesta.
     }
@@ -92,7 +107,9 @@ public class CustomerController {
         }
 
     }
-    //nos envian un customer con json y lo guardamos en la base de datos
 
+//AL SER UN CONTROLADOR DE API REST ->metodo SAVE YA ESTA EN EL CREATE UPDATE
+// -> NO HACE FALTA CREARLO APARTE
+//CREAMOS METODOS GET (FINDID, FINDALL), POST (CREATE) PUT (UPDATE), DELETE (DELETEBYID)
 
 }
