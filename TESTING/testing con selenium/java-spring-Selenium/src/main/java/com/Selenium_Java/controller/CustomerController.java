@@ -140,7 +140,8 @@ public class CustomerController {
                     if (customer.getAge() != null) existingCustomer.setAge(customer.getAge());
                     if (customer.getSalary() != null) existingCustomer.setSalary(customer.getSalary());
                     if (customer.getActive() != null) existingCustomer.setActive(customer.getActive());
-                    customerRepository.save(existingCustomer);
+                    //si los datos de customer no son null, coge el customer existente y actualizalo
+                    customerRepository.save(existingCustomer);//guarda el customer actualizado en la base de datos
                     return ResponseEntity.ok(existingCustomer); // 200
                 })// si este Optional está vacío se pasa el orElse
                 // Si no se encuentra el cliente, se devuelve un 404

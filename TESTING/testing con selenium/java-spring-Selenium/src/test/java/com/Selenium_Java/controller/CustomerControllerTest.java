@@ -238,7 +238,7 @@ class CustomerControllerTest {
         customerRepository.saveAll(List.of(
                 Customer.builder().name("Customer 1").email("customer1@gmail.com").salary(1000d).build(),
                 Customer.builder().name("Customer 3").email("customer3@gmail.com").salary(3000d).build()
-        ));//crear en la base de datos
+        ));
 
         // Definir el filtro de búsqueda en formato JSON
         // Filtro de clientes con salario de 2000
@@ -282,17 +282,22 @@ class CustomerControllerTest {
         mockMvc.perform(patch("/customers/" + customerFromDB.getId())
                         .contentType(MediaType.APPLICATION_JSON)//tipo contenido JSON
                         .content(customerPatchJson))//enviar solicitud PATCH a la url "/customers/{id}" con los datos de actualización en json
-        //es un metodo utilizado en las pruebas con MockMvc en Spring para especificar el cuerpo de una solicitud HTTP.
+        //es una forma utilizada en las pruebas con MockMvc en Spring para especificar el cuerpo de una solicitud HTTP.
         // En este caso, customerPatchJson contiene un JSON que será enviado como el contenido de la solicitud
-                .andExpect(status().isOk())
+                .andExpect(status().isOk())//verificar que la respuesta HTTP sea 200
                 .andExpect(jsonPath("$.name").value("Juan Perez Editado"))
+        //verifica que el campo "name" en la respuesta JSON tenga el valor de "Juan Perez Editado"
                 .andExpect(jsonPath("$.salary").value(1200.0))
+        //verifica que el campo "salary" en la respuesta JSON tenga el valor de 1200.0
                 .andExpect(jsonPath("$.active").value(false));
-        //verifica que los datos del repositorio son los mismos que la bbdd
-        // Verificar que los datos se han guardado correctamente en la base de datos
+        //verifica que el campo "active" en la respuesta JSON tenga el valor de false
+
+        //verifica que los datos del repositorio son los mismos que la bbdd, buscandolo por ID
         Customer updatedCustomer = customerRepository.findById(customerFromDB.getId())
                 .orElseThrow(() -> new AssertionError("Cliente no encontrado en base de datos"));
+        //si no lo encuentra, lanzar una excepcion si no se encuentra de tipo AssertionError
         assertEquals("Juan Perez Editado", updatedCustomer.getName());
+        //verificar que los datos del cliente actualizado sean correctos en la base de datos
         assertEquals(1200.0, updatedCustomer.getSalary());
     }
 
