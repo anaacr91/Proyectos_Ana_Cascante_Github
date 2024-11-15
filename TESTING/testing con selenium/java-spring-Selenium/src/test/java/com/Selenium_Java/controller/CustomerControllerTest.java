@@ -14,6 +14,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.util.List;
 
+import static org.hamcrest.Matchers.hasSize;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -197,6 +198,7 @@ class CustomerControllerTest {
                 .andExpect(jsonPath("$[1].salary").isNotEmpty())
                 .andExpect(jsonPath("$[1].salary").value(2200d)); // segundo cliente con salario incrementado un 10%
     }
+    @Test
     @DisplayName("Buscar Clientes por filtro")
     void findByFilter() throws Exception {
         // Crear datos de prueba en la base de datos
@@ -204,7 +206,7 @@ class CustomerControllerTest {
                 Customer.builder().name("Customer 1").email("customer1@gmail.com").salary(1000d).build(),
                 Customer.builder().name("Customer 2").email("customer2@gmail.com").salary(2000d).build(),
                 Customer.builder().name("Customer 3").email("customer3@gmail.com").salary(3000d).build()
-        ));
+        ));//crear en la base de datos
 
         // Definir el filtro de búsqueda en formato JSON
         // Filtro de Clientes con salario de 2000
@@ -215,10 +217,145 @@ class CustomerControllerTest {
     """;
 
         mockMvc.perform(post("/customers/filter")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(filterJson))
+                        .contentType(MediaType.APPLICATION_JSON)//establece el tipo de contenido de la solicitud.
+                //MediaType.APPLICATION_JSON indica que el contenido de la solicitud está en formato JSON,
+                // que es común para los datos enviados en una API RESTful.
+                //Esto asegura que el endpoint interprete los datos de la solicitud como JSON.
+                        .content(filterJson))//content(...) establece el cuerpo de la solicitud HTTP.
+                //filterJson es una variable que contiene un JSON (probablemente una cadena de texto en formato JSON)
+                // que se envía en el cuerpo de la solicitud.
+                //Este JSON (filterJson) podría contener datos de filtros o criterios de
+                // búsqueda para el endpoint /customers/filter.
                 .andExpect(status().isOk())
+                .andExpect(jsonPath("$", hasSize(1)))//verificar que la respuesta JSON tenga un tamaño de 1
                 .andExpect(jsonPath("$[0].name").value("Customer 2"))
                 .andExpect(jsonPath("$[0].salary").value(2000d));
+    }
+    @Test
+    @DisplayName("Buscar clientes por filtro sin resultados")
+    void findByFilter_NotFound() throws Exception {
+        // Crear datos de prueba en la base de datos
+        customerRepository.saveAll(List.of(
+                Customer.builder().name("Customer 1").email("customer1@gmail.com").salary(1000d).build(),
+                Customer.builder().name("Customer 3").email("customer3@gmail.com").salary(3000d).build()
+        ));//crear en la base de datos
+
+        // Definir el filtro de búsqueda en formato JSON
+        // Filtro de clientes con salario de 2000
+        String filterJson = """
+            {
+                "salary": 2000.00
+            }
+            """;
+
+        mockMvc.perform(post("/customers/filter")
+                        .contentType(MediaType.APPLICATION_JSON)//tipo de contenido JSON
+                        .content(filterJson))//enviar solicitud POST a la url "/customers/filter" con el filtro de búsqueda en json
+                .andExpect(status().isOk())//verificar que la respuesta HTTP sea 200
+                .andExpect(jsonPath("$", hasSize(0))); // Se espera que la respuesta json no devuelva ningún cliente
+    }
+    @Test
+    @DisplayName("Actualizar parcialmente un cliente")
+    void partialUpdate_findById_OK() throws Exception {
+
+        // Crear un cliente en la base de datos
+        Customer customerFromDB = Customer.builder()
+                .name("Juan Perez")
+                .email("juan@mail.com")
+                .phone("123456")
+                .salary(1000d)
+                .age(30)
+                .active(true)
+                .build();//crear cliente
+        customerRepository.save(customerFromDB);//guardar
+        //Datos que se quieren actualizar en el cliente
+        String customerPatchJson = """
+            {
+                "name": "Juan Perez Editado",
+                "salary": 1200.0,
+                "active": false
+            }
+            """;
+        //String customerPatchJson: Es una variable de tipo String que contiene una representación en formato JSON.
+        //{...} forma de declarar una cadena de texto multilínea en Java, representan los datos json a actualizar
+        // Realizar la solicitud PATCH para actualizar parcialmente el cliente
+        mockMvc.perform(patch("/customers/" + customerFromDB.getId())
+                        .contentType(MediaType.APPLICATION_JSON)//tipo contenido JSON
+                        .content(customerPatchJson))//enviar solicitud PATCH a la url "/customers/{id}" con los datos de actualización en json
+        //es un metodo utilizado en las pruebas con MockMvc en Spring para especificar el cuerpo de una solicitud HTTP.
+        // En este caso, customerPatchJson contiene un JSON que será enviado como el contenido de la solicitud
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.name").value("Juan Perez Editado"))
+                .andExpect(jsonPath("$.salary").value(1200.0))
+                .andExpect(jsonPath("$.active").value(false));
+        //verifica que los datos del repositorio son los mismos que la bbdd
+        // Verificar que los datos se han guardado correctamente en la base de datos
+        Customer updatedCustomer = customerRepository.findById(customerFromDB.getId())
+                .orElseThrow(() -> new AssertionError("Cliente no encontrado en base de datos"));
+        assertEquals("Juan Perez Editado", updatedCustomer.getName());
+        assertEquals(1200.0, updatedCustomer.getSalary());
+    }
+
+    @Test
+    @DisplayName("Intentar actualizar parcialmente un cliente inexistente")
+    void partialUpdate_findById_NotFound() throws Exception {
+        // No creamos cliente en la base de datos
+        //Definir los datos de actualización (aunque el cliente existe)
+        String customerPatchJson = """
+            {
+                "name": "Juan Perez Editado",
+                "salary": 1200.0,
+                "active": false
+            }
+            """;
+
+        // Realizar la solicitud PATCH para actualizar parcialmente el cliente
+        mockMvc.perform(patch("/customers/{id}", 9999)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(customerPatchJson))//enviar solicitud PATCH a la url "/customers/{id}" con los datos de actualización en json
+                .andExpect(status().isNotFound());
+    }
+
+
+    @Test
+    @DisplayName("Eliminar clientes por lista de IDs")
+    void deleteAllCustomers_OK() throws Exception {
+        List<Customer> customers = customerRepository.saveAll(List.of(
+                Customer.builder().name("Customer 1").email("customer1@gmail.com").salary(1000d).build(),
+                Customer.builder().name("Customer 2").email("customer2@gmail.com").salary(1000d).build(),
+                Customer.builder().name("Customer 3").email("customer3@gmail.com").salary(1000d).build()
+        ));//guarda y crea objetos en la bbdd
+
+
+        //pasa a stream para realizar una operacion map, que mapea los objetos a sus ids
+        //para obtener los IDs de los clientes guardados para eliminarlos
+        List<Long> ids = customers.stream().map(Customer::getId).toList();
+
+        // Convertir los IDs a JSON para enviarlo en la solicitud
+        //ObjectMapper es una clase central en la biblioteca Jackson, utilizada para convertir datos entre objetos Java y formatos como JSON.
+        //En este caso, se está utilizando para convertir un objeto Java (ids) a su representación en formato JSON.
+        //writeValueAsString(...):Es un metodo de ObjectMapper que convierte un objeto Java en una cadena de texto en formato JSON
+        //en este casp ids es un objeto de tipo List<Long> que contiene los IDs de los clientes a eliminar
+        String idsJson = new ObjectMapper().writeValueAsString(ids);
+
+        // Ejecutamos la solicitud DELETE para eliminar los clientes por lista de IDs
+        mockMvc.perform(delete("/customers")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(idsJson))//enviar solicitud DELETE a la url "/customers" con los IDs de los clientes en formato JSON
+                .andExpect(status().isNoContent()); // 204
+
+        // Verificar que los clientes ya no existen en la base de datos
+        List<Customer> remainingCustomers = customerRepository.findAllById(ids);
+        assertTrue(remainingCustomers.isEmpty());//verificar que la lista de clientes restantes esté vacía
+    }
+
+
+    @Test
+    @DisplayName("Intentar eliminar con una solicitud vacía")
+    void deleteAllCustomers_NoIds() throws Exception {
+        mockMvc.perform(delete("/customers")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(""))//enviar solicitud DELETE a la url "/customers" sin IDs
+                .andExpect(status().isBadRequest());
     }
 }
