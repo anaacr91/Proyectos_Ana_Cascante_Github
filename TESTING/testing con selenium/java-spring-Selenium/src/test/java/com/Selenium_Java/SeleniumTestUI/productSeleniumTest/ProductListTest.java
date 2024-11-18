@@ -1,7 +1,10 @@
 package com.Selenium_Java.SeleniumTestUI.productSeleniumTest;
 
 import com.Selenium_Java.repository.ProductRepository;
+<<<<<<< HEAD
 import org.junit.jupiter.api.BeforeEach;
+=======
+>>>>>>> 5d1c17aa1621f7a36a5ad053ce9c9c92fcfc9e45
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
@@ -29,10 +32,13 @@ public class ProductListTest {
     @Autowired
     private ProductRepository productRepository;
 
+<<<<<<< HEAD
     @BeforeEach
     void setUp() {
 
     }
+=======
+>>>>>>> 5d1c17aa1621f7a36a5ad053ce9c9c92fcfc9e45
     @Test
     @DisplayName("Comprobar etiqueta <title>")
     void title() {
@@ -60,6 +66,7 @@ public class ProductListTest {
         assertEquals("Lista de productos", h1.getText());
         driver.quit();
     }
+<<<<<<< HEAD
     @Test
     @DisplayName("Comprobar que existe el enlace de Crear nuevo producto y su texto")
     void buttonCreateProduct() {
@@ -74,5 +81,7 @@ public class ProductListTest {
 
 
 
+=======
+>>>>>>> 5d1c17aa1621f7a36a5ad053ce9c9c92fcfc9e45
 }
 
