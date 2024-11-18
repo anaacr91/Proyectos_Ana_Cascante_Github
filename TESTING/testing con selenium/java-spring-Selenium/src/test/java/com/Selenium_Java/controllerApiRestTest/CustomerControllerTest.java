@@ -1,4 +1,4 @@
-package com.Selenium_Java.controller;
+package com.Selenium_Java.controllerApiRestTest;
 
 import com.Selenium_Java.model.Customer;
 import com.Selenium_Java.repository.CustomerRepository;

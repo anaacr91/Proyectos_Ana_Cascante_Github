@@ -1,4 +1,4 @@
-package com.Selenium_Java.repository;
+package com.Selenium_Java.repositoryTest;
 import com.Selenium_Java.Main;
 import com.Selenium_Java.dto.ManufacturerWithAddressDTO;
 import com.Selenium_Java.model.Address;
@@ -6,6 +6,8 @@ import com.Selenium_Java.model.Manufacturer;
 import com.Selenium_Java.model.Product;
 import com.Selenium_Java.dto.ManufacturerWithProductDataDTO;
 
+import com.Selenium_Java.repository.ManufacturerRepository;
+import com.Selenium_Java.repository.ProductRepository;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

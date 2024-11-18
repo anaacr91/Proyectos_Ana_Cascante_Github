@@ -1,4 +1,4 @@
-package com.Selenium_Java.controller.IntegratedTest;
+package com.Selenium_Java.controllerTest.IntegratedTest;
 
 import com.Selenium_Java.model.Manufacturer;
 import com.Selenium_Java.model.Product;

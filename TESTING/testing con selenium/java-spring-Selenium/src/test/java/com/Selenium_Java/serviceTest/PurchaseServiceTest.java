@@ -1,9 +1,10 @@
-package com.Selenium_Java.service;
+package com.Selenium_Java.serviceTest;
 
 import com.Selenium_Java.model.Product;
 import com.Selenium_Java.model.Purchase;
 import com.Selenium_Java.repository.ProductRepository;
 import com.Selenium_Java.repository.PurchaseRepository;
+import com.Selenium_Java.service.PurchaseService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
