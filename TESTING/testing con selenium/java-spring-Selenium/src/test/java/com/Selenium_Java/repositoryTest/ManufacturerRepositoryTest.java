@@ -215,15 +215,16 @@ class ManufacturerRepositoryTest {
         Product product3 = Product.builder().name("Jarrón de cerámica").price(60.0)
                 .quantity(6).active(true).manufacturer(manufacturer2).build();
 
+        productRepository.saveAll(List.of(product1, product2, product3));
         //testear metodo-> realizar consulta
         List<ManufacturerWithAddressDTO> resultZaragoza = manufacturerRepository.findManufacturerInCityWithProductStats("Zaragoza");
         //verificar resultados que igualen; repo que iguale los datos de la bbdd
         assertEquals(1,resultZaragoza.size(), "El nº de fabricantes en Zaragoza debería ser 1");
         ManufacturerWithAddressDTO dtoZaragoza = resultZaragoza.get(0);
         assertEquals( manufacturer1.getId(), dtoZaragoza.manufacturerId(), "Deberian coincidir los ids");
-        assertEquals("Zaragoza", dtoZaragoza.manufacturerName(), "Debería coincidir el nombre");
+        assertEquals("Muebles Zaragoza", dtoZaragoza.manufacturerName(), "Debería coincidir el nombre");
         assertEquals("Zaragoza", dtoZaragoza.city(), "Debería coincidir la ciudad");
-        assertEquals("2L",  dtoZaragoza.productCount(), "La cuenta de productos debería ser 2");
+        assertEquals(2L, (long)  dtoZaragoza.productCount(), "La cuenta de productos debería ser 2");
         //2L long
         assertEquals(225.0, dtoZaragoza.totalProductPrice(), "El precio total de todos los productos debería ser 225.0");
     }

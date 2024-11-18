@@ -11,10 +11,10 @@
 <div th:replace="~{navbar :: nav1}"></div>
 
 <div class="container mt-4">
-    <h1 th:text="${titulo}"></h1>
+    <h1 th:text="${titulo}">Lista de productos</h1>
 
     <div class="mt-3 mb-3">
-        <a href="/productos/crear" class="btn btn-primary"><i class="fas fa-plus"></i> Crear nuevo producto</a>
+        <a id="btnCreateProduct" href="/productos/crear" class="btn btn-primary"><i class="fas fa-plus"></i> Crear nuevo producto</a>
     </div>
 
     <!-- <table id="productList" th:if="${!#lists.isEmpty(productos)}"> -->

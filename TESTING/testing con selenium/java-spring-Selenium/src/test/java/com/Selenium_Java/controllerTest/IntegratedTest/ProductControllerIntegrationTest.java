@@ -18,7 +18,9 @@ import java.util.Optional;
 import static org.hamcrest.Matchers.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
-
+/*
+Testing integración completa ProductController MVC con modelo y vista
+ */
 
 @AutoConfigureMockMvc//-> bean que funcione general todos los controladores
 @SpringBootTest
