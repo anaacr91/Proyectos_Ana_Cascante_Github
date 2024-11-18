@@ -1,5 +1,6 @@
 package com.Selenium_Java.SeleniumTestUI.productSeleniumTest;
 
+import com.Selenium_Java.model.Product;
 import com.Selenium_Java.repository.ProductRepository;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -12,8 +13,10 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+
+import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 /*
 Test funcional/UI de selenium del listado de productos product-list.html
@@ -91,6 +94,25 @@ public class ProductListTest {
                 () -> driver.findElement(By.id("productList"))
         );
     }
-
+    @Test
+    @DisplayName("Comprobar que la tabla tiene elementos")
+    void tableWithProducts() {
+        productRepository.saveAll(List.of(
+                Product.builder().name("prod1").price(10d).active(true).quantity(1).build(),
+                Product.builder().name("prod2").price(20d).active(false).quantity(2).build(),
+                Product.builder().name("prod3").price(30d).active(true).quantity(3).build()
+        ));
+//Al insertar nuevos productos debemos refrescar la pantalla para que se muestren
+driver.navigate().refresh();//refrescar la página, simular F5
+WebElement productList = driver.findElement(By.id("productList"));
+assertTrue(productList.isDisplayed());
+// obtener columnas
+// obtener filas, comprobar que hay 3 filas
+// comprobar datos de las filas
+// comprobar los botones de los productos
+}
+    // comprobar que la tabla tiene elementos
+// comprobar columnas de la tabla
+// comprobar botones de la tabla
 
 }
