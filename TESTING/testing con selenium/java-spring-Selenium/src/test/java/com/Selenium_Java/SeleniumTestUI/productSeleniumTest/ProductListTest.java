@@ -1,10 +1,7 @@
 package com.Selenium_Java.SeleniumTestUI.productSeleniumTest;
 
 import com.Selenium_Java.repository.ProductRepository;
-<<<<<<< HEAD
 import org.junit.jupiter.api.BeforeEach;
-=======
->>>>>>> 5d1c17aa1621f7a36a5ad053ce9c9c92fcfc9e45
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
@@ -25,20 +22,18 @@ NO HACE FALTA INICIAR LA APLICACIÓN MANUALMENTE DESDE EL MAIN
  */
 // arranca en el puerto de application.properties para poder testear
 /*selenium test interactuar con el navegador, crea un objeto y eso crea metodos para interaccionar con el navegador
-* llamando a etiquetas, botones, divs, parrafos del html o elementos de cualquier front end*/
+ * llamando a etiquetas, botones, divs, parrafos del html o elementos de cualquier front end*/
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)//arranque puerto 8080, no p. random
 public class ProductListTest {
 
     @Autowired
     private ProductRepository productRepository;
 
-<<<<<<< HEAD
     @BeforeEach
     void setUp() {
 
     }
-=======
->>>>>>> 5d1c17aa1621f7a36a5ad053ce9c9c92fcfc9e45
+
     @Test
     @DisplayName("Comprobar etiqueta <title>")
     void title() {
@@ -51,10 +46,12 @@ public class ProductListTest {
         // comprobar título
         String title = driver.getTitle();//obtener título de la página web
         System.out.println(title);
-        assertEquals("Product List", title);;//comparar si es igual a Productos (título de la página)
+        assertEquals("Product List", title);
+        ;//comparar si es igual a Productos (título de la página)
 
         driver.quit();//cerrar navegador para que no quede el navegador abierto
     }
+
     @Test
     @DisplayName("Comprobar la etiqueta <h1>")
     void h1() {
@@ -66,7 +63,7 @@ public class ProductListTest {
         assertEquals("Lista de productos", h1.getText());
         driver.quit();
     }
-<<<<<<< HEAD
+
     @Test
     @DisplayName("Comprobar que existe el enlace de Crear nuevo producto y su texto")
     void buttonCreateProduct() {
@@ -78,10 +75,4 @@ public class ProductListTest {
         assertEquals("http://localhost:8080/productos/crear", driver.getCurrentUrl());
         driver.quit();
     }
-
-
-
-=======
->>>>>>> 5d1c17aa1621f7a36a5ad053ce9c9c92fcfc9e45
 }
-
