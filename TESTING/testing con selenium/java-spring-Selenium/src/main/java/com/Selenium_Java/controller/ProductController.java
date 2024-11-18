@@ -41,7 +41,7 @@ public class ProductController {
     public String findAll(Model model) {
 // Agregar los productos del repositorio en el Model productos
         //model.addAttribute("productos", productos);
-        model.addAttribute("título", "Lista de productos");
+        model.addAttribute("titulo", "Lista de productos");
 //Lo que hace es agregar un atributo llamado "titulo" al objeto model, con el valor "Lista de productos".
 // Este atributo puede ser accedido desde la vista para mostrar el título de la página o de una sección.
         //<h1 th:text="${titulo}"></h1>
