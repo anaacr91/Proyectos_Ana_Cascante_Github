@@ -176,7 +176,7 @@ public class ProductListTest {
     @DisplayName("Comprobar filas de la tabla y sus datos - con ids dinámicos en el HTML")
     void tableWithProducts_rows_ids() {
         Product product = productRepository.save(
-                Product.builder().name("prod1").price(10d).active(true).quantity(1).build()
+                Product.builder().name("prod1").price(10d).active(true).quantity(5).build()
         );//guardar producto en la base de datos
 
         // Al insertar nuevos productos debemos refrescar la pantalla para que los traiga
@@ -192,6 +192,70 @@ public class ProductListTest {
         //obtener el precio del producto de la base de datos que se ha guardado
         WebElement price = driver.findElement(By.id("productPrice_" + product.getId()));
         assertEquals("10,0 €", price.getText());//comprobar que el precio es igual al precio del producto
+
+        WebElement quantity = driver.findElement(By.id("productQuantity_" + product.getId()));
+        assertEquals("5", quantity.getText());
+
+        WebElement active = driver.findElement(By.id("productActiveTrue_" + product.getId()));
+        assertEquals("Disponible", active.getText());
+
+        assertThrows(
+                NoSuchElementException.class,
+                () -> driver.findElement(By.id("productActiveFalse_" + product.getId()))
+        );
     }
+    @Test
+    @DisplayName("Comprobar botón Ver sobre un producto de la tabla")
+    void tableWithProducts_actionButtons_view() {
+        Product product = productRepository.save(
+                Product.builder().name("prod1").price(10d).active(true).quantity(5).build()
+        );//guardar producto en la base de datos
+
+        driver.navigate().refresh();//refrescar la página, simular F5
+
+        var viewButton = driver.findElement(By.id("productActionView_" + product.getId()));
+        //obtener el botón de ver del producto de la base de datos que se ha guardado
+        assertEquals("Ver", viewButton.getText());//comprobar que el texto del botón es igual a Ver
+
+        viewButton.click();//pulsar el botón de ver
+
+        assertEquals("http://localhost:8080/productos/" + product.getId(), driver.getCurrentUrl());
+        //comprobar que la url es igual a la url de la página de crear producto
+    }
+    @Test
+    @DisplayName("Comprobar botón Editar sobre un producto de la tabla")
+    void tableWithProducts_actionButtons_edit() {
+        Product product = productRepository.save(
+                Product.builder().name("prod1").price(10d).active(true).quantity(5).build()
+        );
+        driver.navigate().refresh();
+
+        var editButton = driver.findElement(By.id("productActionEdit_" + product.getId()));
+        assertEquals("Editar", editButton.getText());
+
+        editButton.click();
+
+        assertEquals("http://localhost:8080/productos/editar/" + product.getId(), driver.getCurrentUrl());
+    }
+    @Test
+    @DisplayName("Comprobar botón Eliminar sobre un producto de la tabla")
+    void tableWithProducts_actionButtons_delete() {
+        Product product = productRepository.save(
+                Product.builder().name("prod1").price(10d).active(true).quantity(5).build()
+        );//guardar producto en la base de datos
+
+        driver.navigate().refresh();//refrescar la página, simular F5
+
+        var deleteButton = driver.findElement(By.id("productActionDelete_" + product.getId()));
+        //obtener el botón de borrar del producto de la base de datos que se ha guardado
+        assertEquals("Borrar", deleteButton.getText());//comprobar que el texto del botón es igual a Borrar
+
+        deleteButton.click();//pulsar el botón de borrar
+
+        assertEquals("http://localhost:8080/productos", driver.getCurrentUrl());
+        //comprobar que la url es igual a la url de la página de borrar producto
+    }
+
+
 
 }

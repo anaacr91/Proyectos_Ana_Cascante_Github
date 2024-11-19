@@ -39,8 +39,8 @@
             <td th:id="'productPrice_' + ${producto.id}" th:text="${#numbers.formatDecimal(producto.price, 1, 1)} + ' €'"></td>
             <td th:id="'productQuantity_' + ${producto.id}" th:text="${producto.quantity}"></td>
             <td >
-                <span th:id="'productActive_' + ${producto.id}" th:if="${producto.active}" class="text-success">Disponible</span>
-                <span th:id="'productInactive_' + ${producto.id}" th:unless="${producto.active}" class="text-danger">No disponible</span>
+                <span th:id="'productActiveTrue_' + ${producto.id}" th:if="${producto.active}" class="text-success">Disponible</span>
+                <span th:id="'productActiveFalse_' + ${producto.id}" th:unless="${producto.active}" class="text-danger">No disponible</span>
             </td>
             <td>
                 <span th:if="${producto.manufacturer}" th:text="${producto.manufacturer.name}"></span>

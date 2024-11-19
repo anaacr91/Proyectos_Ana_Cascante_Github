@@ -23,7 +23,7 @@ import static org.junit.jupiter.api.Assertions.*;
 @AutoConfigureMockMvc
 @Transactional
 
-class CustomerRestControllerTest {
+class CustomerRestControllerIntegrationTest {
     @Autowired
     private MockMvc mockMvc;
 

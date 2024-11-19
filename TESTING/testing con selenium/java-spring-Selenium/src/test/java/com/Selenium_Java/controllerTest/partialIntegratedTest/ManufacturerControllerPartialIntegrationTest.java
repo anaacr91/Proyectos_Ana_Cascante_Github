@@ -34,7 +34,7 @@ Se integra la capa controlador y vista con el contexto Spring
 @SpringBootTest
 @AutoConfigureMockMvc//configura mock mvc-> objeto que hace peticiones http controladas x spring (testear controladores)
 //@WebMvcTest //mock solo
-class ManufacturerControllerPITest {//semi integracion-> usa el controlador con spring en marcha
+class ManufacturerControllerPartialIntegrationTest {//semi integracion-> usa el controlador con spring en marcha
 
     @Autowired //inyectar objetos donde queramos, con constructor:-> autocablear, autoinicializar
     //con atributos:-> inyectar objetos en atributos
