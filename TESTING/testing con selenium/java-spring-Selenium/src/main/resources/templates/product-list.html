@@ -33,22 +33,23 @@
         </thead>
         <tbody>
         <tr th:each="producto: ${productos}">
-            <td th:text="${producto.id}"></td>
-            <td th:text="${producto.name}"></td>
-            <td th:text="${#numbers.formatDecimal(producto.price, 1, 1)}"></td>
-            <td th:text="${producto.quantity}"></td>
-            <td>
-                <span th:if="${producto.active}" class="text-success">Disponible</span>
-                <span th:unless="${producto.active}" class="text-danger">No disponible</span>
+<!--                Agregar ids dinámicos para facilitar obtener estos elementos en el Testing con Selenium-->
+            <td th:id="'productId_' + ${producto.id}" th:text="${producto.id}"></td>
+            <td th:id="'productName_' + ${producto.id}" th:text="${producto.name}"></td>
+            <td th:id="'productPrice_' + ${producto.id}" th:text="${#numbers.formatDecimal(producto.price, 1, 1)} + ' €'"></td>
+            <td th:id="'productQuantity_' + ${producto.id}" th:text="${producto.quantity}"></td>
+            <td >
+                <span th:id="'productActive_' + ${producto.id}" th:if="${producto.active}" class="text-success">Disponible</span>
+                <span th:id="'productInactive_' + ${producto.id}" th:unless="${producto.active}" class="text-danger">No disponible</span>
             </td>
             <td>
                 <span th:if="${producto.manufacturer}" th:text="${producto.manufacturer.name}"></span>
                 <span th:unless="${producto.manufacturer}" class="text-danger">Sin fabricante</span>
             </td>
             <td>
-                <a th:href="@{/productos/{id}(id=${producto.id})}" class="btn btn-sm btn-info"><i class="fas fa-eye"></i> Ver</a>
-                <a th:href="@{/productos/editar/{id}(id=${producto.id})}" class="btn btn-sm btn-warning"><i class="fas fa-edit"></i> Editar</a>
-                <a th:href="@{/productos/borrar/{id}(id=${producto.id})}" class="btn btn-sm btn-danger"><i class="fas fa-trash"></i> Borrar</a>
+                <a th:id="'productActionView_' + ${producto.id}" th:href="@{/productos/{id}(id=${producto.id})}" class="btn btn-sm btn-info"><i class="fas fa-eye"></i> Ver</a>
+                <a th:id="'productActionEdit_' + ${producto.id}" th:href="@{/productos/editar/{id}(id=${producto.id})}" class="btn btn-sm btn-warning"><i class="fas fa-edit"></i> Editar</a>
+                <a th:id="'productActionDelete_' + ${producto.id}" th:href="@{/productos/borrar/{id}(id=${producto.id})}" class="btn btn-sm btn-danger"><i class="fas fa-trash"></i> Borrar</a>
             </td>
         </tr>
         </tbody>
