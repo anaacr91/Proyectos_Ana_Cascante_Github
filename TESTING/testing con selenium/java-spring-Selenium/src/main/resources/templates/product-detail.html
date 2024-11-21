@@ -13,7 +13,7 @@
 
 <div class="container">
     <h1 th:if="${producto}">Detalle producto <span th:text="${producto.id}"></span> </h1>
-    <h1 th:unless="${producto}">Detalle producto</h1>
+    <h1 th:unless="${producto}">Producto no encontrado</h1>
 
 
     <div th:if="${producto}">
@@ -38,17 +38,17 @@
                     </span>
                     <span id="manufacturerEmpty" th:unless="${producto.manufacturer}" class="text-danger">Sin fabricante</span>
                 </p>
-                <a th:href="@{/productos/editar/{id}(id=${producto.id})}" class="btn btn-primary"><i class="fas fa-edit"></i> Editar</a>
-                <a th:href="@{/productos/borrar/{id}(id=${producto.id})}" class="btn btn-danger"><i class="fas fa-trash"></i> Borrar</a>
+                <a id="editButton" th:href="@{/productos/editar/{id}(id=${producto.id})}" class="btn btn-primary"><i class="fas fa-edit"></i> Editar</a>
+                <a id="deleteButton" th:href="@{/productos/borrar/{id}(id=${producto.id})}" class="btn btn-danger"><i class="fas fa-trash"></i> Borrar</a>
             </div>
         </div>
     </div>
-    <div th:unless="${producto}"><!--else-->
+    <div id="productEmpty" th:unless="${producto}"><!--else-->
         <p>No existe el producto</p>
     </div>
 
     <div class="mt-3">
-        <a th:href="@{/productos}" class="btn btn-secondary"><i class="fas fa-arrow-left"></i> Volver a la lista</a>
+        <a id="backButton" th:href="@{/productos}" class="btn btn-secondary"><i class="fas fa-arrow-left"></i>Volver a la lista</a>
     </div>
 </div>
 

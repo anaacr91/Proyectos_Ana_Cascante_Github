@@ -199,15 +199,15 @@ public class ProductListTest {
         assertEquals("10,0 €", price.getText());//comprobar que el precio es igual al precio del producto
 
         WebElement quantity = driver.findElement(By.id("productQuantity_" + product.getId()));
-        assertEquals("5", quantity.getText());
+        assertEquals("5", quantity.getText());//comprobar que la cantidad es igual a la cantidad del producto
 
         WebElement active = driver.findElement(By.id("productActiveTrue_" + product.getId()));
-        assertEquals("Disponible", active.getText());
+        assertEquals("Disponible", active.getText());//comprobar que el producto está disponible
 
         assertThrows(
                 NoSuchElementException.class,
                 () -> driver.findElement(By.id("productActiveFalse_" + product.getId()))
-        );
+        );//comprobar que el producto no está no disponible
     }
     @Test
     @DisplayName("Comprobar botón Ver sobre un producto de la tabla")
@@ -219,11 +219,10 @@ public class ProductListTest {
         driver.navigate().refresh();//refrescar la página, simular F5
 
         var viewButton = driver.findElement(By.id("productActionView_" + product.getId()));
-        //obtener el botón de ver del producto de la base de datos que se ha guardado
-        assertEquals("Ver", viewButton.getText());//comprobar que el texto del botón es igual a Ver
-
+        //obtener el botón de ver por su id, de la vista product-detail
+        assertEquals("Ver", viewButton.getText());
+        //comprobar que el texto del botón es igual a Ver
         viewButton.click();//pulsar el botón de ver
-
         assertEquals("http://localhost:8080/productos/" + product.getId(), driver.getCurrentUrl());
         //comprobar que la url es igual a la url de la página de crear producto
     }
@@ -232,15 +231,16 @@ public class ProductListTest {
     void tableWithProducts_actionButtons_edit() {
         Product product = productRepository.save(
                 Product.builder().name("prod1").price(10d).active(true).quantity(5).build()
-        );
-        driver.navigate().refresh();
+        );//Guardar y crear producto
+        driver.navigate().refresh();//refrescar la página, simular F5
 
         var editButton = driver.findElement(By.id("productActionEdit_" + product.getId()));
+        //obtener el botón de editar por su id, de la vista product-detail
         assertEquals("Editar", editButton.getText());
-
-        editButton.click();
-
+        //comprobar que el texto del botón es igual a Editar
+        editButton.click();//pulsar el botón de editar
         assertEquals("http://localhost:8080/productos/editar/" + product.getId(), driver.getCurrentUrl());
+        //comprobar que la url es igual a la url de la página de editar producto
     }
     @Test
     @DisplayName("Comprobar botón Eliminar sobre un producto de la tabla")
@@ -252,25 +252,24 @@ public class ProductListTest {
         driver.navigate().refresh();//refrescar la página, simular F5
 
         var deleteButton = driver.findElement(By.id("productActionDelete_" + product.getId()));
-        //obtener el botón de borrar del producto de la base de datos que se ha guardado
-        assertEquals("Borrar", deleteButton.getText());//comprobar que el texto del botón es igual a Borrar
-
+    //obtener el botón de borrar por su id, de la vista product-detail
+        assertEquals("Borrar", deleteButton.getText());
+    //comprobar que el texto del botón es igual a Borrar
         deleteButton.click();//pulsar el botón de borrar
-        productController.deleteAll();
-        //TODO: bug no borra bien los productos y nunca encuentra el products empty
+        productController.deleteAll();//borrar todos los productos con el controlador
+    // Comprobar que al borrar, la tabla se ha quedado vacía:
         assertEquals("http://localhost:8080/productos", driver.getCurrentUrl());
-        //comprobar que la url es igual a la url de la página de borrar producto
-        // Comprobar que al borrar, la tabla se ha quedado vacía:
+    //comprobar que la url es igual a la url de la página de borrar producto
         WebElement noProductsMessage = driver.findElement(By.id("productsEmpty"));
+        //encuentra el elemento con id productsEmpty
         assertEquals("No hay productos", noProductsMessage.getText());
-        //comprobar que el mensaje es igual a No hay productos
-
-        // Comprobar que no existe la tabla productos
-        // WebElement productsTable = driver.findElement(By.id("productList"));
+    //comprobar que el mensaje es igual a No hay productos
+    // Comprobar que no existe la tabla productos
+    // y "" que la siguiente linea da error ->WebElement productsTable = driver.findElement(By.id("productList"));
         assertThrows(
-                NoSuchElementException.class,
-                () -> driver.findElement(By.id("productList"))
-                //lanzar excepción si no encuentra el elemento productList
+            NoSuchElementException.class,
+            () -> driver.findElement(By.id("productList"))
+    //y que como la tabla no existe, se lanza excepción al no encontrarla por su id productList
         );
     }
 
