@@ -167,6 +167,11 @@ public class ProductController {
 
     //GET /products/deleteAll
     //falta botón en el listado de productos
+    @GetMapping("/productos/borrarTodos")
+    public String deleteAll() {
+        productRepository.deleteAll();
+        return "redirect:/productos";
+    }
 
 }
 
