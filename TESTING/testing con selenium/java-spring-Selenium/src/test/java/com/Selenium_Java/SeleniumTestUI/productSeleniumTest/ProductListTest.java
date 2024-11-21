@@ -40,6 +40,7 @@ public class ProductListTest {
     @BeforeEach
 // setUp se ejecuta antes de cada test, crea un driver para navegar a la url de test
     void setUp() {
+        productRepository.deleteAll();
         driver = new ChromeDriver();//crear instancia de ChromeDriver
         //declars objeto driver, navegar por la pantalla y hacer aserciones q
         // entrar a la pantalla productos
@@ -243,7 +244,7 @@ public class ProductListTest {
         Product product = productRepository.save(
                 Product.builder().name("prod1").price(10d).active(true).quantity(5).build()
         );//guardar producto en la base de datos
-
+        productRepository.deleteAll();
         driver.navigate().refresh();//refrescar la página, simular F5
 
         var deleteButton = driver.findElement(By.id("productActionDelete_" + product.getId()));
@@ -251,11 +252,26 @@ public class ProductListTest {
         assertEquals("Borrar", deleteButton.getText());//comprobar que el texto del botón es igual a Borrar
 
         deleteButton.click();//pulsar el botón de borrar
-
+        //TODO: bug no borra bien los productos y nunca encuentra el products empty
         assertEquals("http://localhost:8080/productos", driver.getCurrentUrl());
         //comprobar que la url es igual a la url de la página de borrar producto
+
+        // Comprobar que al borrar, la tabla se ha quedado vacía:
+        WebElement noProductsMessage = driver.findElement(By.id("productsEmpty"));
+        assertEquals("No hay productos", noProductsMessage.getText());
+        //comprobar que el mensaje es igual a No hay productos
+
+        // Comprobar que no existe la tabla productos
+        // WebElement productsTable = driver.findElement(By.id("productList"));
+        assertThrows(
+                NoSuchElementException.class,
+                () -> driver.findElement(By.id("productList"))
+                //lanzar excepción si no encuentra el elemento productList
+        );
     }
 
-
-
 }
+
+
+
+

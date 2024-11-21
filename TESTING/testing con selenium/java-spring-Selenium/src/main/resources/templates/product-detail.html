@@ -12,12 +12,14 @@
 <div th:replace="~{navbar :: nav1}"></div>
 
 <div class="container">
-    <h1>Detalle producto</h1>
+    <h1 th:if="${producto}">Detalle producto <span th:text="${producto.id}"></span> </h1>
+    <h1 th:unless="${producto}">Detalle producto</h1>
+
 
     <div th:if="${producto}">
         <div class="card" style="width: 18rem;">
             <div class="card-body">
-                <h5 class="card-title" th:text="${producto.name}"></h5>
+                <h5 id="productTitle" class="card-title" th:text="${producto.name}"></h5>
                 <h6 class="card-subtitle mb-2 text-body-secondary">
                     ID: <span id="product-id" th:text="${producto.id}"></span>
                 </h6>
@@ -28,9 +30,9 @@
                     <strong>Cantidad:</strong>
                     <span id="product-quantity" th:text="${producto.quantity}"></span>
                     <br>
-                    <strong>Activo:</strong>
-                    <span id="product-active" th:text="${producto.active}"></span>
-                    <br>
+                    <span th:if="${producto.active}" id="product-active" style="color:green;">Disponible</span>
+                    <span th:unless="${producto.active}" id="product-active" style="color:red;">No disponible</span>
+                    <br><!--normal que salga en rojo porque los ids son unicos-->
                     <span th:if="${producto.manufacturer}">
                         <a th:href="@{/manufacturers/{id}(id=${producto.manufacturer.id})}" th:text="${producto.manufacturer.name}"></a>
                     </span>
