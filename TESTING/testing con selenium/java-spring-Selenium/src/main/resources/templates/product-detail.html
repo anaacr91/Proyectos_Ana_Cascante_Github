@@ -34,9 +34,9 @@
                     <span th:unless="${producto.active}" id="product-active" style="color:red;">No disponible</span>
                     <br><!--normal que salga en rojo porque los ids son unicos-->
                     <span th:if="${producto.manufacturer}">
-                        <a th:href="@{/manufacturers/{id}(id=${producto.manufacturer.id})}" th:text="${producto.manufacturer.name}"></a>
+                        <a id="manufacturer-link"  th:href="@{/manufacturers/{id}(id=${producto.manufacturer.id})}" th:text="${producto.manufacturer.name}"></a>
                     </span>
-                    <span th:unless="${producto.manufacturer}" class="text-danger">Sin fabricante</span>
+                    <span id="manufacturerEmpty" th:unless="${producto.manufacturer}" class="text-danger">Sin fabricante</span>
                 </p>
                 <a th:href="@{/productos/editar/{id}(id=${producto.id})}" class="btn btn-primary"><i class="fas fa-edit"></i> Editar</a>
                 <a th:href="@{/productos/borrar/{id}(id=${producto.id})}" class="btn btn-danger"><i class="fas fa-trash"></i> Borrar</a>

@@ -66,12 +66,29 @@ public class ProductDetailTest {
         WebElement active = driver.findElement(By.id("product-active"));
         assertEquals("Disponible", active.getText());
         assertEquals("rgba(0, 128, 0, 1)", active.getCssValue("color"));
-    }
-    @Test
-    @DisplayName("Comprobar asociación Manufacturer presente")
-    void relationshipManufacturer() {
+        WebElement manufacturerLink = driver.findElement(By.id("manufacturer-link"));
+        assertEquals("http://localhost:8080/manufacturers/" + manufacturer.getId(),
+                manufacturerLink.getAttribute("href"));
+        assertEquals("fabricante 1", manufacturerLink.getText());
 
     }
+    @Test
+    @DisplayName("Comprobar active false y manufacturer null")
+    void checkFalseAndNullValues() {
+            Product product = productRepository.save(Product.builder().name("prod1").price(40.43).quantity(3).active(false).build());
+            driver.get("http://localhost:8080/productos/" + product.getId());
+
+            // active
+            WebElement active = driver.findElement(By.id("product-active"));//id del elemento
+            assertEquals("No disponible", active.getText());//texto del elemento
+            assertEquals("rgba(255, 0, 0, 1)", active.getCssValue("color"));//color del elemento
+
+            // manufacturer
+        WebElement manufacturerEmpty = driver.findElement(By.id("manufacturerEmpty"));//id del elemento
+        assertEquals("Sin fabricante", manufacturerEmpty.getText());//texto del elemento
+        }
+
     }
+
 
 
