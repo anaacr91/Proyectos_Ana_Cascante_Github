@@ -1,6 +1,7 @@
 package com.Selenium_Java.SeleniumTestUI.productSeleniumTest;
 
 import com.Selenium_Java.model.Manufacturer;
+import com.Selenium_Java.model.Product;
 import com.Selenium_Java.repository.ManufacturerRepository;
 import com.Selenium_Java.repository.ProductRepository;
 import org.openqa.selenium.support.ui.Select;
@@ -76,8 +77,46 @@ public class ProductFormTest {
 
     }
     // TODO hacer many to many Book y Editorial
-
     // edicion formulario relleno
-
     // rellenar campos y enviar
+
+    @Test
+    @DisplayName("Comprobar que el formulario aparece relleno al editar un producto")
+    void checkEdition_FilledInputs() {
+        var manufacturers = manufacturerRepository.saveAll(List.of(
+                Manufacturer.builder().name("fabricante 1").build(),
+                Manufacturer.builder().name("fabricante 2").build()
+        ));//guarda dos fabricantes en la bbdd en memoria
+
+        Product product = Product.builder()
+                .name("prod1")
+                .price(14.22)
+                .quantity(4)
+                .active(true)
+                .manufacturer(manufacturers.get(1))//fabricante2
+                .build();
+        productRepository.save(product);//guarda un producto en la bbdd en memoria
+
+        driver.get("http://localhost:8080/productos/editar/" + product.getId());//navega a la url
+
+        //comprobar imputs rellenos
+        var inputName = driver.findElement(By.id("name"));//encuentra el input con id name
+        assertEquals("prod1", inputName.getAttribute("value"));//comprueba que el valor del input sea prod1
+
+        var inputPrice = driver.findElement(By.id("price"));
+        assertEquals("14.22", inputPrice.getAttribute("value"));
+
+        var inputQuantity = driver.findElement(By.id("quantity"));
+        assertEquals("4", inputQuantity.getAttribute("value"));
+
+        var inputActive = driver.findElement(By.id("active"));
+        assertEquals("true", inputActive.getAttribute("value"));
+        // selector de manufacturer, convertimos de WebElement a Select
+        Select manufacturerSelect = new Select(driver.findElement(By.id("manufacturer")));
+        assertFalse(manufacturerSelect.isMultiple());
+        assertEquals(3, manufacturerSelect.getOptions().size());
+        assertEquals("fabricante 2", manufacturerSelect.getFirstSelectedOption().getText());
+
+    }
+
 }

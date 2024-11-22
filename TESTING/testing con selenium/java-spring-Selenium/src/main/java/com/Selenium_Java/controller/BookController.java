@@ -25,7 +25,7 @@ public class BookController {
 
     @GetMapping("libros/{id}")
     public String findById(@PathVariable Long id, Model model) {
-        bookRepository.findById(id).ifPresent(book -> model.addAttribute("books", book));
+        bookRepository.findById(id).ifPresent(book -> model.addAttribute("book", book));
         return "book-detail";
     }
 
