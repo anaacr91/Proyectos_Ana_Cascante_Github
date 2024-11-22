@@ -103,25 +103,27 @@ public class ProductFormTest {
         var inputName = driver.findElement(By.id("name"));//encuentra el input con id name
         assertEquals("prod1", inputName.getAttribute("value"));//comprueba que el valor del input sea prod1
 
-        var inputPrice = driver.findElement(By.id("price"));
-        assertEquals("14.22", inputPrice.getAttribute("value"));
+        var inputPrice = driver.findElement(By.id("price"));//encuentra el input con id price
+        assertEquals("14.22", inputPrice.getAttribute("value"));//comprueba que el valor del input sea 14.22
 
-        var inputQuantity = driver.findElement(By.id("quantity"));
-        assertEquals("4", inputQuantity.getAttribute("value"));
+        var inputQuantity = driver.findElement(By.id("quantity"));//encuentra el input con id quantity
+        assertEquals("4", inputQuantity.getAttribute("value"));//comprueba que el valor del input sea 4
 
-        var inputActive = driver.findElement(By.id("active"));
-        assertEquals("true", inputActive.getAttribute("value"));
+        var inputActive = driver.findElement(By.id("active"));//encuentra el input con id active
+        assertEquals("true", inputActive.getAttribute("value"));//comprueba que el valor del input sea true
         // selector de manufacturer, convertimos de WebElement a Select
         Select manufacturerSelect = new Select(driver.findElement(By.id("manufacturer")));
-        assertFalse(manufacturerSelect.isMultiple());
-        assertEquals(3, manufacturerSelect.getOptions().size());
+        assertFalse(manufacturerSelect.isMultiple());//comprueba que select de manufacturer sea multiple
+        assertEquals(3, manufacturerSelect.getOptions().size());//num opciones seleccionables 3
         //assertEquals("fabricante 2", manufacturerSelect.getFirstSelectedOption().getText());
         assertEquals(
                 String.valueOf(manufacturer2.getId()), // id del fabricante en string,
                 manufacturerSelect.getFirstSelectedOption().getAttribute("value")
         );//comprueba que el valor del input sea el id del fabricante2
+        //El metodo getFirstSelectedOption() devuelve el primer elemento <option> seleccionado dentro de un <select>
         //firstSelectedOption devuelve el primer elemento seleccionado
         assertEquals("fabricante 2", manufacturerSelect.getFirstSelectedOption().getText());
+        //comprueba que el texto del primer elemento seleccionado sea fabricante 2
 
 
     }

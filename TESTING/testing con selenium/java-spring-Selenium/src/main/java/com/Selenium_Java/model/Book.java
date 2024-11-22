@@ -31,7 +31,7 @@ public class Book {
             inverseJoinColumns = @JoinColumn(name = "categories_id"))
     private Set<Category> categories = new LinkedHashSet<>();
 
-    @Override
+    @Override//este override sirve para que el equals no tenga en cuenta el id
     public final boolean equals(Object o) {
         if (this == o) return true;
         if (o == null) return false;
@@ -42,7 +42,7 @@ public class Book {
         return getId() != null && Objects.equals(getId(), book.getId());
     }
 
-    @Override
+    @Override//este override sirve para que el hashcode no tenga en cuenta el id
     public final int hashCode() {
         return this instanceof HibernateProxy ? ((HibernateProxy) this).getHibernateLazyInitializer().getPersistentClass().hashCode() : getClass().hashCode();
     }

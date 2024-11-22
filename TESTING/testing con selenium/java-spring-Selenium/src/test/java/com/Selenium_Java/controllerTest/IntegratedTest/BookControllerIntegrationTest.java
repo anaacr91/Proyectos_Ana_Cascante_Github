@@ -40,36 +40,36 @@ public class BookControllerIntegrationTest {
                 Book.builder().title("libro2").price(23.0).build()
         ));
 
-        mockMvc.perform(get("/libros"))
+        mockMvc.perform(get("/libros"))//hace una peticion get a la url /libros
                 .andExpect(status().isOk())
-                .andExpect(view().name("book-list"))
-                .andExpect(model().attributeExists("books"))
-                .andExpect(model().attribute("books", hasSize(2)));
+                .andExpect(view().name("book-list"))//comprueba la vista
+                .andExpect(model().attributeExists("books"))//books es el modelo del controlador
+                .andExpect(model().attribute("books", hasSize(2)));//comprueba que haya 2 libros
     }
     @Test
     @DisplayName("Enviar formulario con nuevo libro para crearlo en bbdd")
     void crearNuevoLibro() throws Exception{
 
-        var cat1= categoryRepository.save(Category.builder().name("cat1").build());
+        var cat1= categoryRepository.save(Category.builder().name("cat1").build());//creo 3 categorias
         var cat2= categoryRepository.save(Category.builder().name("cat2").build());
         var cat3= categoryRepository.save(Category.builder().name("cat3").build());
 
-        String id1 = String.valueOf(cat1.getId());//lo paso el id a string porque param categoria solo acepta string
+        String id1 = String.valueOf(cat1.getId());
         String id2 = String.valueOf(cat2.getId());
         String id3 = String.valueOf(cat3.getId());
-
+//paso los id a string porque .param de MVC requiere que los parámetros sean cadenas de texto/String
     mockMvc.perform(post("/libros")
             .contentType(MediaType.APPLICATION_FORM_URLENCODED)
             .param("title","LibroTest")
-            .param("price","20.0")
-            .param("categories",id1, id2, id3)
+            .param("price","20.0")//atributos en el modelo
+            .param("categories",id1, id2, id3)//categories ->modelo del controlador
     ).andExpect(status().is3xxRedirection())
         .andExpect(redirectedUrl("/libros"));
 
-    var bookSaved = bookRepository.findByTitleIgnoreCase("LibroTest").get(0);
-    assertEquals("LibroTest", bookSaved.getTitle());
-    assertEquals(20.0, bookSaved.getPrice());
-    assertEquals(3, bookSaved.getCategories().size());
+    var bookSaved = bookRepository.findByTitleIgnoreCase("LibroTest").get(0);//busca el 1r libro en la bbdd
+    assertEquals("LibroTest", bookSaved.getTitle());//comprueba que el titulo sea el mismo
+    assertEquals(20.0, bookSaved.getPrice());//comprueba que el precio sea el mismo
+    assertEquals(3, bookSaved.getCategories().size());//comprueba que haya 3 categorias
 
     }
     @Test
