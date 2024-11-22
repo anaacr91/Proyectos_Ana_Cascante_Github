@@ -87,7 +87,7 @@ public class ProductFormTest {
                 Manufacturer.builder().name("fabricante 1").build(),
                 Manufacturer.builder().name("fabricante 2").build()
         ));//guarda dos fabricantes en la bbdd en memoria
-
+        Manufacturer manufacturer2 = manufacturers.getLast();
         Product product = Product.builder()
                 .name("prod1")
                 .price(14.22)
@@ -115,7 +115,14 @@ public class ProductFormTest {
         Select manufacturerSelect = new Select(driver.findElement(By.id("manufacturer")));
         assertFalse(manufacturerSelect.isMultiple());
         assertEquals(3, manufacturerSelect.getOptions().size());
+        //assertEquals("fabricante 2", manufacturerSelect.getFirstSelectedOption().getText());
+        assertEquals(
+                String.valueOf(manufacturer2.getId()), // id del fabricante en string,
+                manufacturerSelect.getFirstSelectedOption().getAttribute("value")
+        );//comprueba que el valor del input sea el id del fabricante2
+        //firstSelectedOption devuelve el primer elemento seleccionado
         assertEquals("fabricante 2", manufacturerSelect.getFirstSelectedOption().getText());
+
 
     }
 
