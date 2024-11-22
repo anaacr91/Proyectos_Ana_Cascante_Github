@@ -1,77 +1,73 @@
 package com.Selenium_Java;
 
-import com.Selenium_Java.model.Address;
-import com.Selenium_Java.model.Manufacturer;
-import com.Selenium_Java.model.Product;
-import com.Selenium_Java.repository.AddressRepository;
-import com.Selenium_Java.repository.ManufacturerRepository;
-import com.Selenium_Java.repository.ProductRepository;
+import com.Selenium_Java.model.*;
+import com.Selenium_Java.repository.*;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import java.util.List;
+import java.util.Set;
 
 @SpringBootApplication
 
 public class Main {
 
 	public static void main(String[] args) {
-//extraer cualquier objeto de la app gracias a spring.
-// Guardar contexto spring (contenedor objetos de la app) en 1 variable
+		//crear e insertar objetos en la BBDD
 		var context = SpringApplication.run(Main.class, args);
-//metodo getBean obtener cualquier objeto de la aplicación
-		ProductRepository productRepository = context.getBean(ProductRepository.class);
-//comprobar si hay algun producto, si no hay ninguno o es =0, insertar un par
-		long numeroProductos = productRepository.count();
-		if (numeroProductos > 0) {
-			return;
+		// Se crea el contexto de la aplicación spring y se guarda en la variable context.
+		//para extraer cualquier objeto de la app gracias a spring.
+
+		var productRepository = context.getBean(ProductRepository.class);//	Se obtiene el repositorio de Product.
+		var manufacturerRepo = context.getBean(ManufacturerRepository.class);// Se obtiene el repositorio de Manufacturer.
+		var categoryRepository = context.getBean(CategoryRepository.class);// Se obtiene el repositorio de Category.
+		var bookRepository = context.getBean(BookRepository.class);// Se obtiene el repositorio de Book.
+		//metodo getBean obtener cualquier objeto de la aplicación
+		//se está solicitando al contenedor de Spring que devuelva el bean que corresponde a la clase correspondiente
+
+		if (productRepository.count() == 0) {// Si no hay productos en la base de datos, los creamos.
+			var prod1 = Product.builder().name("Zumo multifrutas").price(1.33).quantity(1).active(true).build();
+			var prod2 = Product.builder().name("Granola").price(4.33).quantity(4).active(false).build();
+			productRepository.save(prod1);
+			productRepository.save(prod2);
 		}
-// guardar producto product repository con el builder
-		var producto1= Product.builder()
-				.name("Producto 1")
-				.price(10.0)
-				.quantity(100)
-				.active(true)
-				.build();
-		productRepository.save(producto1);
-		
-//otra forma
-//		Product producto3 = productRepository.save(new Product(null, "Producto 2", 20.0, 200, true, null));
+		if (manufacturerRepo.count() == 0) {// Si no hay fabricantes en la base de datos, los creamos.
+			var address1 = Address.builder().street("Calle Alfonso").city("Zaragoza").state("Aragón").zipCode("50003").build();
+			var address2 = Address.builder().street("Calle Córdoba").city("Jaén").state("Andalucía").zipCode("23007").build();
 
-//crear un producto con el constructor + getters + setters
-		Product producto2 = new Product();
-		producto2.setName("Laptop");
-		producto2.setPrice(3000.0);
-		producto2.setQuantity(10);
-		producto2.setActive(true);
-		productRepository.save(producto2);
+			var manufacturer1 = Manufacturer.builder()
+					.name("Adidas")
+					.description("description A")
+					.year(2024)
+					.imageUrl("https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/Adidas_2022_logo.svg/1920px-Adidas_2022_logo.svg.png")
+					.address(address1)
+					.build();
 
-// main-> opcional: insertar datos demo: para que la bbdd no este vacia
-		var manufacturerRepo = context.getBean(ManufacturerRepository.class);
-		//repo address->
-		var addressRepo = context.getBean(AddressRepository.class);
-		//se está solicitando al contenedor de Spring que devuelva el bean que corresponde a la clase AddressRepository.
+			var manufacturer2 = Manufacturer.builder()
+					.name("CertiDevs")
+					.description("description A")
+					.year(2024)
+					.imageUrl("https://app.certidevs.com/content/images/CertiDevs-logo.svg")
+					.address(address2)
+					.build();
+			manufacturerRepo.saveAll(
+					List.of(manufacturer1, manufacturer2)
+			);
+		}
+		if (categoryRepository.count() == 0) {// Si no hay categorías en la base de datos, las creamos.
+			Category cat1 = categoryRepository.save(Category.builder().name("Ficción").description("description larga").build());
+			Category cat2 = categoryRepository.save(Category.builder().name("Comedia").description("description larga").build());
+			Category cat3 = categoryRepository.save(Category.builder().name("Romántica").description("description larga").build());
 
-		if (manufacturerRepo.count() == 0);//si es nulo
-		//insertar direccione-> Crear objetos Address en base de datos
-		var address1 = Address.builder().street("Calle Alfonso").city("Zaragoza").state("Aragon").zipCode("5003").build();
-		var address2 = Address.builder().street("Calle Córdoba").city("Jaen").state("Andalucia").zipCode("23007").build();
-		// insertar fabricantes-> Crear objetos Manufacturer en base de datos
-		var manufacturer1 = Manufacturer.builder().name("Adidas").description("description A").year(2024)
-				.imageUrl("https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/Adidas_2022_logo.svg/1920px-Adidas_2022_logo.svg.png")
-				.address(address1).build();
-		var manufacturer2 = Manufacturer.builder().name("CertiDevs").description("description A").year(2024)
-				.imageUrl("https://app.certidevs.com/content/images/CertiDevs-logo.svg")
-				.address(address2).build();
-		manufacturerRepo.saveAll(List.of(manufacturer1, manufacturer2));
-
-		manufacturerRepo.saveAll(List.of
-				(manufacturer1, manufacturer2));
-
-
-
-
-
+			Book book1 = new Book(); // Crearlo con constructor para que tenga el Set de categories inicializado en vez de null
+			book1.setTitle("libro1");
+			book1.setPrice(30.5);
+			book1.getCategories().add(cat1);
+			book1.getCategories().add(cat2);
+			book1.getCategories().add(cat3);
+			//book1.getCategories().addAll(Set.of(cat1, cat2, cat3));
+			bookRepository.save(book1); // Owner de la asociación con Category, se tiene que guardar el book para que se guarde la asociación.
+		}
 
 	}
 }

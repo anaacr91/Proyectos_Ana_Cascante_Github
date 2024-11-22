@@ -75,4 +75,9 @@ public class ProductFormTest {
         assertEquals("FABRICANTE 2", manufacturerSelect.getOptions().get(2).getText());
 
     }
+    // TODO hacer many to many Book y Editorial
+
+    // edicion formulario relleno
+
+    // rellenar campos y enviar
 }

@@ -33,7 +33,9 @@ public class ProductDetailTest {
 
     @BeforeEach
     void setUp() {
-        productRepository.deleteAll();//borra todos los productos
+       // productRepository.deleteAll();//borra todos los productos
+        productRepository.deleteAllInBatch();
+        manufacturerRepository.deleteAllInBatch();
         driver = new ChromeDriver();//crea un nuevo driver
     }
     @AfterEach
