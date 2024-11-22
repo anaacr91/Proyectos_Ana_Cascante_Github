@@ -3,12 +3,15 @@ package com.Selenium_Java.controller;
 import com.Selenium_Java.model.Book;
 import com.Selenium_Java.repository.BookRepository;
 import com.Selenium_Java.repository.CategoryRepository;
+import lombok.AllArgsConstructor;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-
+@Controller
+@AllArgsConstructor
 public class BookController {
 
     private BookRepository bookRepository;
@@ -16,13 +19,13 @@ public class BookController {
 
     @GetMapping("libros")
     public String findAll(Model model) {
-        model.addAttribute("libros", bookRepository.findAll());
+        model.addAttribute("books", bookRepository.findAll());
         return "book-list";
     }
 
     @GetMapping("libros/{id}")
     public String findById(@PathVariable Long id, Model model) {
-        bookRepository.findById(id).ifPresent(book -> model.addAttribute("book", book));
+        bookRepository.findById(id).ifPresent(book -> model.addAttribute("books", book));
         return "book-detail";
     }
 
