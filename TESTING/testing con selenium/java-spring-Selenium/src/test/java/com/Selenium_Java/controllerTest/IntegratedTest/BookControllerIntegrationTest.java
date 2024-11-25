@@ -70,16 +70,13 @@ public class BookControllerIntegrationTest {
     assertEquals("LibroTest", bookSaved.getTitle());//comprueba que el titulo sea el mismo
     assertEquals(20.0, bookSaved.getPrice());//comprueba que el precio sea el mismo
     assertEquals(3, bookSaved.getCategories().size());//comprueba que haya 3 categorias
-
     }
     @Test
     @DisplayName("Editar un libro que ya existe")
     void editarLibroExistente() throws Exception {
-
         var cat1 = categoryRepository.save(Category.builder().name("cat1").build());
         var cat2 = categoryRepository.save(Category.builder().name("cat2").build());
         var cat3 = categoryRepository.save(Category.builder().name("cat3").build());
-
         Book book1 = new Book(); // Crearlo con constructor para que tenga el Set de categories inicializado en vez de null
         book1.setTitle("libro1");
         book1.setPrice(30.5);
@@ -87,11 +84,9 @@ public class BookControllerIntegrationTest {
         book1.getCategories().add(cat2);
         book1.getCategories().add(cat3);
         bookRepository.save(book1);
-
         String id1 = String.valueOf(cat1.getId());
         String id2 = String.valueOf(cat2.getId());
         String id3 = String.valueOf(cat3.getId());
-
         mockMvc.perform(post("/libros")
                         .contentType(MediaType.APPLICATION_FORM_URLENCODED)
                         .param("id", String.valueOf(book1.getId()))
@@ -100,16 +95,13 @@ public class BookControllerIntegrationTest {
                         .param("categories", id1, id3)
                 ).andExpect(status().is3xxRedirection())
                 .andExpect(redirectedUrl("/libros"));
-
         var bookSaved = bookRepository.findByTitleIgnoreCase("LibroTest").get(0);
         assertEquals("LibroTest", bookSaved.getTitle());
         assertEquals(23.44, bookSaved.getPrice());
         assertEquals(2, bookSaved.getCategories().size());
-
         assertTrue(bookSaved.getCategories().contains(cat1));
         assertFalse(bookSaved.getCategories().contains(cat2));
         assertTrue(bookSaved.getCategories().contains(cat3));
-
     }
 }
 

@@ -14,11 +14,12 @@ import org.springframework.web.server.ResponseStatusException;
 import java.util.List;
 @Slf4j//para logs en consola de errores y mensajes de info y debug en consola
 @AllArgsConstructor
-@RestController
+@RestController//se usa @RestController en vez de @controller
+// y se devuelve ResponseEntity<> (respuestas/status http), en lugar de strings
 //CONTROLADOR API REST: PERMITE QUE 2 APPS SE COMUNIQUEN entre si a traves de la web utilizando protocolo http
 //permite hacer peticiones http, solicitudes: GET, POST, PUT, DELETE , para obtener, enviar o modificar datos
 //estos datos se envían y reciben en un formato como JSON y XML
-//se usa @RestController en vez de @controller y se devuelve ->return ResponseEntity<> (respuestas/status http)
+
 // en vez de String en cada metodo
 public class CustomerController {
 

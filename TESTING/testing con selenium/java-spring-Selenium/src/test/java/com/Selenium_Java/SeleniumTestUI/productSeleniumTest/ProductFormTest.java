@@ -51,20 +51,15 @@ public class ProductFormTest {
         driver.get("http://localhost:8080/productos/crear");//navega a la url
         var h1 = driver.findElement(By.tagName("h1"));//encuentra el h1
         assertEquals("Crear producto", h1.getText());//comprueba que el texto del h1 sea Crear producto
-
         // comprobar inputs vacíos
         var inputName = driver.findElement(By.id("name"));//encuentra el input con id name
         assertTrue(inputName.getAttribute("value").isEmpty());//comprueba que el valor del input sea vacio
-
         var inputPrice = driver.findElement(By.id("price"));//encuentra el input con id price
         assertTrue(inputPrice.getAttribute("value").isEmpty());//comprueba que el valor del input sea vacio
-
         var inputQuantity = driver.findElement(By.id("quantity"));//encuentra el input con id quantity
         assertTrue(inputQuantity.getAttribute("value").isEmpty());//comprueba que el valor del input sea vacio
-
         var inputActive = driver.findElement(By.id("active"));//encuentra el input con id active
         assertEquals("true", inputActive.getAttribute("value"));//comprueba que el valor del input sea true
-
         //selector de manufacturer, convertimos de webElement a Select
         Select manufacturerSelect = new Select(driver.findElement(By.id("manufacturer")));//encuentra el select con id manufacturer
         assertFalse(manufacturerSelect.isMultiple());//comprueba que select sea multiple
@@ -74,8 +69,7 @@ public class ProductFormTest {
         assertEquals("FABRICANTE 1", manufacturerSelect.getOptions().get(1).getText());
         //comprueba que la primera opcion sea fabricante 1;
         assertEquals("FABRICANTE 2", manufacturerSelect.getOptions().get(2).getText());
-
-    }
+        }
     // TODO hacer many to many Book y Editorial
     // edicion formulario relleno
     // rellenar campos y enviar
@@ -89,26 +83,17 @@ public class ProductFormTest {
         ));//guarda dos fabricantes en la bbdd en memoria
         Manufacturer manufacturer2 = manufacturers.getLast();
         Product product = Product.builder()
-                .name("prod1")
-                .price(14.22)
-                .quantity(4)
-                .active(true)
-                .manufacturer(manufacturers.get(1))//fabricante2
+                .name("prod1").price(14.22).quantity(4).active(true).manufacturer(manufacturers.get(1))//fabricante2
                 .build();
         productRepository.save(product);//guarda un producto en la bbdd en memoria
-
         driver.get("http://localhost:8080/productos/editar/" + product.getId());//navega a la url
-
         //comprobar imputs rellenos
         var inputName = driver.findElement(By.id("name"));//encuentra el input con id name
         assertEquals("prod1", inputName.getAttribute("value"));//comprueba que el valor del input sea prod1
-
         var inputPrice = driver.findElement(By.id("price"));//encuentra el input con id price
         assertEquals("14.22", inputPrice.getAttribute("value"));//comprueba que el valor del input sea 14.22
-
         var inputQuantity = driver.findElement(By.id("quantity"));//encuentra el input con id quantity
         assertEquals("4", inputQuantity.getAttribute("value"));//comprueba que el valor del input sea 4
-
         var inputActive = driver.findElement(By.id("active"));//encuentra el input con id active
         assertEquals("true", inputActive.getAttribute("value"));//comprueba que el valor del input sea true
         // selector de manufacturer, convertimos de WebElement a Select
@@ -124,8 +109,6 @@ public class ProductFormTest {
         //firstSelectedOption devuelve el primer elemento seleccionado
         assertEquals("fabricante 2", manufacturerSelect.getFirstSelectedOption().getText());
         //comprueba que el texto del primer elemento seleccionado sea fabricante 2
-
-
     }
 
 }

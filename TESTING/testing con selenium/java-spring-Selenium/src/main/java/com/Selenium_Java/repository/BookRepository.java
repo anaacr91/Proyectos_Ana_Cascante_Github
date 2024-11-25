@@ -12,6 +12,4 @@ public interface BookRepository extends JpaRepository<Book, Long> {
 
     @Query("select b from Book b where upper(b.title) = upper(?1)")
     List<Book> findByTitleIgnoreCase(String title);
-
-
 }
