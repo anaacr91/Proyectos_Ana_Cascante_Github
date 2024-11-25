@@ -47,22 +47,20 @@ public class ProductDetailTest {
     @DisplayName("Comprobar producto OK con todos los datos correctos")
     void productExistWithAllDetails() {
     Manufacturer manufacturer = manufacturerRepository.save(Manufacturer.builder().name("fabricante 1").year(2024).build());
-    Product product = productRepository.save(Product.builder().name("prod1").price(40.43).quantity(3).active(true).manufacturer(manufacturer).build());
+    Product product = productRepository.save(Product.builder().name("prod1").price(40.43).quantity(3).active(true)
+            .manufacturer(manufacturer).build());
         //crear y guardar producto y manufacturer
         // navegar al product-detail
         driver.get("http://localhost:8080/productos/" + product.getId());
-
         WebElement h1 = driver.findElement(By.tagName("h1"));//encuentra el elemento h1
         assertEquals("Detalle producto " + product.getId(), h1.getText());
         //comprueba que el texto del elemento h1 sea igual al esperado
-
         assertEquals("prod1", driver.findElement(By.id("productTitle")).getText());
         //comprueba que el texto del elemento con id productTitle sea igual al esperado
         assertEquals(
                 product.getId().toString(),
                 driver.findElement(By.id("product-id")).getText()
         );//comprueba que el texto del elemento con id product-id sea igual al esperado
-
         assertEquals(
                 product.getPrice().toString(),//comprueba que el texto del elemento con id product-price sea igual al esperado
                 driver.findElement(By.id("product-price")).getText()

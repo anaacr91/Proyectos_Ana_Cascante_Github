@@ -4,6 +4,7 @@ import com.Selenium_Java.model.Manufacturer;
 import com.Selenium_Java.model.Product;
 import com.Selenium_Java.repository.ManufacturerRepository;
 import com.Selenium_Java.repository.ProductRepository;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -110,5 +111,81 @@ public class ProductFormTest {
         assertEquals("fabricante 2", manufacturerSelect.getFirstSelectedOption().getText());
         //comprueba que el texto del primer elemento seleccionado sea fabricante 2
     }
+    @Test
+    @DisplayName("Entrar en el formulario y crear un nuevo producto y enviar")
+    void crearNuevoProductoYEnviar() {
+    manufacturerRepository.saveAll(List.of(
+        Manufacturer.builder().name("fabricante 1").build(),
+        Manufacturer.builder().name("fabricante 2").build()
+        ));
 
+        driver.get("http://localhost:8080/productos/crear");
+        var inputName = driver.findElement(By.id("name"));
+        inputName.sendKeys("Producto Selenium");
+        //sendKeys("Producto selenium"), es un metodo de Selenium que permite simular la acción de
+        // escribir texto en un elemento HTML como un campo de entrada.
+        //En este caso, se está escribiendo el texto "Producto selenium" en el campo localizado por inputName.
+        var inputPrice = driver.findElement(By.id("price"));
+        inputPrice.sendKeys("55");
+        var inputQuantity = driver.findElement(By.id("quantity"));
+        inputQuantity.sendKeys("23");
+        var inputActive = driver.findElement(By.id("active"));
+        Select manufacturerSelect = new Select(driver.findElement(By.id("manufacturer")));
+        manufacturerSelect.selectByVisibleText("FABRICANTE 2");
+        //selectByVisibleText("FABRICANTE 2"):
+        // Selecciona una opción en el campo desplegable cuyo texto visible sea "FABRICANTE 2".
+        inputActive.click();// simular el clic de un usuario en el elemento active
+        driver.findElement(By.id("btnSend")).click();//click en el boton enviar
+        assertEquals("http://localhost:8080/productos", driver.getCurrentUrl());
+        //comprueba que la url sea http://localhost:8080/productos
+        List<WebElement> tableRows = driver.findElements(By.cssSelector("#productList tbody tr"));//encuentra las filas de la tabla
+        assertEquals(1, tableRows.size()); // COMPROBAR QUE SE HA CREADO UN PRODUCTO en la tabla
+        var productSaved = productRepository.findAll().getFirst();//obtiene el producto guardado en la bbdd
+        assertEquals("Producto Selenium", productSaved.getName());
+        assertEquals(55, productSaved.getPrice());
+        assertEquals(23, productSaved.getQuantity());
+        assertEquals(true, productSaved.getActive());
+        assertEquals("fabricante 2", productSaved.getManufacturer().getName());
+    }
+
+    @Test
+    @DisplayName("Entrar en el formulario y editar un producto existente y enviar")
+    void editarProductYEnviar() {
+        var manufacturers = manufacturerRepository.saveAll(List.of(
+                Manufacturer.builder().name("fabricante 1").build(), // 0
+                Manufacturer.builder().name("fabricante 2").build() // 1
+        ));
+        Manufacturer manufacturer2 = manufacturers.getLast();
+        Product product = Product.builder()
+                .name("prod1").price(14.22).quantity(4).active(false).manufacturer(manufacturer2) // fabricante 2
+                .build();
+        productRepository.save(product);
+        driver.get("http://localhost:8080/productos/editar/" + product.getId());
+        // modificar campos desde selenium
+        var inputName = driver.findElement(By.id("name"));
+        inputName.clear();
+        inputName.sendKeys("prod 1 modificado");
+        var inputPrice = driver.findElement(By.id("price"));
+        inputPrice.clear();
+        inputPrice.sendKeys("55,43");
+        var inputQuantity = driver.findElement(By.id("quantity"));
+        inputQuantity.clear();
+        inputQuantity.sendKeys("15");
+        var inputActive = driver.findElement(By.id("active"));
+        inputActive.click();
+        Select manufacturerSelect = new Select(driver.findElement(By.id("manufacturer")));
+        manufacturerSelect.selectByVisibleText("fabricante 1");
+        driver.findElement(By.id("btnSend")).click();
+        // Obtener producto de base de datos y comprobar campos modificados
+        assertEquals("http://localhost:8080/productos", driver.getCurrentUrl());
+        var productSaved = productRepository.findAll().getFirst();
+        assertEquals("prod 1 modificado", productSaved.getName());
+        assertEquals(55.43, productSaved.getPrice());
+        assertEquals(15, productSaved.getQuantity());
+        assertEquals(true, productSaved.getActive());
+        assertEquals("fabricante 1", productSaved.getManufacturer().getName());
+    }
+
+    // casos límite y validaciones: qué pasa si pongo valores erróneos en todos los campos
+    //dejar todos los campos sin rellenar
 }
