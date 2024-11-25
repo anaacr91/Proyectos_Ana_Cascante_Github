@@ -4,6 +4,7 @@ import com.Selenium_Java.model.Manufacturer;
 import com.Selenium_Java.model.Product;
 import com.Selenium_Java.repository.ManufacturerRepository;
 import com.Selenium_Java.repository.ProductRepository;
+import org.openqa.selenium.InvalidElementStateException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 import org.junit.jupiter.api.AfterEach;
@@ -186,6 +187,49 @@ public class ProductFormTest {
         assertEquals("fabricante 1", productSaved.getManufacturer().getName());
     }
 
-    // casos límite y validaciones: qué pasa si pongo valores erróneos en todos los campos
+    // casos especiales: límites y validaciones: qué pasa si pongo valores erróneos en todos los campos
     //dejar todos los campos sin rellenar
+    @Test
+    @DisplayName("Enviar errores erróneos y verificar validaciones del formulario HTML")
+    void create_invalidValues(){
+        driver.get("http://localhost:8080/productos/crear");
+
+        var inputName = driver.findElement(By.id("name"));
+        inputName.sendKeys("Producto thymeleaf");
+
+        var inputPrice = driver.findElement(By.id("price"));
+        inputPrice.sendKeys("600");
+
+        var inputQuantity = driver.findElement(By.id("quantity"));
+        inputQuantity.sendKeys("30");
+
+        driver.findElement(By.id("btnSend")).click();
+
+        assertEquals("http://localhost:8080/productos/crear", driver.getCurrentUrl());
+        assertEquals(0, productRepository.count());
+
+    }
+
+    @Test
+    @DisplayName("Comprobar id read only no deja editarlo")
+    void checkIdReadOnly() {
+        Product product = Product.builder()
+                .name("prod1")
+                .price(14.22)
+                .quantity(4)
+                .active(false)
+                .build();
+        productRepository.save(product);
+        driver.get("http://localhost:8080/productos/editar/" + product.getId());
+        var inputId = driver.findElement(By.id("id"));
+        assertEquals(String.valueOf(product.getId()), inputId.getAttribute("value"));
+        inputId.sendKeys("3");
+        assertEquals(String.valueOf(product.getId()), inputId.getAttribute("value"));
+        assertThrows(InvalidElementStateException.class, () -> inputId.clear());
+        //significa que se está verificando que al intentar borrar el contenido de un campo de entrada (inputId)
+        // mediante el metodo clear(), se lanza una excepción de tipo InvalidElementStateException.
+        //  Es decir, se espera que ese campo no sea editable y, por lo tanto, no permita borrar su contenido.
+        assertEquals(String.valueOf(product.getId()), inputId.getAttribute("value"));
+    }
+
 }
