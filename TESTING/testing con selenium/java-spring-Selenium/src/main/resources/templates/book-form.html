@@ -36,8 +36,8 @@
         <!-- Asociación ManyToOne con Manufacturer, selector de fabricantes para seleccionar uno -->
         <!--    th:selected="${manufacturer.id == book.manufacturer.id}">-->
         <div class="mb-3">
-            <label for="category" class="form-label">Selecciona una Categoria</label>
-            <select id="category" th:field="*{categories}" class="form-select" multiple>
+            <label for="categories" class="form-label">Selecciona una Categoria</label>
+            <select id="categories" th:field="*{categories}" class="form-select" multiple>
                 <option
                         th:each="category: ${categories}"
                         th:text="${category.name}"
@@ -46,7 +46,7 @@
             </select>
         </div>
         <!--        Falta: th:selected="${manufacturer.id == product.manufacturer?.id}"-->
-        <button type="submit" class="btn btn-primary me-2"><i class="fas fa-save"></i> Guardar</button>
+        <button id="btnSend" type="submit" class="btn btn-primary me-2"><i class="fas fa-save"></i> Guardar</button>
         <a th:href="@{/libros}" class="btn btn-secondary"><i class="fas fa-arrow-left"></i> Cancelar</a>
     </form>
 </div>

@@ -52,18 +52,20 @@ public class NavTest {
     }
 
     @Test
-    @DisplayName("Comprobar navbar colapsada en móvil")
+    @DisplayName("Comprobar navbar colapsada en móvil con espera")
     void checkMobileNavbar() {
         driver.manage().window().setSize(new Dimension(390, 900));
         //adaptar el tamaño de la ventana para simular un móvil
         assertFalse(driver.findElement(By.id("manufacturersLink")).isDisplayed());
         driver.findElement(By.cssSelector("button.navbar-toggler")).click();
+        //darle click a la hamburguesa(navbar colapsado)
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(3));
         //espera 3 segundos antes de que el elemento sea verificado
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("manufacturersLink")));
-        //abrir navbar porque esta colapsada (hamburguesa), ver los botones y hacer click
+        //ver los botones expandidos y hacer click
         assertTrue(driver.findElement(By.id("manufacturersLink")).isDisplayed());
-        System.out.println("fin");
+        driver.findElement(By.id("manufacturersLink")).click();
+        assertEquals("http://localhost:8080/manufacturers", driver.getCurrentUrl());
     }
 
 }
