@@ -8,13 +8,18 @@ import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import java.time.Duration;
 
-@SpringBootTest
+import static org.junit.jupiter.api.Assertions.*;
+
+@SpringBootTest (webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
+//(webEnvironment)levanta app 8080 sin necesidad arrancar main, ya que no se puede tener esta app y la de test en el mismo puerto
 public class NavTest {
     WebDriver driver;
 
@@ -22,6 +27,7 @@ public class NavTest {
     void setUp() {
         driver = new ChromeDriver();
         driver.get("http://localhost:8080/productos");
+        driver.manage().window().maximize();//expandido modo escritorio para ver los elementos y que sean navigables
     }
     @AfterEach
     void tearDown(){
@@ -41,10 +47,8 @@ public class NavTest {
     @DisplayName("Comprobar menú de fabricantes")
     void navigateToManufacturers() {
         driver.findElement(By.id("manufacturersLink")).click();
-        //TODO: BUG, ME DICE ELEMENTO NO NAVEGABLE?
         driver.navigate().refresh();
         assertEquals("http://localhost:8080/manufacturers", driver.getCurrentUrl());
-
     }
 
     @Test
@@ -52,6 +56,13 @@ public class NavTest {
     void checkMobileNavbar() {
         driver.manage().window().setSize(new Dimension(390, 900));
         //adaptar el tamaño de la ventana para simular un móvil
+        assertFalse(driver.findElement(By.id("manufacturersLink")).isDisplayed());
+        driver.findElement(By.cssSelector("button.navbar-toggler")).click();
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(3));
+        //espera 3 segundos antes de que el elemento sea verificado
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("manufacturersLink")));
+        //abrir navbar porque esta colapsada (hamburguesa), ver los botones y hacer click
+        assertTrue(driver.findElement(By.id("manufacturersLink")).isDisplayed());
         System.out.println("fin");
     }
 
