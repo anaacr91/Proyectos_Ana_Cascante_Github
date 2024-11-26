@@ -126,6 +126,9 @@ public class BookFormTest {
         assertEquals(2, selectedCategories.size());
         assertEquals("cat1", selectedCategories.get(0).getText());
         assertEquals("cat3", selectedCategories.get(1).getText());
+        /*
+        Hemos comprobado que quitando th:selected Thymeleaf es capaz de preseleccionar bien las categorías
+         */
     }
 
 
