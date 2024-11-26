@@ -76,5 +76,18 @@ void webTableModalToCreate() {
     var createdRowFirstName = driver.findElement(By.xpath("//div[contains(@class, 'rt-td') and text() = 'Selenium FirstName']"));
     assertTrue(createdRowFirstName.isDisplayed());
 }
+    @Test
+    @DisplayName("Comprobar la búsqueda de la tabla")
+    void searchBox() {
+        driver.findElement(By.id("searchBox")).sendKeys("Alden");
+        var filteredRow = driver.findElement(By.xpath("//div[contains(@class, 'rt-td') and text()='Alden']"));
+        //la clase rd-td es la que contiene el texto de la tabla
+        assertTrue(filteredRow.isDisplayed());
+
+        assertThrows(
+                NoSuchElementException.class,
+                () -> driver.findElement(By.xpath("//div[contains(@class, 'rt-td') and text()='Cierra']"))
+        );
+    }
 
 }
