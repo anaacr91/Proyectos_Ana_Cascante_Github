@@ -2,4 +2,4 @@
 
 Projects from La Salle Gracia Advance Vocational Training on Web Development
 
-with my Testing Projects 
+with my QA automation Testing Projects 
