@@ -6,6 +6,8 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
+import java.util.List;
+
 /*
 POM de Manufacturer List, es decir, esta clase tiene todos los WebElement importantes
 que se van a testear en ManufacturerList
@@ -28,13 +30,20 @@ public class ManufacturerListPagePom {
     public ManufacturerListPagePom(WebDriver driver) {
         PageFactory.initElements(driver, this);
         //Pagefactory es una clase que inicializa los elementos de la página
+        this.driver = driver;//guardamos el driver para poder interactuar con la página y sus elementos
     }
-
+    public List<WebElement> getManufacturerNames() {
+        return driver.findElements(By.cssSelector("[id^='manufacturerName_']"));
+    }
+    public WebElement getManufacturerName(Long id) {
+        return driver.findElement(By.id("manufacturerName_" + id));
+    }
     public void clickViewButton(Long manufacturerId) {
         driver.findElement(
                 By.id("manufacturerActionView_" + manufacturerId)
         ).click();
     }
+
 
 
 
