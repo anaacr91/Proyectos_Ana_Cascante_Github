@@ -1,5 +1,6 @@
 package com.Selenium_Java.SeleniumTestUI.manufacturerSeleniumTest;
 
+import com.Selenium_Java.SeleniumTestUI.manufacturerSeleniumTest.PagePom.ManufacturerListPage;
 import com.Selenium_Java.model.Manufacturer;
 import com.Selenium_Java.repository.ManufacturerRepository;
 import org.junit.jupiter.api.AfterEach;
@@ -25,7 +26,7 @@ public class ManufacturerListTest {
     @Autowired
     private ManufacturerRepository manufacturerRepo;
     private WebDriver driver;
-    private ManufacturerListPagePom page;
+    private ManufacturerListPage page;
 //importamos la clase ManufacturerListPagePom
     @BeforeEach
     void setUp() {
@@ -33,7 +34,7 @@ public class ManufacturerListTest {
         driver = new ChromeDriver();
         driver.get("http://localhost:8080/manufacturers");
         driver.manage().window().maximize();
-        page = new ManufacturerListPagePom(driver);
+        page = new ManufacturerListPage(driver);
     }//page es un objeto de la clase ManufacturerListPagePom
     // Esta clase representa una página específica, en este caso, una lista de fabricantes, como un "objeto".
     //ManufacturerListPagePom tiene métodos y propiedades que permiten interactuar con los elementos de la página, como botones, cuadros de texto, etc.
@@ -48,6 +49,7 @@ public class ManufacturerListTest {
     }
     @Test
     void h1Test() {
+
         assertEquals("Listado fabricantes/Marcas", page.h1.getText());
     }
     @Test
@@ -133,17 +135,16 @@ public class ManufacturerListTest {
         assertEquals("Año de fundación: " + manufacturer.getYear(), manufacturerCard.getYear().getText());
         assertEquals(manufacturer.getDescription(), manufacturerCard.getDescr().getText());
         assertEquals("http://localhost:8080/" + manufacturer.getImageUrl(), manufacturerCard.getImage().getAttribute("src"));
-// Acción Ver
+        // Acción Ver
         manufacturerCard.getViewButton().click();
         assertEquals("http://localhost:8080/manufacturers/" + manufacturer.getId(), driver.getCurrentUrl());
         driver.navigate().back();
-// Acción Editar
+        // Acción Editar
         manufacturerCard.getEditButton().click();
         assertEquals("http://localhost:8080/manufacturers/update/" + manufacturer.getId(), driver.getCurrentUrl());
         driver.navigate().back();
-// Acción Borrar
+        // Acción Borrar
         manufacturerCard.getDeleteButton().click();
         assertThrows(NoSuchElementException.class, () -> page.getManufacturerName(manufacturer.getId()));
-
     }
 }

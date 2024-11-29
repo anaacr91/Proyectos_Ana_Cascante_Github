@@ -13,7 +13,7 @@
 <div class="container mt-4">
     <!--<h1 th:if="${manufacturer.id}">Editar manufacturer <span th:text="${manufacturer.id}"></span></h1>
 <h1 th:unless="${manufacturer.id}">Crear nuevo manufacturer</h1>-->
-    <h1 th:text="${manufacturer.id != null} ? 'Editar fabricante' : 'Crear nuevo fabricante'"></h1>
+    <h1 id="h1" th:text="${manufacturer.id != null} ? 'Editar fabricante' : 'Crear nuevo fabricante'"></h1>
 
     <!-- Ver Sintaxis Thymeleaf:
     https://www.thymeleaf.org/doc/tutorials/3.1/usingthymeleaf.html#standard-expression-syntax
@@ -54,17 +54,17 @@
             <input type="text" id="state" th:field="*{address.state}" class="form-control"/>
         </div>
         <div class="mb-3">
-            <label for="zip" class="form-label">Código Postal</label>
-            <input type="text" id="zip" th:field="*{address.zip}" class="form-control"/>
+            <label for="zipcode" class="form-label">Código Postal</label>
+            <input type="text" id="zipcode" th:field="*{address.zipCode}" class="form-control"/>
         </div>
 
-        <button type="submit" th:if="${manufacturer.id}" class="btn btn-primary">
+        <button th:id="saveEditButton" type="submit" th:if="${manufacturer.id}" class="btn btn-primary">
             <i class="fas fa-save"></i>
             Guardar edición</button>
-        <button type="submit" th:unless="${manufacturer.id}" class="btn btn-primary">
+        <button th:id="saveNewButton" type="submit" th:unless="${manufacturer.id}" class="btn btn-primary">
             <i class="fas fa-save"></i>
             Guardar creación</button>
-        <a th:href="@{/manufacturers}" class="btn btn-secondary">
+        <a id="cancelBtn" th:href="@{/manufacturers}" class="btn btn-secondary">
             <i class="fas fa-arrow-left"></i>
             Cancelar
         </a>

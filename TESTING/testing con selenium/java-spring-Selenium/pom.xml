@@ -103,6 +103,7 @@
 			<artifactId>selenium-java</artifactId>
 			<version>4.26.0</version>
 		</dependency>
+
 	</dependencies>
 
 	<build>
@@ -119,6 +120,17 @@
 					</excludes>
 				</configuration>
 			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-site-plugin</artifactId>
+				<version>3.12.1</version>
+			</plugin>
+					<!--            Plugin para mostrar la documentación javadoc en el maven site-->
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-javadoc-plugin</artifactId>
+						<version>3.8.0</version>
+					</plugin>
 		</plugins>
 	</build>
 
