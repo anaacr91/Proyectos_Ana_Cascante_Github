@@ -76,7 +76,6 @@ public class manufacturerFormTest {
         scrollToElement(page.saveNewButton);
         // Hacer clic en el botón "Guardar creación"
         page.saveNewButton.click();
-
         // Validar el resultado (esto dependerá de cómo se maneje la respuesta en tu aplicación)
         // Por ejemplo, podrías verificar si se muestra un mensaje de éxito o redirección
     }

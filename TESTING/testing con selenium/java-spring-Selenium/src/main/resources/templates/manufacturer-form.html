@@ -64,7 +64,7 @@
         <button th:id="saveNewButton" type="submit" th:unless="${manufacturer.id}" class="btn btn-primary">
             <i class="fas fa-save"></i>
             Guardar creación</button>
-        <a id="cancelBtn" th:href="@{/manufacturers}" class="btn btn-secondary">
+        <a th:id="cancelBtn" th:href="@{/manufacturers}" class="btn btn-secondary">
             <i class="fas fa-arrow-left"></i>
             Cancelar
         </a>
