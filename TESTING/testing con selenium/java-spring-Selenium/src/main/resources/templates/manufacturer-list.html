@@ -23,22 +23,22 @@
     <div id="manufacturersTable" th:if="${manufacturers.size() > 0}" class="row row-cols-1 row-cols-md-3 g-4">
         <div class="col" th:each="manufacturer: ${manufacturers}">
             <div class="card h-100">
-                <img th:src="${manufacturer.imageUrl}" class="card-img-top" alt="Logo">
+                <img th:id="'manufacturerImageUrl_' + ${manufacturer.id}"class="card-img-top" alt="Logo"th:src="${manufacturer.imageUrl}">
                 <div class="card-body">
                     <h5 th:id="'manufacturerName_' + ${manufacturer.id}" class="card-title" th:text="${manufacturer.name}"></h5>
-                    <p class="card-text" th:text="${manufacturer.description}"></p>
+                    <p th:id="'manufacturerDescription_' + ${manufacturer.id}" class="card-text" th:text="${manufacturer.description}"></p>
                 </div>
                 <div class="card-footer">
-                    <small class="text-muted">Año de fundación: <span th:text="${manufacturer.year}"></span></small>
+                    <small th:id="'manufacturerYear_' + ${manufacturer.id}" class="text-muted">Año de fundación: <span th:text="${manufacturer.year}"></span></small>
                 </div>
                 <div class="card-footer">
                     <a th:id="'manufacturerActionView_' + ${manufacturer.id}" th:href="@{/manufacturers/{id}(id=${manufacturer.id})}" class="btn btn-info btn-sm">
                         <i class="fas fa-eye"></i>
                         Ver</a>
-                    <a th:href="@{/manufacturers/update/{id}(id=${manufacturer.id})}" class="btn btn-warning btn-sm">
+                    <a th:id="'manufacturerActionEdit_' + ${manufacturer.id}" th:href="@{/manufacturers/update/{id}(id=${manufacturer.id})}" class="btn btn-warning btn-sm">
                         <i class="fas fa-edit"></i>
                         Editar</a>
-                    <a th:href="@{/manufacturers/delete/{id}(id=${manufacturer.id})}" class="btn btn-danger btn-sm">
+                    <a th:id="'manufacturerActionDelete_' + ${manufacturer.id}" th:href="@{/manufacturers/delete/{id}(id=${manufacturer.id})}" class="btn btn-danger btn-sm">
                         <i class="fas fa-trash"></i>
                         Borrar</a>
                 </div>

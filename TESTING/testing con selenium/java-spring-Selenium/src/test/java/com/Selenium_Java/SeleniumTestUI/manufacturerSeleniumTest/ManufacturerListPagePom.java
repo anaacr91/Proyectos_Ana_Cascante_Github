@@ -1,5 +1,8 @@
 package com.Selenium_Java.SeleniumTestUI.manufacturerSeleniumTest;
 
+import lombok.Builder;
+import lombok.Getter;
+import lombok.Setter;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -43,8 +46,34 @@ public class ManufacturerListPagePom {
                 By.id("manufacturerActionView_" + manufacturerId)
         ).click();
     }
+    public ManufacturerCard getManufacturer(Long manufacturerId) {
+        var image = driver.findElement(By.id("manufacturerImageUrl_" + manufacturerId));
+        var name = driver.findElement(By.id("manufacturerName_" + manufacturerId));
+        var descr = driver.findElement(By.id("manufacturerDescription_" + manufacturerId));
+        var year = driver.findElement(By.id("manufacturerYear_" + manufacturerId));
+        var viewButton = driver.findElement(By.id("manufacturerActionView_" + manufacturerId));
+        var editButton = driver.findElement(By.id("manufacturerActionEdit_" + manufacturerId));
+        var deleteButton = driver.findElement(By.id("manufacturerActionDelete_" + manufacturerId));
+        return ManufacturerCard.builder()
+                .image(image).name(name).descr(descr).year(year).viewButton(viewButton)
+                .editButton(editButton).deleteButton(deleteButton).build();
+    }
+    @Builder
+    @Getter
+    @Setter
+    //clase dentro de otra clase: especifico y concreto: agrupar cosas de esta clase
+    //para indicar que solo se tiene que usar con este listpage y no se use en ningun otro sitio
+public static class ManufacturerCard {
+       WebElement image;
+       WebElement name;
+       WebElement descr;
+       WebElement year;
+       WebElement viewButton;
+       WebElement editButton;
+       WebElement deleteButton;
+    }
 
-
+}
 
 
 
@@ -64,4 +93,4 @@ public class ManufacturerListPagePom {
     // ver producto
     // editar producto
     // borrar producto
-}
+

@@ -90,19 +90,24 @@ public class ManufacturerListTest {
         assertEquals("fabricante 1", page.getManufacturerName(1L).getText());
         assertEquals("fabricante 2", page.getManufacturerName(2L).getText());
         assertEquals("fabricante 3", page.getManufacturerName(3L).getText());
+        // Forma flexible comprobar: se obtienen todos los nombres de fabricantes sin importar el id:
         List<WebElement> names = page.getManufacturerNames();
         assertEquals(3, names.size());
         assertEquals("fabricante 1", names.getFirst().getText());//getFirst= get(0)
         names.forEach((WebElement name) -> assertTrue(name.getText().startsWith("fabricante")));
+        // Otra opción: traerlos de base de datos:
+        List<Manufacturer> manufacturers = manufacturerRepo.findAll();
+        Long manufacturerId = manufacturers.get(0).getId();
+        assertEquals("fabricante 1", page.getManufacturerName(manufacturerId).getText());
     }
     /**
      * Método para insertar fabricante demo y refrescar la pantalla
      */
     private void insertManufacturers() {
         manufacturerRepo.saveAll(List.of(
-                Manufacturer.builder().name("fabricante 1").year(2019).description("man1").build(),
-                Manufacturer.builder().name("fabricante 2").year(2030).description("man2").build(),
-                Manufacturer.builder().name("fabricante 3").year(2015).description("man3").build()
+                Manufacturer.builder().name("fabricante 1").year(2019).description("man1").imageUrl("man1").build(),
+                Manufacturer.builder().name("fabricante 2").year(2030).description("man2").imageUrl("man1").build(),
+                Manufacturer.builder().name("fabricante 3").year(2015).description("man3").imageUrl("man1").build()
         ));
         driver.navigate().refresh();
     }
@@ -118,6 +123,27 @@ public class ManufacturerListTest {
                 driver.getCurrentUrl()
         );
     }
+    @Test
+    @DisplayName("Comprobar todos los datos de un fabricante")
+    void checkManufacturerAllData() {
+        insertManufacturers();
+        Manufacturer manufacturer = manufacturerRepo.findAll().getFirst();
+        var manufacturerCard = page.getManufacturer(manufacturer.getId());
+        assertEquals(manufacturer.getName(), manufacturerCard.getName().getText());
+        assertEquals("Año de fundación: " + manufacturer.getYear(), manufacturerCard.getYear().getText());
+        assertEquals(manufacturer.getDescription(), manufacturerCard.getDescr().getText());
+        assertEquals("http://localhost:8080/" + manufacturer.getImageUrl(), manufacturerCard.getImage().getAttribute("src"));
+// Acción Ver
+        manufacturerCard.getViewButton().click();
+        assertEquals("http://localhost:8080/manufacturers/" + manufacturer.getId(), driver.getCurrentUrl());
+        driver.navigate().back();
+// Acción Editar
+        manufacturerCard.getEditButton().click();
+        assertEquals("http://localhost:8080/manufacturers/update/" + manufacturer.getId(), driver.getCurrentUrl());
+        driver.navigate().back();
+// Acción Borrar
+        manufacturerCard.getDeleteButton().click();
+        assertThrows(NoSuchElementException.class, () -> page.getManufacturerName(manufacturer.getId()));
 
-
+    }
 }
