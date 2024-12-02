@@ -18,6 +18,10 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
+    services: selenium/standalone-chrome
+    ports:
+      - 4444:4444
+    options: --shm-size=2g
 
     steps:
       - uses: actions/checkout@v4
