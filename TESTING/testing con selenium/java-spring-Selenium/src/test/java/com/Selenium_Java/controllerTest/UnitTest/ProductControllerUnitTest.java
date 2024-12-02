@@ -10,7 +10,10 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.springframework.http.HttpStatus;
 import org.springframework.ui.Model;
+import org.springframework.web.server.ResponseStatusException;
+
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -205,28 +208,32 @@ verify(model).addAttribute("producto", producto);
 
     @Test
     void borrarProducto_OK() {
+        when(productRepository.existsById(1L)).thenReturn(true);
+        //producto existe
         String view = productController.borrarProducto(1L);
         //cuando se llame al metodo borrarProducto, devolvera la vista redirect:/productos
         assertEquals("redirect:/productos", view);
         //verificar que la vista es la correcta
-        verify(productRepository).deleteById(1L);
-        //verificar que se llama al metodo deleteById con el id 1L
+        verify(productRepository).existsById(1L);//verificar que se llama al metodo existsById con el id 1L
+        verify(productRepository).deleteById(1L);//verificar que se llama al metodo deleteById con el id 1L
+
 
     }
 
     @Test
     void borrarProducto_ErrorCapturado() {
-        doThrow(new RuntimeException("Error al borrar"))
-                //cuando se llame al metodo deleteById, lanzara una excepcion
-                .when(productRepository).deleteById(1L);
+        when(productRepository.existsById(1L)).thenReturn(false);
+    //producto no existe
         //cuando se llame al metodo deleteById, lanzara una excepcion
-
-        String view = productController.borrarProducto(1L);
-        //cuando se llame al metodo borrarProducto, devolvera la vista error
-
-        assertEquals("error", view);
-        //verificar que la vista es la correcta
-        verify(productRepository).deleteById(1L);
+        ResponseStatusException exception = assertThrows(ResponseStatusException.class, () -> {
+            productController.borrarProducto(1L);
+        });
+        assertEquals(HttpStatus.NOT_FOUND, exception.getStatusCode());
+        assertEquals("Producto no encontrado", exception.getReason());
+        // Verificar que deleteById no se llama
+        verify(productRepository, never()).deleteById(1L);
         //verificar que se llama al metodo deleteById con el id 1L
+        // Verificar que existsById fue llamado con el ID correcto
+        verify(productRepository).existsById(1L);
     }
 }

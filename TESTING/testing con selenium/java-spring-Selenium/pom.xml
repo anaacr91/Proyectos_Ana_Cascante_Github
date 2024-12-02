@@ -108,7 +108,7 @@
 
 	<build><!--los pluguins llevan build-->
 		<plugins>
-			<plugin>
+			<plugin><!--pluguin automatico que crea Spring boot, sirve para ejecutar el proyecto-->
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 				<configuration>
@@ -146,7 +146,7 @@
 					<target>23</target>
 				</configuration>
 			</plugin>
-			<plugin>
+			<plugin><!--pluguin que te crea un site de maven con resultados html: Opcional-->
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-site-plugin</artifactId>
 				<version>3.12.1</version>
@@ -172,21 +172,85 @@
 						<include>**/*PIT.java</include>
 						<include>**/*ParcialIntegrationTest.java</include>
 						<include>**/*IntegrationTest.java</include>
-						<include>**/selenium/**/*TestUI.java</include>
+						<include>**/seleniumTestUI/**/*TestUI.java</include>
 					</includes>
 				</configuration>
 			</plugin>
-
+			<plugin><!--jacoco: se genera pagina web con informes y resultados-->
+				<groupId>org.jacoco</groupId>
+				<artifactId>jacoco-maven-plugin</artifactId>
+				<version>0.8.12</version>
+				<executions>
+					<execution>
+						<id>default-prepare-agent</id>
+						<goals>
+							<goal>prepare-agent</goal>
+						</goals>
+					</execution>
+					<execution>
+						<id>default-report</id>
+						<goals>
+							<goal>report</goal>
+						</goals>
+					</execution>
+					<execution>
+						<id>default-check</id>
+						<goals>
+							<goal>check</goal>
+						</goals>
+						<configuration>
+							<rules>
+								<rule>
+									<element>BUNDLE</element>
+									<limits>
+										<limit>
+											<counter>COMPLEXITY</counter>
+											<value>COVEREDRATIO</value>
+											<!-- Configurar el mínimo de cobertura -->
+											<minimum>0.20</minimum>
+										</limit>
+									</limits>
+								</rule>
+							</rules>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
 		</plugins>
 	</build>
 			<reporting>
 				<plugins>
-	<!--Plugin para mostrar la documentación javadoc en el maven site: lleva reporting-->
-					<plugin>
+	<!--reporting: Plugins para mostrar la documentación javadoc en el maven site -->
+					<plugin><!--pluguin que crea documentacion de uso para el equipo-->
 						<groupId>org.apache.maven.plugins</groupId>
 						<artifactId>maven-javadoc-plugin</artifactId>
 						<version>3.8.0</version>
 					</plugin>
+					<plugin><!--pluguin surefire reporting testing unitario-->
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-surefire-report-plugin</artifactId>
+						<version>3.5.2</version>
+					</plugin>
+					<!-- Plugin failsafe reporting -->
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-failsafe-report-plugin</artifactId>
+						<version>3.5.2</version>
+					</plugin>
+					<!-- Plugin JaCoCo para generar informes de cobertura -->
+					<plugin>
+						<groupId>org.jacoco</groupId>
+						<artifactId>jacoco-maven-plugin</artifactId>
+						<version>0.8.12</version>
+						<reportSets>
+							<reportSet>
+								<reports>
+									<report>report</report>
+								</reports>
+							</reportSet>
+						</reportSets>
+					</plugin>
+
 				</plugins>
 			</reporting>
 </project>
