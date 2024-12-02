@@ -18,7 +18,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 /*
 Test para comprobar el scroll de elementos que no están en el viewport
  */
-public class CdvsScrollTest {
+public class CdvsScrollTestUI {
     WebDriver driver;
 
     @BeforeEach

@@ -1,6 +1,6 @@
 package com.Selenium_Java.SeleniumTestUI.manufacturerSeleniumTest;
 
-import com.Selenium_Java.SeleniumTestUI.manufacturerSeleniumTest.PagePom.ManufacturerListPage;
+import com.Selenium_Java.SeleniumTestUI.manufacturerSeleniumTest.PagePom.ManufacturerListPageUI;
 import com.Selenium_Java.model.Manufacturer;
 import com.Selenium_Java.repository.ManufacturerRepository;
 import org.junit.jupiter.api.AfterEach;
@@ -22,11 +22,11 @@ import static org.junit.jupiter.api.Assertions.*;
 Test de Selenium utilizando Page Object Model
  */
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
-public class ManufacturerListTest {
+public class ManufacturerListTestUI {
     @Autowired
     private ManufacturerRepository manufacturerRepo;
     private WebDriver driver;
-    private ManufacturerListPage page;
+    private ManufacturerListPageUI page;
 //importamos la clase ManufacturerListPagePom
     @BeforeEach
     void setUp() {
@@ -34,7 +34,7 @@ public class ManufacturerListTest {
         driver = new ChromeDriver();
         driver.get("http://localhost:8080/manufacturers");
         driver.manage().window().maximize();
-        page = new ManufacturerListPage(driver);
+        page = new ManufacturerListPageUI(driver);
     }//page es un objeto de la clase ManufacturerListPagePom
     // Esta clase representa una página específica, en este caso, una lista de fabricantes, como un "objeto".
     //ManufacturerListPagePom tiene métodos y propiedades que permiten interactuar con los elementos de la página, como botones, cuadros de texto, etc.

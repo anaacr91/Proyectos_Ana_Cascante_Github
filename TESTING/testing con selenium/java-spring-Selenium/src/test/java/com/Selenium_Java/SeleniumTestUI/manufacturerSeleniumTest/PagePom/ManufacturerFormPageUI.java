@@ -9,7 +9,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
-public class ManufacturerFormPage {
+public class ManufacturerFormPageUI {
     public WebDriver driver;
     @FindBy(id = "h1")
     public WebElement h1;
@@ -39,7 +39,7 @@ public class ManufacturerFormPage {
     public WebElement saveEditButton;
     //driver
 
-    public ManufacturerFormPage(WebDriver driver) {
+    public ManufacturerFormPageUI(WebDriver driver) {
         PageFactory.initElements(driver, this);
         //Inicializa los elementos de la página y guarda el driver para interactuar con la página y sus elementos.
         this.driver = driver;
@@ -52,7 +52,7 @@ public class ManufacturerFormPage {
         input.clear();//limpia el input
         input.sendKeys(text);//escribe el texto
     }
-    public ManufacturerFormPage.ManufacturerCard getManufacturer(Long manufacturerId) {
+    public ManufacturerFormPageUI.ManufacturerCard getManufacturer(Long manufacturerId) {
         var image = driver.findElement(By.id("imageUrl"));
         var name = driver.findElement(By.id("name"));
         var descr = driver.findElement(By.id("description"));
@@ -63,7 +63,7 @@ public class ManufacturerFormPage {
         var zipcode = driver.findElement(By.id("zipcode"));
         var saveNewButton = driver.findElement(By.id("saveNewButton"));
         var saveEditButton = driver.findElement(By.id("saveEditButton"));
-        return ManufacturerFormPage.ManufacturerCard.builder()
+        return ManufacturerFormPageUI.ManufacturerCard.builder()
                 .image(image).name(name).descr(descr).year(year)
                 .street(street).city(city).state(state).zipcode(zipcode)
                 .saveNewButton(saveNewButton).saveEditButton(saveEditButton).build();

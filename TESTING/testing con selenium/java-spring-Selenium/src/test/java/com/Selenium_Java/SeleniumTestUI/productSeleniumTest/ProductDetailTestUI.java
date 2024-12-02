@@ -22,7 +22,7 @@ import static org.junit.jupiter.api.Assertions.*;
 Test de selenium para probar: product-detail.html
  */
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
-public class ProductDetailTest {
+public class ProductDetailTestUI {
 
     @Autowired
     private ProductRepository productRepository;

@@ -29,7 +29,7 @@ import static org.mockito.Mockito.*;
 //extender Junit con Mockito
 @ExtendWith(MockitoExtension.class)
 
-class ManufacturerControllerUTest {
+class ManufacturerControllerUnitTest {
 
     //declarar la clase a testear
     //system under test-> SUT-> inyecta/ reconfigura los mocks

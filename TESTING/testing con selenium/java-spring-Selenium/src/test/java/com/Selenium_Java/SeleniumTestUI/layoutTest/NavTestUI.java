@@ -1,6 +1,5 @@
 package com.Selenium_Java.SeleniumTestUI.layoutTest;
 
-import org.aspectj.lang.annotation.After;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -8,7 +7,6 @@ import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -20,7 +18,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest (webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
 //(webEnvironment)levanta app 8080 sin necesidad arrancar main, ya que no se puede tener esta app y la de test en el mismo puerto
-public class NavTest {
+public class NavTestUI {
     WebDriver driver;
 
     @BeforeEach

@@ -1,4 +1,4 @@
-package com.Selenium_Java.controllerTest.IntegratedTest;
+package com.Selenium_Java.controllerTest.IntegrationTest;
 
 import com.Selenium_Java.model.Book;
 import com.Selenium_Java.model.Category;

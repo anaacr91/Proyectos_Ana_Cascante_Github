@@ -15,7 +15,7 @@ import java.util.List;
 POM de Manufacturer List, es decir, esta clase tiene todos los WebElement importantes
 que se van a testear en ManufacturerList
  */
-public class ManufacturerListPage {
+public class ManufacturerListPageUI {
     private WebDriver driver;
 
     @FindBy(tagName = "h1")
@@ -27,7 +27,7 @@ public class ManufacturerListPage {
     @FindBy(id = "manufacturersEmpty")
     public WebElement manufacturersEmpty;
 
-    public ManufacturerListPage(WebDriver driver) {
+    public ManufacturerListPageUI(WebDriver driver) {
         PageFactory.initElements(driver, this);
         //Pagefactory es una clase que inicializa los elementos de la página
         this.driver = driver;//guardamos el driver para poder interactuar con la página y sus elementos

@@ -1,5 +1,4 @@
 package com.Selenium_Java.repositoryTest;
-import com.Selenium_Java.Main;
 import com.Selenium_Java.dto.ManufacturerWithAddressDTO;
 import com.Selenium_Java.model.Address;
 import com.Selenium_Java.model.Manufacturer;
@@ -12,7 +11,6 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -21,7 +19,7 @@ import static org.junit.jupiter.api.Assertions.*;
 @Transactional//-> anotacion que se encarga de hacer rollback de las transacciones->test no afectan a la bbdd
 @DataJpaTest//anotacion para pruebas de repositorios
 
-class ManufacturerRepositoryTest {
+class ManufacturerRepositoryIntegrationTest {
 
     @Autowired//crea el repo automaticamente
     private ManufacturerRepository manufacturerRepository;

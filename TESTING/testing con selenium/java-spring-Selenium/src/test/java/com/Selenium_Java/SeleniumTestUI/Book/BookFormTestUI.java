@@ -20,12 +20,11 @@ import org.springframework.boot.test.web.server.LocalServerPort;
 import java.util.List;
 import java.util.Set;
 
-import static org.hamcrest.Matchers.startsWith;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @SpringBootTest( webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)//puerto random
-public class BookFormTest {
+public class BookFormTestUI {
 
     //obtiene el puerto aleatorio
     @LocalServerPort

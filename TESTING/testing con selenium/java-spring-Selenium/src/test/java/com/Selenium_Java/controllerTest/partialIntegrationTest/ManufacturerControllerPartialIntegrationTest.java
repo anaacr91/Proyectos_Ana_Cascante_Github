@@ -1,4 +1,4 @@
-package com.Selenium_Java.controllerTest.partialIntegratedTest;
+package com.Selenium_Java.controllerTest.partialIntegrationTest;
 
 import com.Selenium_Java.model.Manufacturer;
 import com.Selenium_Java.repository.ManufacturerRepository;
@@ -96,7 +96,7 @@ class ManufacturerControllerPartialIntegrationTest {//semi integracion-> usa el 
 
             mockMvc.perform(get("/manufacturers/update/{id}", 1L))
             //lanzar peticion http al controlador y verificar con expect
-                    .andExpect(status().isBadRequest()); // 400 error not found
+                    .andExpect(status().isNotFound()); // 404 error not found
         }
 
     @Test

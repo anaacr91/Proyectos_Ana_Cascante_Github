@@ -184,8 +184,8 @@ class CustomerRestControllerIntegrationTest {
     customerRepository.deleteAll();
     // Crear y guardar clientes en la base de datos
         customerRepository.saveAll(List.of(
-                Customer.builder().id(1L).name("Customer 1").email("customer1@gmail.com").salary(1000d).build(),
-                Customer.builder().id(2L).name("Customer 2").email("customer2@gmail.com").salary(2000d).build()
+                Customer.builder().name("Customer 1").email("customer1@gmail.com").salary(1000d).build(),
+                Customer.builder().name("Customer 2").email("customer2@gmail.com").salary(2000d).build()
         ));
 
     // Simular una solicitud GET al endpoint /customers-salary-modified

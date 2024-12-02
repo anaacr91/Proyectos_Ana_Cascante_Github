@@ -10,7 +10,7 @@ import org.openqa.selenium.support.ui.Select;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class DatePickerTest {
+public class DatePickerTestUI {
     // https://demoqa.com/date-picker
 
     WebDriver driver;

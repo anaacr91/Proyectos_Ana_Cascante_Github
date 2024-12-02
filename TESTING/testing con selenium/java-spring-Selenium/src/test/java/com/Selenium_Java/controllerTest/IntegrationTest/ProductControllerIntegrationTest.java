@@ -1,4 +1,4 @@
-package com.Selenium_Java.controllerTest.IntegratedTest;
+package com.Selenium_Java.controllerTest.IntegrationTest;
 
 import com.Selenium_Java.model.Manufacturer;
 import com.Selenium_Java.model.Product;
@@ -225,7 +225,7 @@ class ProductControllerIntegrationTest {//carga la app, el controlador y el repo
     void borrarProducto_NoExiste() throws Exception {
         // Intentar borrar un producto con un ID que no existe
         mockMvc.perform(get("/productos/borrar/9999")) // Usar un ID inexistente
-                .andExpect(status().isBadRequest()) // Verificar que devuelve un código 200 OK
+                .andExpect(status().isNotFound()) // Verificar que devuelve un código 200 OK
                 .andExpect(view().name("error")); // Verificar que se muestra la vista de error
     }
 }

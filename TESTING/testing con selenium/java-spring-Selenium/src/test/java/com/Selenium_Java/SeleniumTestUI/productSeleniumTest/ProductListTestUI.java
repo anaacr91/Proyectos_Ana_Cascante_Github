@@ -31,7 +31,7 @@ NO HACE FALTA INICIAR LA APLICACIÓN MANUALMENTE DESDE EL MAIN
 /*selenium test interactuar con el navegador, crea un objeto y eso crea metodos para interaccionar con el navegador
  * llamando a etiquetas, botones, divs, parrafos del html o elementos de cualquier front end*/
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)//arranque puerto 8080, no p. random
-public class ProductListTest {
+public class ProductListTestUI {
 
     @Autowired
     private ProductRepository productRepository;

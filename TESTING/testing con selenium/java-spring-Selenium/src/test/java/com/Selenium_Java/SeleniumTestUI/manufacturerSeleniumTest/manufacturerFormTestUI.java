@@ -1,15 +1,9 @@
 package com.Selenium_Java.SeleniumTestUI.manufacturerSeleniumTest;
-import com.Selenium_Java.SeleniumTestUI.manufacturerSeleniumTest.PagePom.ManufacturerFormPage;
-import com.Selenium_Java.SeleniumTestUI.manufacturerSeleniumTest.PagePom.ManufacturerListPage;
+import com.Selenium_Java.SeleniumTestUI.manufacturerSeleniumTest.PagePom.ManufacturerFormPageUI;
 import com.Selenium_Java.model.Manufacturer;
 import com.Selenium_Java.repository.ManufacturerRepository;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
-import org.aspectj.lang.annotation.After;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -23,15 +17,14 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOf;
 
 /*Test Selenium*/
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
-public class manufacturerFormTest {
+public class manufacturerFormTestUI {
     @Autowired
     private ManufacturerRepository manufacturerRepository;
     private WebDriver driver;
-    private ManufacturerFormPage page;
+    private ManufacturerFormPageUI page;
     private WebDriverWait wait;
     @BeforeEach
     void setUp() {
@@ -42,7 +35,7 @@ public class manufacturerFormTest {
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
         wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         driver.manage().window().maximize();//max pantalla
-        page = new ManufacturerFormPage(driver);
+        page = new ManufacturerFormPageUI(driver);
 
         //page es un objeto de la clase ManufacturerFormPage
         // que se inicializa con el driver

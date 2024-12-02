@@ -22,7 +22,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class) // Anotación para habilitar Mockito en JUnit 5
-class PurchaseServiceTest {
+class PurchaseServiceUnitTest {
 
     @Mock
     private PurchaseRepository purchaseRepository;
@@ -38,7 +38,7 @@ class PurchaseServiceTest {
 
 
     @BeforeEach
-        // Método que se ejecuta antes de cada test
+        // Metodo que se ejecuta antes de cada test
     void setUp() {
         // Inicializar un producto de prueba
         product = Product.builder()

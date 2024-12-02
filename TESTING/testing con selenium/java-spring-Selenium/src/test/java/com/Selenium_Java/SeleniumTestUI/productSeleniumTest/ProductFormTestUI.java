@@ -22,7 +22,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
-public class ProductFormTest {
+public class ProductFormTestUI {
 
     @Autowired
     private ProductRepository productRepository;

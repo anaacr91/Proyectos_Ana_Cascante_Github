@@ -18,7 +18,7 @@ import java.time.Duration;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class WebTablesTest {
+public class WebTablesTestUI {
     // https://demoqa.com/webtables
 
         WebDriver driver;

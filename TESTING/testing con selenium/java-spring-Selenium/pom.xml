@@ -106,7 +106,7 @@
 
 	</dependencies>
 
-	<build>
+	<build><!--los pluguins llevan build-->
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
@@ -120,18 +120,73 @@
 					</excludes>
 				</configuration>
 			</plugin>
+			<plugin><!--plugin para poder ejecutar comando ./mvnw clean verify para pruebas UI, UT, IT, PIT-->
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.13.0</version>
+				<configuration>
+					<source>23</source>
+					<target>23</target>
+					<annotationProcessorPaths>
+						<path>
+							<groupId>org.projectlombok</groupId>
+							<artifactId>lombok</artifactId>
+							<version>1.18.34</version>
+						</path>
+					</annotationProcessorPaths>
+				</configuration>
+			</plugin>
+			<plugin>
+<!--pluguins integracion continua con JDK temurin 23->ejecutando por consola: comandos:  ./mvnw compile y   ./mvnw test-->
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.12.1</version>
+				<configuration>
+					<source>23</source>
+					<target>23</target>
+				</configuration>
+			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-site-plugin</artifactId>
 				<version>3.12.1</version>
 			</plugin>
-					<!--            Plugin para mostrar la documentación javadoc en el maven site-->
+			<plugin><!--plugin para ejecutar unit test-->
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<version>3.5.2</version>
+				<configuration>
+					<includes>
+						<include>**/*UnitTest.java</include>
+						<include>**/*UT.java</include>
+					</includes>
+				</configuration>
+			</plugin>
+			<plugin><!--plugin para ejecutar PIT, IT, UIT test-->
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-failsafe-plugin</artifactId>
+				<version>3.5.2</version>
+				<configuration>
+					<includes>
+						<include>**/*IT.java</include>
+						<include>**/*PIT.java</include>
+						<include>**/*ParcialIntegrationTest.java</include>
+						<include>**/*IntegrationTest.java</include>
+						<include>**/selenium/**/*TestUI.java</include>
+					</includes>
+				</configuration>
+			</plugin>
+
+		</plugins>
+	</build>
+			<reporting>
+				<plugins>
+	<!--Plugin para mostrar la documentación javadoc en el maven site: lleva reporting-->
 					<plugin>
 						<groupId>org.apache.maven.plugins</groupId>
 						<artifactId>maven-javadoc-plugin</artifactId>
 						<version>3.8.0</version>
 					</plugin>
-		</plugins>
-	</build>
-
+				</plugins>
+			</reporting>
 </project>
