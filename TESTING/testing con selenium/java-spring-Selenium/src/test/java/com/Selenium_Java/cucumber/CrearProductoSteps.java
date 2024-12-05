@@ -7,11 +7,8 @@ import io.cucumber.junit.CucumberOptions;
 import org.junit.runner.RunWith;
 import org.springframework.stereotype.Component;
 
-@Component
-@RunWith(Cucumber.class)
-@CucumberOptions(
-        features = "src/test/resources/cucumber")
-public class CrearProductoSteps extends CucumberSpringConfiguration{
+
+public class CrearProductoSteps {
     @Given("que estoy en la pantalla de ProductList")
     public void cargarProductList() {
 
