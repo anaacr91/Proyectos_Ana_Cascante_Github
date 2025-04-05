@@ -1,7 +1,7 @@
 # testing_g2_movies_24
-Curso de Testing con Java, Spring Boot, JUnit 5, Mockito, Selenium. 
+Curso de Testing con Java, Spring Boot, JUnit 5, Mockito, Selenium + Agile. 
 
-Fundación Adecco + Escuela Certidevs + Agile Training Thinking of you + Mentores exalumnos invitados: Accenture
+Con Mentores invitados de Accenture: Ismael Gonzalez
 
 Proyecto Alquiler de películas.
 
