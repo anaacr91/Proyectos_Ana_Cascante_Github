@@ -1,7 +1,10 @@
 # testing_g2_movies_24
-Curso de Testing con Java, Spring Boot, JUnit 5, Mockito, Selenium + Agile. 
 
-Con Mentores invitados de Accenture: Ismael Gonzalez
+Curso de Testing con Java, Spring Boot, JUnit 5, Mockito, Selenium Web Driver + Agile. 
+
+Con la profesora: Maria del Olmo. Linkedin: https://www.linkedin.com/in/maria-del-olmo-hernandez/
+
+Con Mentores invitados de Accenture: Ismael Gonzalez, linkedin: http://linkedin.com/in/ismael-gonzalez-garrido-2961a0111/
 
 Proyecto Alquiler de películas.
 
