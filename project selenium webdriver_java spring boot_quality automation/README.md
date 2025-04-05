@@ -4,24 +4,23 @@ Curso de Testing con Java, Spring Boot, JUnit 5, Mockito, Selenium Web Driver + 
 
 Con la profesora: Maria del Olmo. Linkedin: https://www.linkedin.com/in/maria-del-olmo-hernandez/
 
-Con Mentores invitados de Accenture: Ismael Gonzalez, linkedin: http://linkedin.com/in/ismael-gonzalez-garrido-2961a0111/
+Con Mentor invitado de Accenture: Ismael Gonzalez, linkedin: http://linkedin.com/in/ismael-gonzalez-garrido-2961a0111/
 
 Proyecto Alquiler de películas.
 
 Equipo: 
 
+Ana Cascante 
+
+-Linkedin: www.linkedin.com/in/ana-cascante-rodriguez          -Github: https://github.com/anaacr91/Proyectos_Ana_Cascante_Github
+
 Ginés Ochoa       
-        -Linkedin: www.linkedin.com/in/ginés-ochoa
-        -Github: https://github.com/GinesOchoa
+        -Linkedin: www.linkedin.com/in/ginés-ochoa               -Github: https://github.com/GinesOchoa
         
 Daniel Miranda 
 
 -Linkedin: www.linkedin.com/in/daniel-miranda-alba-30bb4b28a/         -Github: https://github.com/Daniel-Miranda-Alba/ 
        
-Ana Cascante 
-
--Linkedin: www.linkedin.com/in/ana-cascante-rodriguez          -Github: https://github.com/anaacr91/Proyectos_Ana_Cascante_Github
-
 Github kanvan-> https://github.com/users/anaacr91/projects/2
 
 sonar cloud cobertura Testing Proyecto-> https://sonarcloud.io/summary/overall?id=certidevs_testing_g2_movies_24
