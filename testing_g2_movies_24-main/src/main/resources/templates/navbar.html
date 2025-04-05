@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<body>
+<nav th:fragment="nav1" class="navbar navbar-expand-lg bg-success" data-bs-theme="dark">
+    <div class="container-fluid">
+        <a class="navbar-brand text-white" th:href="@{/}">
+            <img th:src="@{/logo-image.jpg}" alt="Logo" width="30" height="24" class="d-inline-block align-text-top">
+            Movies
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarApp" aria-controls="navbarApp" aria-expanded="false" aria-label="Alternar navegación">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarApp">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link text-white" th:href="@{/customers}">
+                        <i class="fas fa-user"></i>
+                        Usuarios
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white" th:href="@{/movies}">
+                        <i class="fas fa-film"></i>
+                        Peliculas
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white" th:href="@{/categorias}">
+                        <i class="fas fa-tags"></i>
+                        Categorias
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white" th:href="@{/valoraciones}">
+                        <i class="fas fa-star"></i>
+                        Valoraciones
+                    </a>
+                </li>
+            </ul>
+
+        </div>
+    </div>
+</nav>
+</body>
+</html>

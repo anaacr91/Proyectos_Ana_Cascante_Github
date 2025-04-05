@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Detalle de Valoración</title>
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/webjars/font-awesome/css/all.min.css}">
+</head>
+<body>
+<div th:replace="~{navbar :: nav1}"></div>
+
+<div class="container mt-4">
+    <h1 id="valoracion_header" class="mb-4">Detalle de Valoración</h1>
+
+    <div th:if="${valoracion != null}" class="card p-4 shadow-sm">
+
+        <div class="mb-3">
+            <p><strong>ID:</strong> <span id="valoracion_id" th:text="${valoracion.id}"></span></p>
+        </div>
+        <div class="mb-3">
+            <p><strong>ID:</strong> <span th:text="${valoracion.id}"></span></p>
+        </div>
+        <div class="mb-3">
+            <p><strong>Usuario:</strong> <span id="valoracion_customer" th:text="${valoracion.customer.nombre}"></span></p>
+        </div>
+        <div class="mb-3">
+            <p><strong>Película:</strong> <span id="valoracion_movie" th:text="${valoracion.movie.name}"></span></p>
+        </div>
+        <div class="mb-3">
+            <p><strong>Puntuación:</strong> <span id="valoracion_puntuacion" th:text="${valoracion.puntuacion}"></span></p>
+        </div>
+        <div class="mb-3">
+            <p><strong>Comentario:</strong> <span id="valoracion_comentario" th:text="${valoracion.comentario}"></span></p>
+        </div>
+
+        <!-- Botones de acción con IDs únicos -->
+        <div class="mt-4">
+            <a id="editBtn_valoracion" th:href="@{/valoraciones/edit/{id}(id=${valoracion.id})}" class="btn btn-primary">
+                <i class="fas fa-edit"></i> Editar
+            </a>
+            <a id="deleteBtn_valoracion" th:href="@{/valoraciones/delete/{id}(id=${valoracion.id})}"
+               class="btn btn-danger"
+               onclick="return confirm('¿Estás seguro de que deseas eliminar esta valoración?')">
+                <i class="fas fa-trash"></i> Borrar
+            </a>
+        </div>
+
+
+    <div th:if="${valoracion == null}" class="alert alert-warning mt-4">
+        No se encontró la valoración solicitada.
+    </div>
+
+    <div class="mt-4">
+        <a id="backBtn_valoracion_list" href="/valoraciones" class="btn btn-secondary">
+            <i class="fas fa-arrow-left"></i> Volver a la lista de valoraciones
+        </a>
+    </div>
+</div>
+</div>
+
+<div th:replace="~{footer :: footer1}"></div>
+
+<script th:src="@{/webjars/bootstrap/js/bootstrap.bundle.min.js}"></script>
+<script th:src="@{/webjars/font-awesome/js/all.min.js}"></script>
+</body>
+</html>

@@ -1,0 +1,33 @@
+services:
+  mysql:
+    image: mysql:8.0.40
+    environment:
+      MYSQL_ROOT_PASSWORD: Admin123
+      MYSQL_DATABASE: g2_movies
+      #MYSQL_USER: test_user
+      #MYSQL_PASSWORD: test_password
+    volumes:
+      - mysql_data:/var/lib/mysql
+    healthcheck:
+      test: [ "CMD-SHELL", "mysqladmin ping -h localhost" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    #    ports:
+    #      - "3307:3306"
+  spring_app:
+    image: testing_g2_movies_24:1.0.0
+    container_name: spring_app
+    depends_on:
+      mysql:
+        condition: service_healthy
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/g2_movies
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: Admin123
+    ports:
+      - "8080:8080"
+
+volumes:
+  mysql_data:
+
