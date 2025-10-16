@@ -4,4 +4,4 @@ Projects from
 
 -the advanced vocational training in web application development, 
 
--Other QA courses
+-Other QA courses: Selenium + Cypress
